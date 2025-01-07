@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS System files
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.conda/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# VSCode config
+.vscode/
+
+# PyCharm config
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+.cache
+
+# Other
+*.swp
+*.swo
