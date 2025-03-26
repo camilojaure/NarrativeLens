@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "narrativelens",
+  "private_key_id": "3b781fc09d6a31a5d946bc340f9480f0c5a7564b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQ7zs067ThccZ0\nS+q4tllhCR4GXra2QIMkbs7gMm0tJ3KeZF469JZN/53jN6XBmbXCcP3yV0+ZT3y4\nC270IF6aNAeGphRxM+MLMUcxiIKDoTn9t2JVUruAZcjwFE01Hd+Awgxl0F+54nv4\nv/en8D50y3SKfpkNripZJtBwBKjaxrZqGysnG5x7TVYx065M982tyPC45gRy2ly0\n/w2u+pgVWCUBQA1zeP0J/wIIx22cxy7qmlqNXgyv8xRO+qnr1q51Xve/DUhiBNEX\nY8sN7BapWPCTbaYbel4mhz9uKp9o3HgXQzB06TGCP02IfNN2HR0aFrOL4wNs1kiC\nbXQ4IVClAgMBAAECggEABdN996pQ925oRcruJytyj5mk/DF879UZsxTh8O+HCtjM\nQe1zkTpLzK4BlZnyJdVm856Z/j2ACzrjs/Ahrm4OpUcpJJCSBlwXizLbFN8FIK2I\nw/HurIlrkBeGhGdUhdQo7Nq8ZMRsPu85XMThn427+B7KR6hjFTYTmTvTWSRQHxWZ\nf1V+EsZogMM3qNyizDnFz6Y+xjwYzk0QwUU3FTbHdawk8GjGJEtfsnK/UkgjkQ86\n3k3IoZaHRz1fMGa5YJOtUI2k5s2r8kiTDPeJqSuev8Ty5QqnXWfYk4RFVlUDfgda\n5ybGIgHf7tSvUJeGXH1wA+7sX71WpJ1YKMK9vIu1IQKBgQD/a/inxk1HVKMZ/yp7\nakznQDIX8PD1GUfFe6P9hy3WcRlxHobAdIp1KHGoAmqLCmg5t6Lqiw+7/uXl1Okx\n/nCVPTdHwp5Db9FvhoA9geRpaPaaKjB7tIZD00EQcJLEVGc5JoQLy7+C6p4t4tmx\nRoLIpI8I4xLNjNHnakW2QgGwsQKBgQDRaFGGEoCwLjLTebYQX+QeVO1JwpUHK10S\nTySFjd5z1TBmEAKyVeupCRAmimVPqvvcHqIi+1l4b/Zbr2GyTKWkFBb0NqCkt0sU\nBlXXjRx9f75ZNs12mTak9KuNq/I7uwl2V4rIYJln5GC8SkGSq3ato7IRhuI6OWQo\nNNDkO9J8NQKBgQCQ1H9NWuMs5DALqKVFD7SFl+APtT5cLDaHIyGMu57hLoZXnxCX\nhj2QSxuPQbd6Ga+Zsqf9SFbmqZVgagbEo1rhNLHozdEBuiDOlTyYI9QJdUwHhI6z\nRlyvjtUg5kRCcP2K6W0MZz6zlCeXKz93Bt1Xuf+k8WUTCptnFdpriyf8MQKBgEmJ\nHoe8W6CCuKp2pS6e3dag8Crkv7yix640SJj1ttZqWPKeULQbZAQaAKfoFaeiXYtw\n3nL2XPbkKlkL/3zDWa+CtoTP4h21mBHSH7bwAL85aridfA1XxE6s9MltRkUfazU5\njKzM71ICas30LY6505UqVM++1BaqLLfJxElBkKq5AoGBAJulfbq/Gl355/LL/WVh\njihb1wmFnD0ySsMlaX2V3PTGHspMNGKkWpO4yV+faGkGgXO2rGy4Pxz/CK3biGGS\nxIZ186ZFSkY4SkbTatucto8J6Vjyc88NsaO4yLLq+g2Eu54VGDJDHSqcDwPMRRVd\n1g6x9Asu4raVqnX4vn44V5E+\n-----END PRIVATE KEY-----\n",
+  "client_email": "narrativelens-416@narrativelens.iam.gserviceaccount.com",
+  "client_id": "104782992039764227288",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/narrativelens-416%40narrativelens.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
