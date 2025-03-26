@@ -1,93 +1,109 @@
-import base64
-import requests
-import json
+import os
+import dotenv
+import time
+from google import genai
 
-def analyze_video_with_gemini(video_file_path, prompt, api_key):
-    """
-    Analyzes a video using the Gemini Pro Vision API.
+def analyze_video_gemini_client(video_file_path, prompt, api_key):
+    """Analyzes a video using the Gemini API
 
     Args:
         video_file_path: Path to the video file.
-        prompt:  Text prompt/question about the video.
-        api_key: Your Google AI Studio API key.
+        prompt: Text prompt for the analysis.
+        api_key: Google API key.
 
     Returns:
-        The Gemini API's response as a string, or None on error.
+        The response from the Gemini API, or None on error.
     """
-
+    client = None
     try:
-        with open(video_file_path, "rb") as video_file:
-            video_data = video_file.read()
-    except FileNotFoundError:
-        print(f"Error: Video file not found at {video_file_path}")
+        client = genai.Client(api_key=api_key)
+    except Exception as e:
+        print(f"Error initializing Gemini client: {e}")
         return None
 
-    # Encode video to Base64
-    video_base64 = base64.b64encode(video_data).decode("utf-8")
-
-    # Construct the API payload
-    payload = {
-        "contents": [
-            { "type": "text", "text": prompt },
-            {
-                "type": "image",
-                "data": {
-                    "mime_type": "video/mp4",  # Adjust if your video is a different format
-                    "data": video_base64
-                }
-            }
-        ],
-        "tools": []  # Add tools if you need them.
-    }
-
-    headers = {
-        "Content-Type": "application/json",
-        "x-goog-api-key": api_key
-    }
-    #Replace below endpoint with the correct one according to API version
-    endpoint_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent"
-
+    file_ref = None
     try:
-        response = requests.post(endpoint_url, headers=headers, json=payload)
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"API Request Error: {e}")
+        file_ref = client.files.upload(file=video_file_path)
+        print(f"File uploaded successfully. file_ref={file_ref.uri}")
+    except Exception as e:
+        print(f"Error uploading video file: {e}")
         return None
-    except json.JSONDecodeError:
-        print("Error: Could not decode JSON response from the API.")
+
+    if not file_ref:
+        print("File upload failed, cannot proceed with analysis.")
         return None
-    
-def upload_feautes_to_bigquery():
-    """All the extracted features can be uploaded to BigQuery for further analysis"""
-    pass
 
-def read_videos_from_bucket():
-    """Read the video files from the Google Cloud Storage bucket"""
-    pass
+    # Attempt the generate_content call with retries
+    max_retries = 3
+    delay_seconds = 5
 
-def read_videos_from_local():
-    """Read the video files from the local storage"""
-    pass
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model="gemini-1.5-pro-latest",
+                contents=[prompt, file_ref]
+            )
+            print("API call success")
+            return response
 
-if __name__ == "__main__":
+        except Exception as e:
+            #Uploads seems to be a bit lazy, so im adding a delay and retry mechanism
+            print(f"Attempt {attempt + 1} failed: Gemini API Error: {e}")
+            if attempt < max_retries - 1:
+                print(f"Waiting {delay_seconds} seconds before retrying...")
+                time.sleep(delay_seconds)
+            else:
+                print("Max retries reached. Aborting video analysis.")
+                return None  # Abort after max retries
 
-    video_path = "path/to/your/video.mp4"  # Replace with your video file path
-    user_prompt = "Describe what is happening in this video." # Customize the prompt.
-    api_key = "YOUR_API_KEY" #Replace with your API Key
+def process_gemini_response(response):
+    """Processes the Gemini API response to extract the text."""
+    if response and hasattr(response, "text"):
+        return response.text
+    else:
+        print("Error: No text found in Gemini response.")
+        if response:
+            print("Full response:", response)
+        return None
 
-    response = analyze_video_with_gemini(video_path, user_prompt, api_key)
+def main():
+    """Main function to orchestrate the video analysis."""
+    dotenv.load_dotenv()
+
+    video_path = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/pedidos_ya_130125.mp4"  # Replace with your video
+    prompt = """Analyze the following video ad and extract its narrative structure in JSON format with these fields:
+        Ad Name, 
+        Scene Number, 
+        Start Time, 
+        End Time, 
+        Scene Duration, 
+        Narrative Role, 
+        Visual Elements, 
+        Voice-over Tone, 
+        On-screen Text, 
+        Pacing."""
+    api_key = os.getenv("GOOGLE_API_KEY")
+
+    if not api_key:
+        print("Error: GOOGLE_API_KEY not found in environment variables.")
+        return
+
+    response = analyze_video_gemini_client(video_path, prompt, api_key)
 
     if response:
-        try:
-            # Extract the text from the response
-            if response["candidates"]:
-                generated_text = response["candidates"][0]["content"]["parts"][0]["text"]
-                print("Gemini's response:\n", generated_text)
-            else:
-                print("No response candidates found.")
-        except KeyError as e:
-            print(f"KeyError: {e}.  Check the API response format.")
-            print("Raw response:", response)
+        generated_text = process_gemini_response(response)
+        if generated_text:
+            print("Gemini's Response:\n", generated_text)
+        else:
+            print("Failed to extract text from the response.")
     else:
         print("Video analysis failed.")
+
+if __name__ == "__main__":
+    main()
+
+#TODO:
+#0. Add pydantic for structured output format 
+#1. Add more error handling and logging
+#2. Add langsmith tracing
+#3. Add more features extraction
