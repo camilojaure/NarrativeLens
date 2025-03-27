@@ -120,11 +120,14 @@ if __name__ == "__main__":
     main()
 
 #DONE:
-#Implement the feature extractor script
+#Implement the basic feature extractor script
 #Review the diversity score and matrix features to adapt prompt and output
 #Add pydantic models for the output structure
 #Add more error handling and logging
 
 #TODO:
+#Add database connection to store the results
+    ## I need to get the performance data for each video, from the tiktok downloader
+#Add batch processing capabilities for multiple videos
 #Add langsmith tracing
 #Add more features extraction
