@@ -1,71 +1,92 @@
+import logging
 import os
 import dotenv
 import time
+import json
+import re
 from google import genai
+from datamodelValidation import AdAnalysis, CreativeTheme, CreativeConcept, FormatProductionStyle, TalentType, DemographicRepresentation, AudienceFocus, CampaignObjective 
+from pydantic import ValidationError
+
+log_file = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/src/pre_processing/logs/feature_extractor.log"
+log_level = logging.INFO
+
+logging.basicConfig(filename=log_file, 
+                    level=log_level, 
+                    format="%(asctime)s - %(levelname)s - %(message)s", 
+                    datefmt="%Y-%m-%d %H:%M:%S",)
 
 def analyze_video_gemini_client(video_file_path, prompt, api_key):
-    """Analyzes a video using the Gemini API
-
-    Args:
-        video_file_path: Path to the video file.
-        prompt: Text prompt for the analysis.
-        api_key: Google API key.
-
-    Returns:
-        The response from the Gemini API, or None on error.
-    """
+    """Analyzes a video using the Gemini API"""
     client = None
     try:
         client = genai.Client(api_key=api_key)
+        logging.info("Gemini client initialized successfully.") 
     except Exception as e:
-        print(f"Error initializing Gemini client: {e}")
+        logging.error(f"Error initializing Gemini client: {e}") 
         return None
 
     file_ref = None
     try:
         file_ref = client.files.upload(file=video_file_path)
-        print(f"File uploaded successfully. file_ref={file_ref.uri}")
+        logging.info(f"File uploaded successfully. File URL is {file_ref.uri}")
     except Exception as e:
-        print(f"Error uploading video file: {e}")
+        logging.error(f"Error uploading video file: {e}")
         return None
 
     if not file_ref:
-        print("File upload failed, cannot proceed with analysis.")
+        logging.warning("File upload failed, cannot proceed with analysis.")
         return None
 
-    # Attempt the generate_content call with retries
+    #We need to wait for the file to uploads, 5 seconds seems to be enough
     max_retries = 3
     delay_seconds = 5
 
     for attempt in range(max_retries):
         try:
+            time.sleep(delay_seconds)
             response = client.models.generate_content(
                 model="gemini-1.5-pro-latest",
                 contents=[prompt, file_ref]
             )
-            print("API call success")
             return response
 
         except Exception as e:
-            #Uploads seems to be a bit lazy, so im adding a delay and retry mechanism
-            print(f"Attempt {attempt + 1} failed: Gemini API Error: {e}")
+            logging.error(f"Attempt {attempt + 1} failed: Gemini API Error: {e}") 
             if attempt < max_retries - 1:
-                print(f"Waiting {delay_seconds} seconds before retrying...")
+                logging.info(f"Waiting {delay_seconds} seconds before retrying...") 
                 time.sleep(delay_seconds)
             else:
-                print("Max retries reached. Aborting video analysis.")
-                return None  # Abort after max retries
+                logging.warning("Max retries reached. Aborting video analysis.") 
+                return None
 
 def process_gemini_response(response):
-    """Processes the Gemini API response to extract the text."""
+    """Processes the Gemini API response to extract the data."""
     if response and hasattr(response, "text"):
-        return response.text
+        raw_response_text = response.text
+        logging.debug(f"Raw response text: {raw_response_text}")
+        match = re.search(r"\{.*\}", raw_response_text, re.DOTALL)
+        if match:
+            json_string = match.group(0)
+            try:
+                data = json.loads(json_string)
+                ad_analysis = AdAnalysis(**data)
+                logging.info("Successfully validated output") 
+                return ad_analysis.model_dump()
+            except (json.JSONDecodeError, ValidationError) as e:
+                logging.error(f"Validation error: {e}")
+                return None
+
+        else:
+            logging.warning("Error: Could not find JSON object in response.")
+            return None
+
     else:
-        print("Error: No text found in Gemini response.")
+        logging.error("Error: No text found in response object .")
         if response:
-            print("Full response:", response)
+            logging.error(f"Full response: {response}")
         return None
-    
+
 def open_promt_file(prompt_file_path):
     with open(prompt_file_path, 'r') as file:
         prompt = file.read()
@@ -76,13 +97,11 @@ def main():
     dotenv.load_dotenv()
 
     test_video_path = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/pedidos_ya_130125.mp4"  # Replace with your video
-
     prompt = open_promt_file("/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/src/pre_processing/prompts/feature_extractor_prompt.txt")
-
     api_key = os.getenv("GOOGLE_API_KEY")
 
     if not api_key:
-        print("Error: GOOGLE_API_KEY not found in environment variables.")
+        logging.critical("GOOGLE_API_KEY not found in environment variables.")
         return
 
     response = analyze_video_gemini_client(test_video_path, prompt, api_key)
@@ -90,18 +109,22 @@ def main():
     if response:
         generated_text = process_gemini_response(response)
         if generated_text:
+            logging.info("Successfully performed a full cycle")
             print("Gemini's Response:\n", generated_text)
         else:
-            print("Failed to extract text from the response.")
+            logging.warning("Gemini was not able to complete a full cycle. Some kind of Validation problem may happen")
     else:
-        print("Video analysis failed.")
+        logging.warning("Video analysis failed.")
 
 if __name__ == "__main__":
     main()
 
+#DONE:
+#Implement the feature extractor script
+#Review the diversity score and matrix features to adapt prompt and output
+#Add pydantic models for the output structure
+#Add more error handling and logging
+
 #TODO:
-#1. Review the diversity score and matrix features to adapt prompt and output
-#2. Add pydantic models for the output structure
-#3. Add more error handling and logging
-#4. Add langsmith tracing
-#5. Add more features extraction
+#Add langsmith tracing
+#Add more features extraction
