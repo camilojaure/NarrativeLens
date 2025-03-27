@@ -65,30 +65,27 @@ def process_gemini_response(response):
         if response:
             print("Full response:", response)
         return None
+    
+def open_promt_file(prompt_file_path):
+    with open(prompt_file_path, 'r') as file:
+        prompt = file.read()
+    return prompt
 
 def main():
     """Main function to orchestrate the video analysis."""
     dotenv.load_dotenv()
 
-    video_path = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/pedidos_ya_130125.mp4"  # Replace with your video
-    prompt = """You are a world-class creative insights analyst specializing in video advertising. Your task is to analyze this entire advertisement and provide a consolidated summary of its key features. Do not describe individual scenes. Focus on the overall ad-level characteristics.
-                Deliver the output in JSON format with the following fields:
-                Ad Name: (The name or title of the advertisement, if available. If not, provide a descriptive name.)
-                Ad Duration: (The total duration of the advertisement in seconds.)
-                Format: (The overall format of the advertisement, e.g., "Short-form video ad," "Animated explainer video," "Product demo," etc.)
-                Visual Elements: (A concise summary of the dominant visual elements and style of the advertisement, e.g., "Fast-paced montage of product shots," "Warm and inviting scenes of family life," "Clean and minimalist animation," etc.)
-                Voice-over Tone: (A description of the overall tone and style of the voice-over, e.g., "Energetic and enthusiastic," "Calm and reassuring," "Authoritative and informative," etc.)
-                On-screen Text: (A summary of the key messages and style of the on-screen text used in the advertisement, e.g., "Bold and impactful slogans," "Clear and concise product benefits," "Playful and engaging typography," etc.)
-                Pacing: (A description of the overall pacing of the advertisement, e.g., "Fast-paced and energetic," "Slow and deliberate," "Varied pacing to maintain interest," etc.)
-                Ad Description: (A brief, high-level overview of the advertisement's overall message, target audience, and intended effect, synthesizing the ad's key features.)
-                """
+    test_video_path = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/pedidos_ya_130125.mp4"  # Replace with your video
+
+    prompt = open_promt_file("/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/src/pre_processing/prompts/feature_extractor_prompt.txt")
+
     api_key = os.getenv("GOOGLE_API_KEY")
 
     if not api_key:
         print("Error: GOOGLE_API_KEY not found in environment variables.")
         return
 
-    response = analyze_video_gemini_client(video_path, prompt, api_key)
+    response = analyze_video_gemini_client(test_video_path, prompt, api_key)
 
     if response:
         generated_text = process_gemini_response(response)
