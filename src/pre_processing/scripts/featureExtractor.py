@@ -8,6 +8,7 @@ from pymongo import MongoClient
 from google import genai
 from datamodelValidation import AdAnalysis
 from pydantic import ValidationError
+from tqdm import tqdm
 
 # Logging setup
 log_file = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/src/pre_processing/logs/feature_extractor.log"
@@ -98,8 +99,13 @@ def open_prompt_file(prompt_file_path):
 
 # Batch runner
 def batch_process_videos():
+    logging.info("Starting batch processing of videos...")
     dotenv.load_dotenv()
     api_key = os.getenv("GOOGLE_API_KEY")
+
+    if not os.path.exists(VIDEO_DIR):
+        logging.critical(f"Video directory {VIDEO_DIR} does not exist.")
+        return
     if not api_key:
         logging.critical("GOOGLE_API_KEY not found in environment variables.")
         return
@@ -108,20 +114,20 @@ def batch_process_videos():
     prompt = open_prompt_file(PROMPT_PATH)
     collection = get_mongo_collection()
 
-    for filename in os.listdir(VIDEO_DIR):
-        if filename.endswith(".mp4"):
-            full_path = os.path.join(VIDEO_DIR, filename)
-            logging.info(f"Processing video: {filename}")
-            response = extract_creative_features(client, full_path, prompt)
-            if response:
-                features = validate_and_structure_output(response)
-                if features:
-                    update_video_document(collection, filename, features)
-                else:
-                    logging.warning(f"Failed to validate Gemini output for {filename}")
-            else:
-                logging.warning(f"Gemini API failed for {filename}")
+    video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
 
+    for filename in tqdm(video_files, desc="Processing videos", unit="video"):
+        full_path = os.path.join(VIDEO_DIR, filename)
+        response = extract_creative_features(client, full_path, prompt)
+        if response:
+            features = validate_and_structure_output(response)
+            if features:
+                update_video_document(collection, filename, features)
+            else:
+                logging.warning(f"Failed to validate Gemini output for {filename}") 
+        else:
+            logging.warning(f"Gemini API failed for {filename}")
+ 
 # Entry point
 def main():
     batch_process_videos()
