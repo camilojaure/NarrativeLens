@@ -4,6 +4,7 @@ import dotenv
 import time
 import json
 import re
+import argparse
 from pymongo import MongoClient
 from google import genai
 from datamodelValidation import AdAnalysis
@@ -22,7 +23,7 @@ logging.basicConfig(
 )
 
 # Constants
-VIDEO_DIR = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/video_ads_test"
+VIDEO_DIR = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/video_ads"
 PROMPT_PATH = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/src/pre_processing/prompts/feature_extractor_prompt.txt"
 
 # Gemini API call
@@ -98,7 +99,7 @@ def open_prompt_file(prompt_file_path):
         return file.read()
 
 # Batch runner
-def batch_process_videos():
+def batch_process_videos(dry_run=False):
     logging.info("Starting batch processing of videos...")
     dotenv.load_dotenv()
     api_key = os.getenv("GOOGLE_API_KEY")
@@ -114,15 +115,30 @@ def batch_process_videos():
     prompt = open_prompt_file(PROMPT_PATH)
     collection = get_mongo_collection()
 
-    video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
+    if dry_run:
+        logging.info("Running in dry-run mode")
+        test_video_dir = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/video_ads_dry"
+        video_files = [f for f in os.listdir(test_video_dir) if f.endswith(".mp4")]
+        if not video_files:
+            logging.warning("No test videos found in dry-run folder.")
+            return
+        video_files = [video_files[0]]  # use only the first video
+        video_dir = test_video_dir
+    else:
+        video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
+        video_dir = VIDEO_DIR
 
     for filename in tqdm(video_files, desc="Processing videos", unit="video"):
-        full_path = os.path.join(VIDEO_DIR, filename)
+        full_path = os.path.join(video_dir, filename)
         response = extract_creative_features(client, full_path, prompt)
         if response:
             features = validate_and_structure_output(response)
             if features:
-                update_video_document(collection, filename, features)
+                if not dry_run:
+                    update_video_document(collection, filename, features)
+                else:
+                    print(f"Dry-run result for {filename}:")
+                    print(json.dumps(features, indent=2))
             else:
                 logging.warning(f"Failed to validate Gemini output for {filename}") 
         else:
@@ -130,7 +146,10 @@ def batch_process_videos():
  
 # Entry point
 def main():
-    batch_process_videos()
+    parser = argparse.ArgumentParser(description="Batch process TikTok ads.")
+    parser.add_argument("--dry-run", action="store_true", help="Run in dry-run mode without updating MongoDB")
+    args = parser.parse_args()
+    batch_process_videos(dry_run=args.dry_run)
 
 if __name__ == "__main__":
     main()
