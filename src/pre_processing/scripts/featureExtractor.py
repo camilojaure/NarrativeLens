@@ -88,10 +88,12 @@ def update_video_document(collection, video_filename, creative_features):
     )
     if result.matched_count == 0:
         logging.warning(f"No document found for video: {video_filename}")
+        return False
     elif result.modified_count == 1:
         logging.info(f"Document updated successfully for: {video_filename}")
     else:
         logging.info(f"No changes made to document for: {video_filename}")
+    return True
 
 # Prompt loading
 def open_prompt_file(prompt_file_path):
@@ -99,10 +101,15 @@ def open_prompt_file(prompt_file_path):
         return file.read()
 
 # Batch runner
-def batch_process_videos(dry_run=False):
+def batch_process_videos(mode="prod"):
     logging.info("Starting batch processing of videos...")
     dotenv.load_dotenv()
     api_key = os.getenv("GOOGLE_API_KEY")
+
+    total_processed = 0
+    success_count = 0
+    failed_files = []
+    not_found_in_db = []
 
     if not os.path.exists(VIDEO_DIR):
         logging.critical(f"Video directory {VIDEO_DIR} does not exist.")
@@ -115,8 +122,8 @@ def batch_process_videos(dry_run=False):
     prompt = open_prompt_file(PROMPT_PATH)
     collection = get_mongo_collection()
 
-    if dry_run:
-        logging.info("Running in dry-run mode")
+    if mode == "dry":
+        logging.info("Running in dry mode")
         test_video_dir = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/video_ads_dry"
         video_files = [f for f in os.listdir(test_video_dir) if f.endswith(".mp4")]
         if not video_files:
@@ -124,32 +131,49 @@ def batch_process_videos(dry_run=False):
             return
         video_files = [video_files[0]]  # use only the first video
         video_dir = test_video_dir
+    elif mode == "test":
+        logging.info("Running in test mode")
+        test_video_dir = "/Users/camilojaureguiberry/Documents/Projects/Developments/NarrativeLens/data/video_ads_test"
+        video_files = [f for f in os.listdir(test_video_dir) if f.endswith(".mp4")]
+        video_dir = test_video_dir
     else:
         video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
         video_dir = VIDEO_DIR
 
     for filename in tqdm(video_files, desc="Processing videos", unit="video"):
+        total_processed += 1
         full_path = os.path.join(video_dir, filename)
         response = extract_creative_features(client, full_path, prompt)
         if response:
             features = validate_and_structure_output(response)
             if features:
-                if not dry_run:
-                    update_video_document(collection, filename, features)
+                if mode != "dry":
+                    updated = update_video_document(collection, filename, features)
+                    if updated:
+                        success_count += 1
+                    else:
+                        not_found_in_db.append(filename)
                 else:
                     print(f"Dry-run result for {filename}:")
                     print(json.dumps(features, indent=2))
+                    success_count += 1
             else:
-                logging.warning(f"Failed to validate Gemini output for {filename}") 
+                failed_files.append(filename)
         else:
-            logging.warning(f"Gemini API failed for {filename}")
- 
+            failed_files.append(filename)
+
+    logging.info(f"Processing complete. Total: {total_processed}, Success: {success_count}, Validation failed: {len(failed_files)}, Not found in DB: {len(not_found_in_db)}")
+    if failed_files:
+        logging.info(f"Files that failed validation or Gemini API: {failed_files}")
+    if not_found_in_db:
+        logging.info(f"Files not found in MongoDB: {not_found_in_db}")
+
 # Entry point
 def main():
     parser = argparse.ArgumentParser(description="Batch process TikTok ads.")
-    parser.add_argument("--dry-run", action="store_true", help="Run in dry-run mode without updating MongoDB")
+    parser.add_argument("--mode", choices=["dry", "test", "prod"], default="prod", help="Run mode: dry, test, or prod")
     args = parser.parse_args()
-    batch_process_videos(dry_run=args.dry_run)
+    batch_process_videos(mode=args.mode)
 
 if __name__ == "__main__":
     main()
