@@ -2,3 +2,4 @@ pandas
 numpy
 scenedetect
 opencv-python
+pymongo
