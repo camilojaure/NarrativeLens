@@ -180,16 +180,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# DONE:
-# Implement the basic feature extractor script
-# Review the diversity score and matrix features to adapt prompt and output
-# Add pydantic models for the output structure
-# Add more error handling and logging
-# Add batch processing for multiple videos
-# Add MongoDB connection to update creative_features based on video_name
-# Optimize Gemini client initialization for batch processing
-
-# TODO:
-# Add langsmith tracing
-# Add more features extraction
