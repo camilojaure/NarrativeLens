@@ -3,3 +3,4 @@ numpy
 scenedetect
 opencv-python
 pymongo
+pip install ydata-profiling
