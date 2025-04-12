@@ -56,7 +56,7 @@ def extract_creative_features(client, video_file_path, prompt):
                 return None
 
 # Parse Gemini response
-def validate_and_structure_output(response):
+def validate_and_structure_output(response, retry_count=0):
     if response and hasattr(response, "text"):
         raw_response_text = response.text
         match = re.search(r"\{.*\}", raw_response_text, re.DOTALL)
@@ -68,10 +68,58 @@ def validate_and_structure_output(response):
                 return ad_analysis.model_dump()
             except (json.JSONDecodeError, ValidationError) as e:
                 logging.error(f"Validation error: {e}")
-        else:
-            logging.warning("No JSON object found in response.")
-    else:
-        logging.error("No text found in Gemini response.")
+
+                # If there's a ValidationError, check for any invalid enum inputs
+                if isinstance(e, ValidationError):
+                    invalid_fields = []
+                    for err in e.errors():
+                        loc = err.get("loc")[0] if err.get("loc") else "unknown_field"
+                        invalid_value = err.get("input")
+                        invalid_fields.append((loc, invalid_value))
+
+                    # Use escape values after max retries
+                    if retry_count >= 2:
+                        for field, _ in invalid_fields:
+                            if field in data:
+                                if field == "creative_concept":
+                                    data[field] = "Not Applicable"
+                                elif field == "creative_theme":
+                                    data[field] = "Not Applicable"
+                                elif field == "format_production_style":
+                                    data[field] = "Unclear"
+                                else:
+                                    data[field] = "Unclear"
+                        try:
+                            ad_analysis = AdAnalysis(**data)
+                            logging.info("Validated output using escape values after max retries")
+                            return ad_analysis.model_dump()
+                        except ValidationError as final_err:
+                            logging.error(f"Final fallback also failed: {final_err}")
+                            return None
+
+                    # Otherwise attempt a retry
+                    if invalid_fields:
+                        logging.info(f"Retrying with corrected fields: {invalid_fields}")
+
+                        error_summary = "\n".join(
+                            f"Field '{field}' had an invalid value: '{value}'" for field, value in invalid_fields
+                        )
+                        retry_prompt = (
+                            f"The previous JSON you generated had schema validation errors.\n"
+                            f"{error_summary}\n\n"
+                            f"Please return a corrected version of the original JSON, strictly following this schema:\n\n"
+                            f"{raw_response_text.strip()}\n\n"
+                            f"Ensure all values match the predefined enum options provided in the prompt. Return only valid JSON."
+                        )
+
+                        try:
+                            retry_response = genai.Client().models.generate_content(
+                                model="gemini-1.5-pro-latest",
+                                contents=[retry_prompt]
+                            )
+                            return validate_and_structure_output(retry_response, retry_count + 1)
+                        except Exception as retry_err:
+                            logging.error(f"Retry failed with Gemini: {retry_err}")
     return None
 
 # MongoDB helpers
