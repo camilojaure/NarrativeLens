@@ -137,7 +137,10 @@ def batch_process_videos(mode="prod"):
         video_files = [f for f in os.listdir(test_video_dir) if f.endswith(".mp4")]
         video_dir = test_video_dir
     else:
-        video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
+        logging.info("Running in prod mode with incremental processing")
+        all_video_files = [f for f in os.listdir(VIDEO_DIR) if f.endswith(".mp4")]
+        already_processed = collection.distinct("video_name", {"creative_features": {"$exists": True}})
+        video_files = [f for f in all_video_files if os.path.splitext(f)[0] not in already_processed]
         video_dir = VIDEO_DIR
 
     for filename in tqdm(video_files, desc="Processing videos", unit="video"):
