@@ -4,3 +4,4 @@ scenedetect
 opencv-python
 pymongo
 pip install ydata-profiling
+econml
