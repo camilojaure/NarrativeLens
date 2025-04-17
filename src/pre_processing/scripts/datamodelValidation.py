@@ -97,6 +97,14 @@ class CampaignObjective(str, Enum):
     SALES = "Sales"
     UNCLEAR = "Unclear"
 
+class UGCAnswer(str, Enum):
+    YES = "Yes"
+    NO = "No"
+
+class UGCAnalysis(BaseModel):
+    answer: UGCAnswer
+    justification: str
+
 class AdAnalysis(BaseModel):
     creative_theme: CreativeTheme
     creative_concept: CreativeConcept
