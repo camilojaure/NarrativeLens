@@ -58,4 +58,16 @@ Yes: The video is a UGC-style advertisement.
 
 No: The video is not a UGC-style advertisement.
 
-Justification: Provide a concise explanation (2-4 sentences) detailing why based on your analysis of the criteria above. Specifically mention which key UGC-style characteristics are present (or absent) and confirm the presence (or absence) of clear advertising intent."""
+Justification: Provide a concise explanation (2-4 sentences) detailing why based on your analysis of the criteria above. Specifically mention which key UGC-style characteristics are present (or absent) and confirm the presence (or absence) of clear advertising intent.
+
+IMPORTANT: Your answer must be exactly "Yes" or "No" (case-insensitive), with no extra words or formatting. Yes and Justification are the names of the Keys.
+
+YOUR RESPONSE MUST START WITH THE LINE "Answer: Yes" OR "Answer: No" (NO GREETING, NO PREAMBLE, NO EXTRA TEXT BEFORE THIS LINE). THE NEXT LINE MUST BE "Justification: ..."
+
+Example output:
+{"Answer": "Yes",
+"Justification": "This video meets the UGC-style criteria because..."}
+
+"""
+
+
