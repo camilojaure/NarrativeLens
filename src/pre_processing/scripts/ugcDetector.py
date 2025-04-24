@@ -133,37 +133,35 @@ def batch_process(mode: str = "prod"):
 
 
 # ───────────────────────────── Response post‑processing ──────────────────────── #
-YESNO_RE = re.compile(r"^\s*(Yes|No)\b[:\-\s]*", re.IGNORECASE)
+YESNO_RE = re.compile(r"^\s*(?:Answer[:\-\s]*)?(Yes|No)\b[:\-\s\.]*", re.IGNORECASE)
 JSON_RE = re.compile(r"\{.*\}", re.DOTALL)
 
 # Parsed JSON is validated against UGCAnalysis (Pydantic) to ensure the model
 # returns an "answer" ("Yes"/"No") and a "justification".
 def parse_ugc_response(response):
-    """Extract & validate answer, returning (bool, explanation) or None.
-    
-    Accepts either a JSON payload like:
-        {"answer": "Yes", "justification": "…"}
-    or plain‑text starting with Yes/No followed by a justification.
-    """
     if not (response and hasattr(response, "text")):
         return None
-    
+
     raw = response.text.strip()
-    
+    logging.info(f"Raw response: {raw}")
+
     # First, try JSON.
     match = JSON_RE.search(raw)
     if match:
         try:
             data = json.loads(match.group(0))
+            # Normalize answer if needed
+            if "answer" in data:
+                data["answer"] = str(data["answer"]).strip().capitalize().rstrip(".")
             result = UGCAnalysis(**data)
             return result.answer == UGCAnswer.YES, result.justification
         except (json.JSONDecodeError, ValidationError):
             logging.warning("JSON present but invalid, falling back to text.")
-    
+
     # Fallback: plain "Yes / No — explanation" text
-    m = YESNO_RE.match(raw)
+    m = YESNO_RE.search(raw)
     if m:
-        ans = m.group(1).capitalize()
+        ans = m.group(1).capitalize().rstrip(".")
         justification = raw[m.end():].strip()
         try:
             result = UGCAnalysis(answer=ans, justification=justification)
@@ -171,7 +169,7 @@ def parse_ugc_response(response):
         except ValidationError as e:
             logging.error(f"Pydantic validation failed: {e}")
             return None
-    
+
     logging.error("Could not parse Gemini response.")
     return None
 
