@@ -3,5 +3,21 @@ numpy
 scenedetect
 opencv-python
 pymongo
-pip install ydata-profiling
+ydata-profiling
 econml
+google-generativeai
+python-dotenv
+tqdm
+pydantic
+Pillow
+imagehash
+jsonpatch
+jsonpointer
+ipython
+jupyter
+jupyter-client
+jupyter-core
+fonttools
+charset-normalizer
+httpx
+numba
