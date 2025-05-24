@@ -46,4 +46,4 @@ coverage.xml
 *.mp4
 *.png
 *.zip
-*.csv
+#*.csv
