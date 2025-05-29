@@ -14,9 +14,9 @@ from typing import Any, Dict
 
 import pandas as pd
 
-RAW_JSON = Path("../../data/datasets/NarrativeLens.tiktok_ads_us_toplikes.json")
-CLEAN_CSV = Path("../../data/datasets/tiktok_topads_clean.csv")
-UGC_CSV = Path("../../data/datasets/detail_ugc_analysis.csv")
+RAW_JSON = Path("data/datasets/NarrativeLens.tiktok_ads_us_toplikes.json")
+CLEAN_CSV = Path("data/datasets/tiktok_topads_clean.csv")
+UGC_CSV = Path("data/datasets/detail_ugc_analysis.csv")
 
 
 # ---------- helper extractors ----------
