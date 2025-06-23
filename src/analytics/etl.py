@@ -83,7 +83,7 @@ def build_clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
     logging.info("Dropped %d duplicate rows", initial_rows - len(df))
 
     drop_cols = [
-        "video_info", "industry", "tag", "objective", "video_name", "_id",
+        "video_info", "industry", "tag", "objective", "_id",
         "favorite", "is_search", "scrap_datetime", "creative_features",
         "industry_key", "objective_key", "detail_analysis", "ugc_explanation",
     ]
