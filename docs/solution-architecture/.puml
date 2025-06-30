@@ -1,53 +1,44 @@
 @startuml
+title NarrativeLens Workflow: From Scraping to Insights
 
-title Discovery/Research Workflow with Dashboard Filters
-
-actor "Creative Insights Analyst" as User
-participant "Benchmark Module\n(Data Source)" as BM
+actor "Analyst" as User
+participant "Scraper\n(TikTok Ads)" as Scraper
 participant "Pre-processing\nModule" as PM
-participant "Deep Learning Models" as DLM
-participant "Recommendation Engine" as RE
-participant "Insights" as IN
+participant "Deep Learning\nModels (Gemini + UGC)" as DLM
+participant "MongoDB\nStorage" as DB
+participant "ETL & EDA\nModule" as ED
+participant "Modeling\nModule" as MM
 
-User -> User: 1. Select Filters (Country, Vertical, Objective, Timeframe, Format, Metric)
-note right
-  E.g.:
-    Country: Argentina
-    Vertical: Apps
-    Objective: Conversions
-    Timeframe: Last 30 days
-    Format: Video
-    Sort by: CTR
-end note
+User -> Scraper: 1. Scrape TikTok Video Ads (~500+)
+activate Scraper
+Scraper -> Scraper: Download and store raw videos
+Scraper -> DB: Save raw video files and metadata
+deactivate Scraper
 
-User -> BM: 2. Retrieve top-performing Ads based on filters
-activate BM
-BM -> BM: Query Ads top performers for given criteria
-BM -> User: Return set of top Ads + performance metrics
-deactivate BM
-
-User -> PM: 3. Pre-process Ads (Normalize, Scene Segmentation)
+User -> PM: 2. Run pre-processing (featureExtractor.py)
 activate PM
-PM -> PM: Clean & Normalize media
-PM -> PM: Scene segmentation for each Ad
-PM -> DLM: 4. Extract features (visual, narrative, audio) per scene
-activate DLM
-DLM -> DLM: Run CV/NLP/audio models on each scene
-DLM -> PM: Return extracted features
-deactivate DLM
+PM -> DLM: 2a. Extract Gemini-based CDS features
+DLM --> PM: Return scene-level features
+User -> DLM: 2b (optional). UGC detection
+DLM --> PM: Return UGC labels
+PM -> PM: Validate outputs via Pydantic data model
+PM -> DB: Save labeled features and UGC flags
+deactivate PM
 
-PM -> RE: 5. Identify patterns & best practices across Ads
-activate RE
-RE -> RE: Analyze features & correlate with performance metrics
-RE -> PM: Return aggregated insights & patterns
-deactivate RE
+User -> ED: 3. Run analytical layer
+activate ED
+ED -> DB: Load labeled video dataset
+ED -> ED: Run `etl.py` to format and structure data
+ED -> ED: Execute EDA notebook (cleaning, exploration)
+ED -> DB: Store cleaned dataset
+deactivate ED
 
-PM -> IN: 6. Generate consolidated report with insights
-activate IN
-IN -> IN: Format insights (charts, tables, key findings)
-IN -> User: Present patterns & recommendations for the selected filters
-deactivate IN
+User -> MM: 4. Run modeling analysis
+activate MM
+MM -> DB: Load cleaned dataset
+MM -> MM: Run regression (OLS) & Random Forest modeling notebooks
+MM -> DB: Save modeling results (coefficients, importances)
+deactivate MM
 
-User -> User: 7. Review insights and inform strategic decisions
-
+User -> User: 5. Review results for thesis insights
 @enduml
