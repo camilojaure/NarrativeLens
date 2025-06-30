@@ -31,3 +31,5 @@ Brands face intense competition in the social media advertising space and need f
 
 4.	Modeling
 - In the modeling/ section, find the regression analysis notebook. This implements OLS and Random Forest analyses precisely for the thesis.
+
+![Sequence Diagram](image.png)
