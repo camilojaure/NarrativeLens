@@ -8,13 +8,5 @@ creative_theme: (Choose the most applicable value from the following list: "Prod
 
 creative_concept: (Choose the most applicable value from the following list: "Day-in-the-life story", "Product demo", "Expert review", "Animated explainer", "Limited-time offer", "Meme-based content", "Founder story", "Behind-the-scenes", "Comparison", "Unboxing", "Cinematic brand film", "Aspirational creator collaboration", "Before-and-after story", "Myth-busting", "FAQ", "Flash sale", "Countdown timer", "Member deal", "Parody", "Satire", "Real-time reactive", "Trending creator collaboration", "Event-driven", "User-generated content (UGC)", "None". If none of these concepts apply, use the value "Not Applicable".)
 
-format_production_style: (Choose the most applicable value from the following list: "Static Image", "Carousel", "Native Video", "High-Production Video", "Animation & Motion Graphics", "Shoppable Ad", "Dynamic Creative", "Poll", "Quiz", "Gamified Experience", "Unclear". If none of these formats apply, use the value "Unclear".)
-
 talent_type: (Choose the most applicable value from the following list: "Actors", "Influencers", "Customers", "Experts", "Combination of actors and customers", "Combination of influencers and customers", "None", "Unclear".)
-
-demographic_representation: (Choose the most applicable value from the following list: "Primarily Young Adults", "Primarily Middle-Aged Adults", "Primarily Older Adults", "Diverse Age Range", "Primarily Male", "Primarily Female", "Diverse Gender Representation", "Primarily White", "Primarily Black/African American", "Primarily Asian", "Primarily Hispanic/Latino", "Diverse Ethnic Representation", "Unclear", "No People Featured".)
-
-audience_focus: (Choose the most applicable value from the following list: "Unaware Audience", "Problem Aware", "Solution Aware", "Product Aware", "Most Aware", "Unclear".)
-
-campaign_objective: (Choose the most applicable value from the following list: "Awareness", "Traffic", "Engagement", "Leads", "App Promotion", "Sales", "Unclear".)
 """
