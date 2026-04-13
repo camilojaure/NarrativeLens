@@ -1,0 +1,676 @@
+% ============================================================
+%  Tesis de Maestría — ITBA
+%  Creative Diversity y Ad Performance en TikTok
+%  Autor: Lic. Camilo Jaureguiberry
+% ============================================================
+
+\documentclass[12pt, a4paper]{report}
+
+% --- Paquetes esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+
+% --- Márgenes ---
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=2.5cm]{geometry}
+
+% --- Interlineado ---
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Gráficos e imágenes ---
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{images/}}
+
+% --- Tablas ---
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+
+% --- Colores ---
+\usepackage{xcolor}
+\definecolor{itbablue}{RGB}{0, 83, 156}
+
+% --- Hipervínculos ---
+\usepackage[colorlinks=true, linkcolor=itbablue, citecolor=itbablue, urlcolor=itbablue]{hyperref}
+
+% --- Bibliografía ---
+\usepackage[round, sort, authoryear]{natbib}
+
+% --- Matemática y estadística ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% --- Encabezados y pies de página ---
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[R]{\small\leftmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+% pagestyle se activa después del frontmatter para evitar headers en páginas en blanco
+
+% --- Numeración de capítulos estilo reporte ---
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries}{\thechapter.}{1em}{}
+\titlespacing*{\chapter}{0pt}{20pt}{15pt}
+
+% --- Índice de contenidos ---
+\usepackage{tocloft}
+
+% --- Caption de figuras y tablas ---
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf, format=plain, justification=centering}
+
+% --- Código fuente (por si se incluye) ---
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\small, breaklines=true}
+
+% ============================================================
+\begin{document}
+\pagestyle{empty}
+% ============================================================
+
+% --- CARÁTULA ---
+\begin{titlepage}
+\thispagestyle{empty}
+
+% Encabezado: institución izquierda, logo derecha
+\noindent
+\begin{minipage}[t]{0.65\textwidth}
+  \vspace{0pt}
+  \fontsize{9}{11}\selectfont
+  \textbf{INSTITUTO TECNOLÓGICO DE BUENOS AIRES -- ITBA}\\
+  ESCUELA DE GESTIÓN Y NEGOCIOS
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.28\textwidth}
+  \vspace{0pt}
+  \raggedleft
+  \includegraphics[width=\textwidth]{itba_logo}
+\end{minipage}
+
+\vspace{7cm}
+
+% Título
+\begin{center}
+  {\LARGE\textbf{CREATIVE DIVERSITY Y AD PERFORMANCE EN TIKTOK}}\\[1cm]
+  {\Large Análisis de Dimensiones Creativas y Click Through Rate}
+\end{center}
+
+\vspace{3.5cm}
+
+% Datos del autor
+\noindent
+{\small
+AUTOR: Jaureguiberry, Camilo (Leg. N\textdegree~105638)\\[0.4cm]
+TUTOR: Visco Comandini, Filippo\\[0.8cm]
+TESIS PRESENTADA PARA LA OBTENCIÓN DEL TÍTULO DE MAGÍSTER EN\\
+MANAGEMENT \& ANALYTICS
+}
+
+\vfill
+
+% Pie
+\begin{center}
+  {\small
+  BUENOS AIRES\\
+  PRIMER SEMESTRE, 2026
+  }
+\end{center}
+
+\end{titlepage}
+
+% ============================================================
+% ABSTRACT (antes del índice — requisito del dictamen)
+% ============================================================
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+En el ecosistema actual de \textit{performance marketing}, la compra de medios
+se encuentra prácticamente automatizada por algoritmos de las plataformas
+digitales, desplazando la ventaja competitiva del anunciante hacia la pieza
+creativa en sí misma. Para los equipos de \textit{media buying}, esto genera un
+desafío concreto: ante la proliferación de formatos, conceptos y estilos
+posibles, ¿qué atributos creativos deben priorizarse para maximizar el
+rendimiento publicitario? La literatura existente reconoce la relevancia de
+la diversidad creativa, pero carece de evidencia empírica sistemática sobre
+cuáles de sus dimensiones se asocian más fuertemente con métricas de
+performance en plataformas de video corto como TikTok.
+
+El presente estudio aborda esta brecha mediante el análisis de 578 ``Top
+Ads'' del primer trimestre de 2025 en TikTok, etiquetados según las seis
+dimensiones del Creative Diversity Score (CDS) de Ready Set, un marco de
+diagnóstico que convierte la abstracción de ``variedad creativa'' en una
+métrica estructurada y comparable. Sobre esa base, se propone una
+metodología de priorización empírica: identificar qué dimensiones
+específicas del CDS presentan mayor asociación con el \textit{Click Through
+Rate} (CTR), brindando a los equipos de performance un criterio concreto
+para orientar sus decisiones creativas en un período y contexto determinados.
+Se realizó un análisis univariado descriptivo, seguido de un modelo de
+Mínimos Cuadrados Ordinarios (OLS) y un modelo de Random Forest (RF) para
+controlar la superposición entre atributos e incorporar variables de contexto
+de campaña.
+
+De manera consistente entre ambos métodos, los conceptos publicitarios
+basados en eventos y la diversidad de género en el casting emergieron como
+las dimensiones con mayor asociación positiva al CTR en el período analizado.
+La correlación entre la importancia de variables en ambos modelos resultó alta
+($\rho = 0.68$, $p < 0.001$), lo que valida la consistencia interna del
+enfoque metodológico propuesto. El alcance del estudio es exploratorio y de
+asociación; no se establecen relaciones causales.
+
+En un entorno MarTech/AdTech cada vez más automatizado, el valor de este
+trabajo reside en demostrar que es posible construir un proceso sistemático
+y replicable para identificar qué dimensiones de la diversidad creativa
+merecen atención en un contexto y período determinados. La Inteligencia
+Artificial escala el alcance, pero contar con una metodología que oriente
+la elección creativa es lo que le da a esa escala algo valioso que amplificar.
+
+\bigskip
+\textbf{Palabras clave:} Creative Diversity, TikTok, CTR, Ad Performance,
+Creative Diversity Score, Random Forest, OLS, Paid Social, MarTech.\newpage
+
+% ============================================================
+% ÍNDICES
+% ============================================================
+\tableofcontents
+\newpage
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Índice de Figuras}
+\newpage
+
+\listoftables
+\addcontentsline{toc}{chapter}{Índice de Tablas}
+\newpage
+
+% Activar encabezados recién a partir del cuerpo del trabajo
+\pagestyle{fancy}
+\setcounter{page}{1}
+
+% ============================================================
+% CAPÍTULO 1 — INTRODUCCIÓN
+% ============================================================
+\chapter{Introducción}
+
+El \textit{paid social}, el canal de marketing que consiste en distribuir contenido publicitario
+pago\footnote{Todas aquellas actividades publicitarias que no son pagas se las conoce en la jerga como
+``Organic''. Un ejemplo de actividades orgánicas serían los posteos en el feed referenciando a algún
+producto o marca. También entran en este contexto las acciones con influencers, actores reconocidos
+en una industria por su influencia sobre una audiencia. La idea del orgánico es que el contenido se
+distribuye con un algoritmo que es distinto al que está detrás de las campañas publicitarias pagas.}
+en redes sociales y que permite llegar a audiencias micro-segmentadas, ha
+pasado de ser un canal secundario en una estrategia de marketing, a uno de los
+ejes principales de cualquier mix de medios. En 2025, la inversión publicitaria
+mundial superará por primera vez USD \$1 billón, y más del 75\% corresponderá a
+formatos digitales \citep{cramerflood2025}. En Estados Unidos, la publicidad en redes
+sociales absorberá más de una cuarta parte del gasto total en medios para 2027
+\citep{emarketer2024}, mientras que las proyecciones globales sitúan el desembolso
+específico en social media cerca de USD \$433.000 millones en 2030 \citep{digitalsilk2025}.
+Para las plataformas de redes sociales, todo esto se traduce en récords de
+ingresos: Meta declaró USD \$46,6 mil millones en ingresos publicitarios en el
+segundo trimestre de 2025 \citep{meta2025} y Alphabet/Google reportó USD \$66,9 mil
+millones en el primer trimestre de 2025 \citep{schwartz2025}. Para las marcas, paid
+social representa el entorno donde sus audiencias ya pasan más de dos horas
+diarias (o más dependiendo del demográfico) y donde los algoritmos permiten
+optimizar cada dólar invertido en tiempo real.
+
+\begin{figure}[H]
+  \centering
+  % \includegraphics[width=0.85\textwidth]{global_ad_spend.png}
+  \caption{Inversión publicitaria global 2019--2025 (USD miles de millones, aproximado).}
+  \label{fig:global_ad_spend}
+  \small Fuente: Elaboración propia en base a datos de Cramer-Flood (2025) y eMarketer (2024).
+\end{figure}
+
+En particular, TikTok, pese a los litigios y enfrentamientos con el gobierno chino,
+se ha posicionado como un actor clave en este crecimiento. La plataforma superó los
+1.000 millones de usuarios a nivel mundial en 2025 (duplicando su base de 2020)
+\citep{backlink2025} y el usuario promedio en Estados Unidos pasa cerca de 54 minutos
+diarios en la aplicación \citep{emarketer2025}. Este engagement se traduce en un aumento
+explosivo de la inversión publicitaria: sólo en Estados Unidos, los ingresos por
+anuncios de TikTok proyectan superar los USD 11.000 millones en 2025 (un poco
+más del 20\% que el año anterior), representando ya alrededor del 12\% del gasto
+en publicidad en redes sociales del país \citep{basis2025}. Aunque su participación aún
+es menor frente a gigantes como Meta, el ascenso de TikTok es innegable,
+obligando a las marcas a adaptarse al formato de video corto y explosivo, tal cual
+lo reclama la audiencia de esta red social.
+
+Para llevar a cabo una estrategia de paid social marketing, la mayoría de las
+marcas, o aquellas que no cuentan con equipos internos especializados, contratan a
+agencias creativas bajo esquemas en los que una fracción significativa del costo es
+variable y depende directamente del resultado del anuncio. En este modelo, donde
+la facturación del servicio queda atada en buena parte al \textit{spend}, o inversión
+publicitaria por parte de la marca, la agencia creativa sólo cobra si el anuncio
+consigue resultados concretos, de modo que su modelo de negocio y su
+supervivencia financiera queda atada a entregar piezas que realmente conviertan
+(o \textit{perfomen} como se lo conoce en la jerga). Por eso se lo conoce también como
+\textit{performance marketing}, porque el negocio está atado a la performance del anuncio.
+Si el anuncio no convierte, la agencia no gana. En este modelo de marketing
+obsesionado con resultados, cada elemento de la campaña enfrenta una intensa
+presión de optimización. La segmentación de audiencia y el alcance se han
+automatizado gracias a la inteligencia artificial de las plataformas, por lo que
+\textbf{el elemento diferencial bajo control del anunciante es la pieza creativa, es decir,
+el anuncio mismo y la creatividad dentro de él}. En otras palabras, con la compra
+de medios, o \textit{media buying}, prácticamente estandarizado y optimizado en tiempo
+real por algoritmos, la calidad y diversidad del anuncio en sí se convierte en el
+principal campo de batalla. De allí surge la necesidad de producir anuncios capaces
+de destacar en el feed, resonar con su público objetivo y maximizar las acciones
+deseadas.
+
+\section{La batalla por la atención en el feed}
+
+En el feed de TikTok el usuario se desplaza (\textit{scrollea}) casi sin pensar;
+investigaciones de neuromarketing muestran que basta un cuarto de segundos de
+exposición para que una persona decida si detiene el pulgar o sigue deslizando
+\citep{metafeed2016}. Este lapso brevísimo dio origen al concepto de contenido
+\textit{scroll-stopper}, piezas creadas para frenar ese movimiento y mantener la atención
+hasta que se pueda transmitir el mensaje y lograr la acción deseada, ya sea exponer un
+link hacia una página web, o directamente a la acción de compra. La métrica más sencilla
+y extendida para evaluar ese éxito es el Click Through Rate (CTR), obtenido al dividir los
+clics por las impresiones; indicadores como el Hook Rate o el View Through Rate (VTR)
+ayudan a medir la retención temprana, pero el CTR sigue siendo el estándar en los equipos
+de performance por su facilidad de cálculo y comparación.
+
+\begin{figure}[H]
+  \centering
+  % \includegraphics[width=0.6\textwidth]{diversidad_llaves.png}
+  \caption{La diversidad creativa desbloquea micro-segmentos de audiencia.}
+  \label{fig:diversidad_llaves}
+  \small Fuente: Elaboración propia.
+\end{figure}
+
+Desde la psicología cognitiva, el fenómeno se explica con el Limited Capacity Model of
+Motivated Mediated Message Processing (LC4MP; \citealt{lang2000}), que sostiene que la
+mente humana dispone de recursos atencionales finitos y los asigna según relevancia
+y novedad del estímulo. En \textit{feeds} saturados de estímulos visuales y
+sonoros, un anuncio debe, primero, parecer orgánico, es decir, mimetizarse con el
+contenido nativo del usuario y, segundo, ofrecer un ``pico'' de novedad o recompensa
+para ganar prioridad en la cola atencional (\textit{orienting response}).
+
+\section{Diversidad creativa como palanca de micro-segmentación}
+
+Ante la escasez de atención, la diversidad creativa emerge como estrategia para
+ofrecer al algoritmo de distribución múltiples ``llaves'' capaces de abrir
+micro-segmentos distintos. Un análisis interno de Meta comprobó que los ad
+sets\footnote{Un ad set (conjunto de anuncios) es el nivel de campaña que define audiencia/segmentación,
+presupuesto, calendario, ubicaciones y objetivo de optimización; dentro de él se alojan los anuncios
+(creatividades).}
+con 3 a 10 creatividades obtuvieron un 46\% menos de Costo Por Adquisición
+(CPA\footnote{El CPA mide cuánto cuesta, en promedio, lograr una conversión objetivo (p. ej., compra, lead,
+registro) en una campaña. Fórmula: CPA = gasto publicitario atribuido / número de conversiones atribuidas.})
+frente a los que empleaban una sola pieza \citep{meta2024a}. Un informe posterior
+mostró que basta incorporar dos creatividades visualmente diferenciadas para
+recortar el CPA en 4,6\% \citep{meta2024b}. Estos hallazgos refuerzan la intuición
+clásica del \textit{direct response}, concepto sobre el cual se profundizará más adelante:
+más variedad no implica más volumen de anuncios, sino una mejor correlación entre
+pieza y audiencia, al entregar al algoritmo mayor amplitud para experimentar y
+optimizar el delivery.
+
+\section{El aporte del marco ReadySet CDS}
+
+Ready Set es una agencia de performance marketing fundada en 2019 en Estados
+Unidos y especializada en marcas de industrias reguladas. A fin de disponibilizar a
+los clientes una forma sencilla, pero rigurosa y precisa, de diagnosticar la fatiga
+creativa\footnote{La fatiga creativa se refiere al fenómeno en el que una audiencia, tras ver repetidamente los
+mismos anuncios o elementos creativos, empieza a desconectarse y a ignorarlos, provocando una
+caída en el rendimiento de la campaña.}, desarrolló el Creative Diversity Score (CDS), un índice que va de 0 a 100
+construido sobre seis dimensiones operativas que convierte la abstracción de
+``variedad'' en una métrica accionable \citep{readyset2025}. De este modo, el puntaje
+CDS refleja cuán diversa es una estrategia creativa en un sentido integral.
+
+Desde su lanzamiento, el CDS se usa como KPI interno de la empresa para auditar
+más de 60.000 anuncios. Las seis dimensiones que componen el CDS abarcan
+distintos aspectos de las campañas publicitarias, tales como: la variedad de
+formatos y estilos de producción utilizados, la diversidad de temáticas y conceptos
+creativos abordados, la sofisticación de la estrategia de segmentación y funnel
+aplicada, la amplitud de canales y ubicaciones donde corren los anuncios, la
+diversidad del elenco o personas mostradas en las creatividades (casting), y la
+frecuencia de rotación o renovación de los anuncios.
+
+\begin{figure}[H]
+  \centering
+  % \includegraphics[width=0.65\textwidth]{radar_cds.png}
+  \caption{Ejemplo de Creative Diversity Index (CDI): 70.6/100 con las seis dimensiones del CDS.}
+  \label{fig:radar_cds}
+  \small Fuente: Ready Set (2025).
+\end{figure}
+
+En síntesis, dentro de un negocio donde el ingreso de la agencia depende del
+rendimiento y el éxito de la marca en las conversiones, capturar atención es clave y
+diversificar inteligentemente proporciona al algoritmo la materia prima para lograrlo.
+
+\textbf{La presente investigación profundiza en cómo y cuánto cada dimensión de la
+diversidad creativa, medida con el CDS, se correlaciona con el CTR en TikTok,
+aportando evidencia empírica y lineamientos accionables para equipos de
+performance que viven, literalmente, de cada punto porcentual ganado.}
+
+El trabajo aporta tanto a la teoría como a la práctica. Se amplía la literatura sobre
+creatividad publicitaria y performance al ofrecer evidencia cuantitativa sobre el rol de
+la diversidad creativa en el contexto de TikTok. Además, se brindan a las marcas
+recomendaciones concretas sobre qué estrategias creativas, entre las muchas
+posibles, están más estrechamente asociadas con un mayor CTR. En las secciones
+que siguen, se repasa la literatura y los marcos conceptuales relevantes (Sección 2),
+se describen los datos y la metodología, incluyendo el proceso de etiquetado bajo el
+marco CDS (Sección 3), se presentan los resultados con apoyo visual (Sección 4),
+se discuten las implicancias en relación con la teoría de \textit{direct response} y las
+limitaciones prácticas (Sección 5), y se cierra con conclusiones clave y sugerencias
+para investigaciones futuras (Sección 6).
+
+% --- Objetivos ---
+\section{Pregunta de investigación y objetivos}
+
+\subsection{Pregunta de investigación}
+
+¿En qué medida las dimensiones de diversidad creativa del marco Creative Diversity
+Score (CDS) de Ready Set se asocian con el Click Through Rate (CTR) de anuncios
+publicitarios en TikTok?
+
+\subsection{Objetivo principal}
+
+Identificar y cuantificar la asociación entre las dimensiones de diversidad creativa
+del marco CDS y el CTR de anuncios en TikTok, a partir del análisis de 578 Top Ads
+del primer trimestre de 2025.
+
+\subsection{Objetivos secundarios}
+
+\begin{enumerate}
+  \item Describir la distribución del CTR según cada dimensión de diversidad creativa
+        analizada.
+  \item Determinar qué dimensiones del CDS presentan mayor asociación positiva con
+        el CTR en un análisis univariado.
+  \item Controlar la superposición entre atributos creativos mediante un modelo
+        multivariado (OLS y Random Forest).
+  \item Evaluar la robustez de los hallazgos mediante la correlación de importancia
+        de variables entre ambos métodos.
+\end{enumerate}
+
+\subsection{Hipótesis}
+
+$H_1$: Las dimensiones de diversidad creativa del marco CDS presentan una asociación
+positiva y estadísticamente significativa con el CTR de los anuncios en TikTok,
+incluso al controlar por variables de contexto de campaña.
+
+$H_0$: Las dimensiones de diversidad creativa del marco CDS no presentan una
+asociación estadísticamente significativa con el CTR de los anuncios en TikTok.
+
+% ============================================================
+% CAPÍTULO 2 — REVISIÓN DE LA LITERATURA
+% ============================================================
+%
+%  ARCO NARRATIVO DEL CAPÍTULO:
+%  Captar atención en TikTok es difícil [2.1]
+%    → las métricas para medirlo son CTR y CPA [2.2]
+%    → la fatiga creativa erosiona esas métricas [2.3]
+%    → la solución es la diversidad creativa, medida por el CDS [2.4]
+%    → pero probar que mayor CDS CAUSA mejor CTR es difícil [2.5]
+%    → entonces adoptamos un enfoque exploratorio riguroso:
+%       OLS + RF, con sus respectivos fundamentos teóricos [2.6]
+%    → [Cap. 3: Metodología]
+%
+\chapter{Revisión de la Literatura}
+
+% ----------------------------------------------------------
+% SECCIÓN 2.1
+% Argumento: en plataformas de alto tráfico como TikTok, la
+% creatividad del anuncio es el principal factor diferenciador
+% bajo control del anunciante. La literatura muestra que
+% atributos del contenido video impactan directamente en
+% métricas de performance.
+% Papers clave: \citet{guido2018}, \citet{yang2025},
+%               \citet{meng2024}
+% ----------------------------------------------------------
+\section{Estrategia creativa y rendimiento en plataformas digitales}
+[CONTENIDO]
+
+\citep{ferrari2004}
+
+% ----------------------------------------------------------
+% SECCIÓN 2.2
+% Argumento: CTR y CPA son las métricas estándar del direct
+% response. CTR = upper funnel (eficacia creativa), CPA =
+% lower funnel (eficiencia de conversión). Pueden responder
+% de manera distinta a la misma estrategia creativa.
+% Papers clave: \citet{sudhir2022}, \citet{kantar2023},
+%               \citet{tiktok_engagement2024}
+% ----------------------------------------------------------
+\section{Métricas clave: CTR y CPA en campañas de respuesta directa}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SECCIÓN 2.3
+% Argumento: la exposición repetida al mismo anuncio produce
+% fatiga creativa, que se manifiesta como caída del CTR y
+% suba del CPA. La solución es rotar y diversificar las piezas.
+% Papers clave: \citet{tiktok_audiovisual2025},
+%               fuentes industria: \citet{singular2025}, \citet{adlib2022}
+% ----------------------------------------------------------
+\section{Fatiga creativa y necesidad de diversidad}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SECCIÓN 2.4
+% Argumento: la diversidad creativa es la palanca para mitigar
+% la fatiga. El CDS de Ready Set la operacionaliza en seis
+% dimensiones medibles y accionables.
+% Papers clave: \citet{readyset2025}, \citet{meta2024a},
+%               \citet{meta2024b}, \citet{jcr_diversity2024}
+% ----------------------------------------------------------
+\section{Diversidad creativa y Creative Diversity Score (CDS)}
+[CONTENIDO]
+
+\subsection{Ejemplo de análisis usando el CDS}
+[CONTENIDO]
+
+\subsection{Hallazgos principales}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SECCIÓN 2.5
+% Argumento: los datos observacionales no permiten afirmar
+% causalidad. Los anunciantes con más diversidad creativa
+% también suelen ser más sofisticados en otras dimensiones.
+% Se necesita diseño experimental (A/B, DiD) para aislar
+% el efecto causal. Este estudio es exploratorio/asociativo.
+% Papers clave: \citet{sudhir2022}, \citet{cunningham2021}
+% ----------------------------------------------------------
+\section{Desafíos metodológicos: causalidad vs.\ asociación}
+[CONTENIDO]
+
+\subsection{Ejemplo de experimento para identificar la relación causal}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SECCIÓN 2.6  *** NUEVA ***
+% Argumento: dado que queremos cuantificar el efecto de
+% variables categóricas creativas sobre una métrica acotada
+% (CTR ∈ [0,1]), necesitamos justificar las herramientas
+% estadísticas elegidas. Esta sección provee ese sustento
+% teórico antes de pasar a la Metodología.
+% ----------------------------------------------------------
+\section{Marco estadístico para el análisis de atributos creativos}
+
+% ----------------------------------------------------------
+% SUBSECCIÓN 2.6.1
+% Argumento: OLS es el punto de partida natural por su
+% transparencia e interpretabilidad. Los coeficientes
+% permiten comparar directamente la asociación de cada
+% categoría con el CTR estandarizado.
+% Pero el CTR ∈ (0,1) viola potencialmente el supuesto de
+% homocedasticidad y puede producir predicciones fuera del
+% rango. La alternativa econométrica canónica es el modelo
+% de respuesta fraccional (Papke & Wooldridge 1996) o la
+% regresión beta (Ferrari & Cribari-Neto 2004).
+% Sin embargo, el objetivo de este estudio es el RANKING
+% de features, no la predicción puntual de CTR. Con esa
+% aclaración, OLS es válido y más interpretable.
+% Para mitigar la heterocedasticidad se reportan errores
+% estándar robustos (White 1980).
+%
+% Papers clave: \citet{wooldridge2012} (supuestos OLS),
+%               \citet{papke1996} (respuesta fraccional),
+%               \citet{ferrari2004} (regresión beta),
+%               \citet{white1980} (errores robustos)
+% ----------------------------------------------------------
+\subsection{Regresión OLS para variables de respuesta categórica:
+            supuestos, limitaciones y justificación}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SUBSECCIÓN 2.6.2
+% Argumento: las relaciones entre atributos creativos y CTR
+% pueden ser no lineales (interacciones, umbrales). El RF
+% captura estas relaciones sin asumir forma funcional.
+% Actúa como prueba de robustez del ranking obtenido en OLS.
+% Importante: la importancia por Gini (MDI) tiene sesgo
+% hacia variables con más categorías -- relevante porque
+% creative_concept tiene ~20 categorías vs talent_type con ~7.
+% Se prefiere permutation importance o SHAP.
+%
+% Papers clave: \citet{breiman2001} (Random Forests),
+%               \citet{hastie2009} (ESL, cap. 15),
+%               \citet{strobl2007} (sesgo en Gini importance),
+%               \citet{strobl2008} (conditional importance),
+%               \citet{lundberg2017} (SHAP values)
+% ----------------------------------------------------------
+\subsection{Random Forest como complemento no paramétrico:
+            importancia de variables e interpretabilidad}
+[CONTENIDO]
+
+% ----------------------------------------------------------
+% SUBSECCIÓN 2.6.3
+% Argumento: combinar OLS y RF es una práctica validada en
+% la literatura. Si ambos coinciden en el ranking de variables,
+% la robustez del hallazgo aumenta. Si divergen, señalan
+% relaciones no lineales o interacciones para investigación
+% futura. Esta estrategia sigue la recomendación de Breiman
+% (2001b) de integrar la cultura del modelado de datos
+% (OLS) con la cultura algorítmica (RF).
+%
+% Papers clave: \citet{breiman2001b} (Two Cultures),
+%               \citet{james2021} (ISLP),
+%               \citet{varian2014} (ML complementa econometría clásica),
+%               \citet{mullainathan2017} (ML resuelve predicción, OLS resuelve estimación)
+% ----------------------------------------------------------
+\subsection{La complementariedad entre enfoques lineales y no lineales}
+[CONTENIDO]
+
+% ============================================================
+% CAPÍTULO 3 — METODOLOGÍA
+% ============================================================
+\chapter{Metodología}
+
+\section{Recolección y anotación de datos}
+[CONTENIDO]
+
+\section{Feature Engineering}
+[CONTENIDO]
+
+\section{Enfoque analítico}
+
+\subsection{Modelo de Mínimos Cuadrados Ordinarios (OLS)}
+[CONTENIDO — incluir discusión de supuestos: normalidad de residuos, homocedasticidad, outliers, uso de R² Ajustado]
+
+\subsection{Modelo Random Forest}
+[CONTENIDO — incluir descripción del ajuste del modelo, hiperparámetros, OOB error]
+
+\subsection{Análisis de robustez}
+[CONTENIDO — análisis excluyendo variables de control dominantes (duration, objective\_value\_Conversions)]
+
+\section{Limitaciones del estudio}
+[CONTENIDO]
+
+% ============================================================
+% CAPÍTULO 4 — RESULTADOS
+% ============================================================
+\chapter{Resultados}
+
+\section{Análisis Exploratorio de los Datos (EDA)}
+[CONTENIDO]
+
+\section{Análisis Univariado}
+
+\subsection{Creative Theme vs. CTR}
+[CONTENIDO]
+
+\subsection{Creative Concept vs. CTR}
+[CONTENIDO]
+
+\subsection{Talent Type vs. CTR}
+[CONTENIDO]
+
+\section{Análisis Multivariado}
+
+\subsection{Regresión Lineal — Mínimos Cuadrados Ordinarios (OLS)}
+[CONTENIDO — incluir tabla de resultados con coeficientes, p-values, R² Ajustado, análisis de residuos]
+
+\subsection{Resultados Random Forest}
+[CONTENIDO — incluir gráfico de importancia de variables, análisis con y sin duration/objective\_value\_Conversions]
+
+% ============================================================
+% CAPÍTULO 5 — CONCLUSIÓN
+% ============================================================
+\chapter{Conclusión}
+
+\section{Alineación con la teoría de Direct Response}
+[CONTENIDO]
+
+\section{Implicancias para equipos creativos y de medios}
+[CONTENIDO]
+
+\section{Análisis multivariado versus univariado}
+[CONTENIDO]
+
+\section{Limitaciones del estudio}
+[CONTENIDO]
+
+\section{Relación con el marco de Creative Diversity Score (CDS)}
+[CONTENIDO]
+
+\section{Líneas futuras de investigación}
+[CONTENIDO]
+
+% ============================================================
+% BIBLIOGRAFÍA
+% ============================================================
+\bibliographystyle{apalike}
+\bibliography{references}
+
+% ============================================================
+% ANEXO
+% ============================================================
+\appendix
+\chapter{Anexos}
+
+\section{Tabla de Acrónimos}
+
+\begin{table}[H]
+  \centering
+  \caption{Tabla de acrónimos utilizados en el trabajo}
+  \label{tab:acronimos}
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Acrónimo} & \textbf{Definición} \\
+    \midrule
+    CDS  & Creative Diversity Score \\
+    CTR  & Click Through Rate \\
+    CPA  & Cost Per Acquisition \\
+    OLS  & Ordinary Least Squares (Mínimos Cuadrados Ordinarios) \\
+    RF   & Random Forest \\
+    EDA  & Exploratory Data Analysis \\
+    IA   & Inteligencia Artificial \\
+    ITBA & Instituto Tecnológico de Buenos Aires \\
+    \bottomrule
+  \end{tabular}
+  \caption*{\small Fuente: Elaboración propia.}
+\end{table}
+
+\section{Resultados Regresión Lineal}
+[CONTENIDO — tablas completas de resultados OLS]
+
+% ============================================================
+\end{document}
