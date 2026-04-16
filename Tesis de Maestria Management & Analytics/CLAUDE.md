@@ -6,9 +6,52 @@ Este archivo contiene criterios y contexto acumulado para la tesis de Camilo. Pe
 
 ## Contexto de la tesis
 
-- **Tema:** Identificar qué dimensiones creativas impactan positivamente el CTR en campañas de paid social, para orientar a creative strategists en la optimización de su creative diversity score.
-- **Metodología:** OLS + Random Forest. Si ambos modelos convergen en el mismo ranking de dimensiones, eso constituye evidencia robusta.
+- **Tema:** Identificar qué dimensiones creativas están asociadas con mayor CTR en campañas de paid social (TikTok), para orientar a creative strategists en la optimización de su creative diversity score.
+- **Plataforma:** TikTok Top Ads
+- **Metodología:** OLS + Random Forest + SHAP. Si ambos modelos convergen en el mismo ranking de dimensiones, eso constituye evidencia robusta (Breiman, 2001).
 - **Framework epistemológico:** Puramente predictivo/descriptivo. No hay pretensión causal.
+- **Estado:** La tesis tiene escritura avanzada pero recibió dos pre-dictámenes pidiendo mejorar el marco conceptual y validar supuestos del análisis.
+
+---
+
+## Dataset
+
+- **Archivo:** `tiktok_topads_clean.csv` en `/Users/camilojaureguiberry/Documents/devs/NarrativeLens/data/datasets/`
+- **Observaciones:** 578 ads
+- **Variable dependiente:** CTR (continua, muy sesgada a la derecha → se usa log(CTR))
+- **Dimensiones creativas:** `creative_theme` (9 cat.), `creative_concept` (20 cat.), `talent_type` (7 cat.)
+- **Controles:** `duration`, `objective_value`, `campaign_objective`
+- **Nulos:** `talent_type` null = ausencia real de talento en el ad (se rellena con "No Talent"). `creative_concept` null = "Not Applicable"
+
+---
+
+## Arquitectura metodológica
+
+### Justificación (Breiman, 2001 — "Statistical Modeling: The Two Cultures")
+- **OLS** = data model: asume forma funcional lineal, da coeficientes interpretables y comunicables a creative strategists.
+- **Random Forest** = algorithmic model: no asume forma funcional, captura interacciones y no linealidades.
+- **SHAP** (Lundberg & Lee, 2017): calcula contribución marginal de cada variable por observación individual. Más honesto que impurity-based feature importance, especialmente para variables categóricas con muchas categorías.
+- La convergencia entre OLS y RF (vía SHAP) constituye evidencia robusta independiente de los supuestos de cada modelo.
+
+### Rol de cada modelo
+- RF + SHAP → identifica qué dimensiones tienen mayor capacidad predictiva (sin supuestos de forma)
+- OLS → provee coeficientes interpretables para comunicar magnitud del efecto a practitioners
+- Si una dimensión es relevante en ambos modelos → usar coeficiente OLS para comunicar el efecto
+- Si divergen → la divergencia indica posible no linealidad; apoyarse en SHAP
+
+### Resultados preliminares del análisis (verificados, abril 2026)
+- **OLS R² out-of-sample (5-fold CV):** 0.496 ± 0.07
+- **RF R² out-of-sample (5-fold CV):** 0.501 ± 0.14
+- Los modelos convergen fuera de muestra (RF sobreajusta fuertemente in-sample: 0.94)
+- **Ranking SHAP de dimensiones creativas:** 1) creative_theme, 2) talent_type, 3) creative_concept
+- **Durbin-Watson ≈ 0.76** → posible autocorrelación (clustering intra-marca). Mencionar como limitación.
+
+---
+
+## Archivos del proyecto
+
+- **Notebook principal:** `/Users/camilojaureguiberry/Documents/devs/NarrativeLens/src/modeling/regression_analysis_thesis_v2.ipynb`
+- **Entorno Python:** venv en `/Users/camilojaureguiberry/Documents/devs/NarrativeLens/NarrativeLens/` — usar `/usr/local/bin/python3` como intérprete en VS Code (el symlink interno está roto)
 
 ---
 
@@ -24,6 +67,10 @@ Usar en cambio:
 - ✅ "la dimensión X **está asociada con** mayor CTR"
 - ✅ "la dimensión X **es un predictor relevante** de CTR"
 - ✅ "cuando X está presente, históricamente la performance fue mejor"
+
+### 2. Supuestos a mencionar como limitaciones
+- Supuesto i.i.d. (Breiman, 2001): puede verse afectado por clustering intra-marca (varias campañas del mismo anunciante comparten características no observadas)
+- Durbin-Watson bajo: reportar como posible autocorrelación en los residuos
 
 ---
 
