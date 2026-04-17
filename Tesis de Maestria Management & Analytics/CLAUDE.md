@@ -39,12 +39,62 @@ Este archivo contiene criterios y contexto acumulado para la tesis de Camilo. Pe
 - Si una dimensión es relevante en ambos modelos → usar coeficiente OLS para comunicar el efecto
 - Si divergen → la divergencia indica posible no linealidad; apoyarse en SHAP
 
-### Resultados preliminares del análisis (verificados, abril 2026)
+### Resultados del análisis (verificados, abril 2026)
 - **OLS R² out-of-sample (5-fold CV):** 0.496 ± 0.07
-- **RF R² out-of-sample (5-fold CV):** 0.501 ± 0.14
-- Los modelos convergen fuera de muestra (RF sobreajusta fuertemente in-sample: 0.94)
+- **RF R² out-of-sample (5-fold CV):** 0.519 ± 0.14
+- Los modelos convergen fuera de muestra (RF sobreajusta fuertemente in-sample: 0.90)
 - **Ranking SHAP de dimensiones creativas:** 1) creative_theme, 2) talent_type, 3) creative_concept
 - **Durbin-Watson ≈ 0.76** → posible autocorrelación (clustering intra-marca). Mencionar como limitación.
+
+### Hallazgo metodológico clave (sesión abril 2026)
+La comparación OLS vs SHAP **debe hacerse a nivel de categoría individual** (n=34), no a nivel de dimensión agregada (n=3). Comparar con n=3 es estadísticamente inútil y llevó a conclusiones erróneas de "no convergencia".
+
+**El problema de métrica**: OLS |coeficiente| y SHAP mean |value| miden cosas distintas:
+- OLS |coef| = tamaño del efecto puro de la categoría (desviación respecto a la gran media)
+- SHAP mean |value| = contribución promedio en el dataset = efecto × prevalencia
+
+Una categoría con n=3 observaciones puede tener un OLS enorme pero SHAP ≈ 0 (afecta a 3 de 578 ads). La comparación directa sin ponderar da ρ = −0.03 (p = 0.87), sugiriendo "divergencia". Pero al ponderar OLS |coef| × prevalencia (n_cat/578), la correlación sube a **Spearman ρ = 0.74, p < 0.0001** → convergencia fuerte.
+
+**Implicación para la tesis:** el argumento de convergencia sí se sostiene, pero requiere la métrica correcta. Comunicar que SHAP ya incorpora la prevalencia intrínsecamente (promedia sobre todas las observaciones), por lo que para hacerla comparable con OLS hay que ponderar el coeficiente por la frecuencia de la categoría.
+
+### Ranking de categorías creativas (convergencia OLS ponderado × SHAP)
+
+**Top Tier — ambos modelos coinciden (SHAP top 10 + OLS significativo):**
+
+| Dir. | Categoría | Dimensión | n | CTR medio | OLS coef | Sig. | SHAP rank |
+|------|-----------|-----------|---|-----------|----------|------|-----------|
+| − | Humor & Entertainment | creative_theme | 32 | 0.015 | −0.505 | *** | #1 |
+| − | No Talent | talent_type | 227 | 0.029 | −0.144 | ** | #2 |
+| + | Day-in-the-life story | creative_concept | 36 | 0.048 | +0.435 | *** | #3 |
+| − | Customers | talent_type | 120 | 0.025 | −0.139 | ** | #4 |
+| − | Product demo | creative_concept | 252 | 0.040 | −0.193 | * | #5 |
+| + | Product-Centric | creative_theme | 220 | 0.045 | +0.258 | ** | #8 |
+
+**Tier 2 — alto SHAP, OLS no significativo (posible no-linealidad):**
+
+| Dir. | Categoría | Dimensión | n | SHAP rank |
+|------|-----------|-----------|---|-----------|
+| + | Lifestyle & Aspirational | creative_theme | 49 | #6 |
+| − | Not Applicable (sin concepto) | creative_concept | 100 | #7 |
+| + | Promotional & Offer-Based | creative_theme | 128 | #9 |
+| + | Combination of actors & customers | talent_type | 25 | #10 |
+
+**Tier 3 — OLS significativo pero SHAP bajo (efecto intenso, muy pocos casos):**
+- Event-driven (n=3, CTR=0.347): OLS +1.35***, SHAP #14
+- Aspirational creator collaboration (n=2): OLS +0.651***, SHAP #20
+- Testimonial & Social Proof (n=37): OLS +0.338***, SHAP #19
+- FAQ (n=14): OLS −0.416***, SHAP #23
+- Meme-based content (n=6): OLS −0.603***, SHAP #26
+
+**Insight narrativo**: "Humor & Entertainment" siendo el predictor con mayor SHAP (negativo) es contraintuitivo para TikTok y potencialmente el hallazgo más interesante para discutir. Los ads sin talento (No Talent, n=227) también están asociados negativamente. Del lado positivo, "Day-in-the-life story" y "Product-Centric" son los conceptos más robustos.
+
+### Variables creativas adicionales en el dataset (no incluidas en el modelo actual)
+El dataset tiene 21 columnas; las siguientes podrían considerarse variables creativas:
+- `format_production_style` (6 cat.): 92% Native Video → poca variabilidad, probablemente agregar poco
+- `is_ugc` (bool): UGC (n=470, CTR=0.038) vs no-UGC (n=108, CTR=0.017) — diferencia notable
+- `demographic_representation` (12 cat.): algunas con n=1 o n=3, habría que colapsar categorías
+- `audience_focus` (5 cat.): más estrategia que creatividad per se
+- `industry_parent` / `industry_child`: exógenas, no se "deciden" creativamente
 
 ---
 
@@ -74,4 +124,4 @@ Usar en cambio:
 
 ---
 
-*Última actualización: abril 2026*
+*Última actualización: 17 de abril 2026 — sesión de revisión metodológica y hallazgos por categoría*
