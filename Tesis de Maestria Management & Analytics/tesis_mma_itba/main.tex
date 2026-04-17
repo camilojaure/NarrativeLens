@@ -518,7 +518,72 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 % ----------------------------------------------------------
 \subsection{Regresión OLS para variables de respuesta categórica:
             supuestos, limitaciones y justificación}
-[CONTENIDO]
+
+El modelo de mínimos cuadrados ordinarios (OLS) descansa sobre un conjunto de supuestos
+cuya validez condiciona la confiabilidad de la inferencia. \citet{fox2016} los ordena
+jerárquicamente según su impacto en la inferencia: la correcta especificación de la
+forma funcional y la ausencia de multicolinealidad perfecta son los más críticos; la
+homocedasticidad es importante pero tratable; la normalidad de los errores es la condición
+menos exigente cuando el tamaño muestral es suficientemente grande
+\citep[Cap.~5]{fox2016}.
+
+\subsubsection*{Codificación de variables categóricas y trampa de las variables indicadoras}
+
+La inclusión de variables categóricas mediante variables indicadoras (\textit{dummies})
+requiere que una categoría sea excluida del modelo para evitar multicolinealidad perfecta
+con el intercepto, fenómeno conocido como la trampa de las variables indicadoras.
+\citet[p.~163]{fox2016} establece que al representar una variable categórica con $k$
+niveles se generan exactamente $k$ indicadoras cuya suma es idéntica a la constante,
+haciendo que la matriz de diseño sea de rango incompleto. La solución estándar consiste
+en omitir una categoría de referencia, de modo que todos los coeficientes restantes
+expresen la desviación de esa categoría respecto al intercepto global.
+
+En el presente análisis se emplea codificación por efectos (\textit{sum-to-zero contrasts}),
+que fuerza que los coeficientes de todas las categorías sumen cero. Esto permite
+interpretar cada coeficiente como la desviación de esa categoría respecto a la gran
+media global, lo cual es conceptualmente más natural para comparar el desempeño
+relativo de dimensiones creativas sin que los resultados dependan de la elección
+arbitraria de una categoría de referencia \citep[Cap.~8]{fox2016}.
+
+\subsubsection*{Variable dependiente acotada y transformación logarítmica}
+
+El CTR es una proporción acotada en el intervalo $(0, 1)$, lo que plantea una
+incompatibilidad parcial con los supuestos del OLS lineal: las predicciones pueden
+caer fuera del rango válido y la varianza de los errores tiende a aumentar a medida
+que el valor predicho se aproxima a los extremos del intervalo. La literatura propone
+alternativas diseñadas específicamente para este tipo de variable dependiente.
+\citet{papke1996} desarrollan el estimador de máxima verosimilitud para respuesta
+fraccional (\textit{fractional logit}), que garantiza predicciones en $(0,1)$ y es
+asintóticamente eficiente. \citet{ferrari2004} proponen la regresión beta, un modelo
+que parametriza directamente la media y la dispersión de una distribución beta, siendo
+especialmente adecuado cuando los datos presentan asimetría dentro del intervalo.
+
+En este trabajo se aplica la transformación logarítmica $y^* = \log(\text{CTR})$,
+que resuelve el problema de dos maneras complementarias. En primer lugar, estabiliza
+la varianza: el CTR presenta una asimetría derecha pronunciada (skewness = 6{,}78)
+que se reduce a 1{,}87 tras la transformación, aproximando la distribución a una forma
+más simétrica \citep[Cap.~12]{fox2016}. En segundo lugar, neutraliza el riesgo de
+predicciones fuera de rango dentro del soporte de los datos observados. La elección
+del logaritmo puede fundamentarse formalmente mediante el procedimiento de Box--Cox:
+en el límite $\lambda \to 0$, la familia de transformaciones potencia de Box--Cox
+converge a la transformación logarítmica \citep[Cap.~12]{fox2016}, lo que otorga
+respaldo empírico a esta decisión cuando el parámetro estimado es cercano a cero.
+
+El objetivo del modelo no es la predicción puntual de CTR sino la estimación del
+\textit{ranking} de importancia de las dimensiones creativas. En este contexto,
+la pérdida de interpretabilidad directa de los coeficientes (que ahora expresan
+efectos multiplicativos sobre el CTR en escala original) es compensada por la
+mayor validez de los supuestos del modelo.
+
+\subsubsection*{Heterocedasticidad y errores estándar robustos}
+
+Aun con la transformación logarítmica, los datos de CTR pueden exhibir varianza
+no constante de los errores. Para mitigar el impacto de la heterocedasticidad sobre
+la inferencia, se reportan errores estándar robustos siguiendo el estimador de la
+matriz de covarianza consistente con heterocedasticidad propuesto por \citet{white1980},
+en su versión HC1 con corrección de grados de libertad. Este estimador produce
+estadísticos $t$ y valores $p$ asintóticamente válidos sin necesidad de suponer
+varianza constante de los errores \citep[Cap.~12]{fox2016}.
 
 % ----------------------------------------------------------
 % SUBSECCIÓN 2.6.2
@@ -539,7 +604,70 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 % ----------------------------------------------------------
 \subsection{Random Forest como complemento no paramétrico:
             importancia de variables e interpretabilidad}
-[CONTENIDO]
+
+El algoritmo de Random Forest, introducido por \citet{breiman2001}, construye un
+ensamble de árboles de decisión independientes cuyas predicciones se promedian para
+obtener la predicción final. Cada árbol se ajusta sobre una muestra con reemplazo del
+conjunto de datos original (\textit{bootstrap aggregating} o \textit{bagging}), y en
+cada nodo de división solo se evalúa un subconjunto aleatorio de variables predictoras.
+Esta doble fuente de aleatoriedad reduce la correlación entre los árboles del ensamble,
+lo que permite que el promedio de sus predicciones tenga menor varianza que cualquier
+árbol individual sin incrementar el sesgo \citep{breiman2001}.
+
+La propiedad fundamental que motiva el uso del Random Forest en este análisis es su
+ausencia de supuestos sobre la forma funcional de la relación entre las variables
+predictoras y la variable dependiente. Mientras el OLS impone linealidad aditiva,
+el Random Forest es capaz de capturar interacciones entre variables, relaciones no
+monotónicas y umbrales de respuesta de manera implícita, sin que el investigador
+deba especificarlos de antemano \citep[Cap.~15]{hastie2009}.
+
+\subsubsection*{Sesgo en la importancia de variables por impureza de Gini}
+
+Una limitación relevante del Random Forest en el contexto de este análisis concierne
+a la métrica de importancia de variables por defecto: la disminución media de impureza
+(\textit{Mean Decrease Impurity}, MDI), basada en el índice de Gini. \citet{strobl2007}
+demuestran que esta métrica exhibe sesgo sistemático hacia variables con mayor número
+de categorías o mayor varianza, independientemente de su verdadera capacidad predictiva.
+Este sesgo es directamente relevante en el presente estudio, dado que las tres dimensiones
+creativas tienen cardinalidades muy distintas: \texttt{creative\_concept} cuenta con
+hasta 20 categorías mientras que \texttt{talent\_type} tiene 7. Una comparación de
+importancias basada en MDI tendría sesgo \textit{a priori} a favor de \texttt{creative\_concept},
+distorsionando el ranking de dimensiones.
+
+\citet{strobl2008} extienden este análisis y muestran que la importancia por permutación
+(\textit{permutation importance}) también puede verse afectada cuando las variables
+predictoras presentan correlación entre sí, proponiendo la importancia condicional
+como solución. En el presente caso, es razonable suponer que \texttt{creative\_theme}
+y \texttt{creative\_concept} están correlacionadas (un anuncio de tema humorístico
+tiende a emplear ciertos tipos de concepto), por lo que esta caveat se reconoce
+como limitación del análisis y se reporta en la sección correspondiente.
+
+\subsubsection*{SHAP: interpretabilidad basada en teoría de juegos}
+
+Para superar las limitaciones de las métricas de importancia tradicionales,
+se emplean los valores SHAP (\textit{SHapley Additive exPlanations}), propuestos
+por \citet{lundberg2017}. SHAP asigna a cada variable una contribución marginal
+a la predicción individual de cada observación, derivada de los valores de Shapley
+de la teoría de juegos cooperativos. La contribución de la variable $j$ para la
+observación $i$ se define como el promedio ponderado del efecto marginal de incorporar
+$j$ al modelo a través de todas las posibles coaliciones de variables.
+
+La ventaja principal de SHAP sobre MDI y la importancia por permutación es doble.
+Primero, es una medida de importancia \textit{local}: la contribución de cada
+variable se calcula observación a observación, y la importancia global se obtiene
+como el promedio del valor absoluto de las contribuciones individuales
+($\overline{|\phi_j|}$). Esto hace que la métrica global incorpore intrínsecamente
+la prevalencia de cada categoría en el dataset: una categoría con efecto puro elevado
+pero muy pocas observaciones contribuirá poco al promedio global de SHAP, lo que
+resulta en una medida más representativa del impacto real sobre el conjunto de datos.
+Segundo, SHAP satisface un conjunto de propiedades axiomáticas deseables (eficiencia,
+simetría, linealidad y variable nula) que garantizan la unicidad y coherencia de
+la descomposición \citep{lundberg2017}.
+
+En el presente análisis, los valores SHAP se utilizan tanto para determinar la
+importancia de cada dimensión creativa (a nivel agregado, comparando las tres
+dimensiones) como para interpretar la dirección del efecto de cada categoría
+individual sobre el CTR predicho.
 
 % ----------------------------------------------------------
 % SUBSECCIÓN 2.6.3
@@ -557,7 +685,50 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %               \citet{mullainathan2017} (ML resuelve predicción, OLS resuelve estimación)
 % ----------------------------------------------------------
 \subsection{La complementariedad entre enfoques lineales y no lineales}
-[CONTENIDO]
+
+La decisión de emplear simultáneamente un modelo OLS y un Random Forest en esta
+investigación se enmarca en un debate metodológico más amplio sobre las dos culturas
+del modelado estadístico, articulado por \citet{breiman2001b}. Breiman distingue entre
+la cultura del \textit{modelado de datos} (\textit{data modeling culture}), que asume
+una forma funcional estocástica para generar los datos y estima sus parámetros, y la
+cultura del \textit{modelado algorítmico} (\textit{algorithmic modeling culture}), que
+trata la relación entre variables predictoras y respuesta como una caja negra y busca
+la función que mejor la aproxima empíricamente. La regresión OLS es el ejemplo canónico
+de la primera cultura; el Random Forest, de la segunda.
+
+\citet{breiman2001b} argumenta que la adopción exclusiva del modelado de datos lleva a
+asumir modelos que frecuentemente no reflejan la estructura real de los datos, produciendo
+estimaciones sesgadas y conclusiones dudosas cuando los supuestos no se cumplen. Al mismo
+tiempo, reconoce que los modelos algorítmicos sacrifican interpretabilidad: sus predicciones
+son precisas pero difíciles de traducir en reglas de acción concretas para los practicantes.
+
+\citet{varian2014}, escribiendo desde la perspectiva de la economía aplicada, llega a una
+conclusión análoga: las técnicas de aprendizaje automático son superiores al OLS para tareas
+de predicción y para descubrir relaciones no lineales complejas en datos de alta dimensionalidad,
+pero el OLS retiene ventajas decisivas cuando el objetivo es la estimación de parámetros con
+validez inferencial. Varian propone que la combinación de ambos enfoques---usando ML para
+selección de variables o detección de no linealidades, y OLS para la cuantificación de efectos---
+produce análisis más robustos que cualquiera de los dos aisladamente.
+
+\citet{mullainathan2017} formalizan esta complementariedad distinguiendo entre dos problemas
+estadísticos fundamentalmente distintos: la predicción ($\hat{y}$) y la estimación ($\hat{\beta}$).
+El aprendizaje automático está optimizado para minimizar el error de predicción fuera de muestra,
+pero no produce estimadores insesgados de coeficientes causales ni ofrece errores estándar con
+interpretación probabilística directa. La econometría clásica, en cambio, está diseñada para
+estimar $\hat{\beta}$ con propiedades estadísticas conocidas, aunque al precio de supuestos de
+forma funcional que pueden no ser válidos. Los autores concluyen que ambos enfoques son
+complementarios, no competidores, y que su uso conjunto enriquece el análisis.
+
+En el presente estudio, esta complementariedad se operacionaliza de la siguiente manera.
+El OLS provee coeficientes interpretables que permiten cuantificar la magnitud y dirección
+de la asociación entre cada categoría creativa y el CTR, y comunicar esos efectos de manera
+accionable a los \textit{creative strategists}. El Random Forest, a través de los valores SHAP,
+valida el ranking de importancia de las dimensiones creativas sin imponer supuestos de linealidad
+o aditividad. Cuando ambos modelos convergen en el ranking de importancia de una variable, la
+evidencia es robusta porque proviene de dos frameworks estadísticos con supuestos independientes
+\citep{breiman2001b}. Cuando divergen, la divergencia en sí misma constituye información:
+señala posibles relaciones no lineales o interacciones que el OLS no puede capturar, y delimita
+el alcance de las conclusiones del modelo lineal.
 
 % ============================================================
 % CAPÍTULO 3 — METODOLOGÍA
@@ -582,7 +753,56 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 [CONTENIDO — análisis excluyendo variables de control dominantes (duration, objective\_value\_Conversions)]
 
 \section{Limitaciones del estudio}
-[CONTENIDO]
+
+El análisis presentado en este trabajo tiene un carácter descriptivo y predictivo:
+su objetivo es identificar qué dimensiones creativas están \textit{asociadas} con
+mayor CTR en el dataset disponible, sin pretender establecer relaciones causales.
+Las siguientes limitaciones son inherentes al diseño del estudio y deben tenerse
+en cuenta al interpretar los resultados.
+
+\paragraph{Normalidad de los residuos y efecto piso del CTR.}
+El test de Shapiro--Wilk rechaza la normalidad de los residuos del modelo OLS
+($p < 0{,}05$). Sin embargo, este resultado no invalida el análisis por dos razones.
+Primero, con $n = 578$, el Teorema Central del Límite asegura que la distribución
+muestral de los coeficientes es aproximadamente normal, por lo que la inferencia
+basada en errores estándar robustos HC1 \citep{white1980} es asintóticamente válida
+\citep[Cap.~5]{fox2016}. Segundo, el patrón estructural observado en los gráficos
+de diagnóstico es consistente con la naturaleza discreta del CTR en el dataset:
+el valor mínimo reportado es 0{,}01, lo que genera una masa de probabilidad
+concentrada en $\log(\text{CTR}) = -4{,}6$ (\textit{floor effect}), produciendo
+artificialmente las bandas visibles en los residuos. Este patrón no es heterocedasticidad
+clásica sino un artefacto de la discretización de la variable dependiente.
+
+\paragraph{Posible autocorrelación en los residuos.}
+El estadístico de Durbin--Watson arroja un valor de aproximadamente 0{,}76, bastante
+por debajo del rango libre de autocorrelación. Este resultado es consistente con la
+presencia de agrupamiento intra-marca (\textit{clustering}): el dataset contiene
+múltiples anuncios de los mismos anunciantes, y los anuncios de una misma marca
+comparten características no observadas (identidad visual, tono comunicacional,
+presupuesto) que los hacen más similares entre sí que a los anuncios de otras marcas.
+Esto viola el supuesto de independencia de las observaciones \citep{breiman2001b}.
+En ausencia de identificadores de anunciante en el dataset, no es posible aplicar
+errores estándar agrupados (\textit{clustered SE}); la autocorrelación se reporta
+como limitación y sus implicaciones deben considerarse al evaluar la precisión de
+los errores estándar reportados.
+
+\paragraph{Sesgos en la medición de importancia de variables.}
+La importancia por impureza de Gini tiene sesgo hacia variables con mayor cardinalidad
+\citep{strobl2007}. Por este motivo se emplean valores SHAP como métrica primaria de
+importancia. Sin embargo, la importancia condicional \citep{strobl2008} no se implementa
+en este análisis: dado que \texttt{creative\_theme} y \texttt{creative\_concept} pueden
+estar correlacionadas, la importancia por permutación y SHAP podrían sobreestimar la
+contribución de una de ellas al capturar varianza compartida. Este punto constituye una
+limitación reconocida que podría abordarse en investigación futura.
+
+\paragraph{Sesgo de selección y representatividad del dataset.}
+Los datos provienen de TikTok Top Ads, una plataforma curada que exhibe los anuncios
+con mejor desempeño histórico. Esto introduce un sesgo de supervivencia: los anuncios
+de baja performance están sub-representados en el dataset, lo que implica que los
+coeficientes estimados reflejan patrones dentro del subconjunto de anuncios exitosos
+y no necesariamente serían replicables sobre el universo completo de anuncios publicados.
+Las asociaciones reportadas son válidas como descripción de los anuncios de alto
+rendimiento, pero deben interpretarse con cautela como guía prescriptiva universal.
 
 % ============================================================
 % CAPÍTULO 4 — RESULTADOS

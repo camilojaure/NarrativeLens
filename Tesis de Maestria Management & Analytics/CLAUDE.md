@@ -121,7 +121,39 @@ Usar en cambio:
 ### 2. Supuestos a mencionar como limitaciones
 - Supuesto i.i.d. (Breiman, 2001): puede verse afectado por clustering intra-marca (varias campañas del mismo anunciante comparten características no observadas)
 - Durbin-Watson bajo: reportar como posible autocorrelación en los residuos
+- **Normalidad de residuos:** Shapiro-Wilk la rechaza, pero no invalida el análisis. Dos razones: (1) con n=578 el TCL garantiza distribución muestral normal de los coeficientes → inferencia válida con HC1 (Fox, 2016, Cap. 5); (2) el patrón en "V" del Scale-Location y las dos bandas en Residuos vs. Fitted son un *floor effect* de CTR mínimo = 0.01 → log(CTR) = −4.6, no heterocedasticidad clásica.
+
+**Texto listo para sección de Limitaciones:**
+> "El test de Shapiro-Wilk rechaza la normalidad de los residuos (p < 0.05). Sin embargo, este resultado no invalida el análisis por dos razones. Primero, con n = 578, el Teorema Central del Límite asegura que la distribución muestral de los coeficientes es aproximadamente normal, por lo que la inferencia basada en errores estándar robustos HC1 (White, 1980) es asintóticamente válida (Fox, 2016, Cap. 5). Segundo, el patrón estructural observado en los gráficos de diagnóstico es consistente con la naturaleza discreta del CTR en el dataset: el valor mínimo reportado es 0.01, lo que genera una masa de probabilidad concentrada en log(CTR) = −4.6 (efecto piso), produciendo artificialmente las bandas visibles en los residuos. Se reporta como limitación junto con la baja continuidad de la variable dependiente."
 
 ---
 
-*Última actualización: 17 de abril 2026 — sesión de revisión metodológica y hallazgos por categoría*
+## Nota sobre objective_value_Conversions (variable de control dominante)
+
+`objective_value` es la variable con mayor SHAP en todo el modelo — muy por encima de las dimensiones creativas. La categoría **Conversions** tiene coeficiente OLS = −1.16*** y SHAP negativo muy fuerte:
+
+- **Lectura del beeswarm SHAP:** puntos rojos (Conversions = 1) a la izquierda → menor CTR predicho. Puntos azules (Conversions = 0) a la derecha → mayor CTR predicho.
+- **Por qué tiene sentido:** las campañas optimizadas por Conversions instruyen al algoritmo de TikTok a mostrar el ad a usuarios con alta probabilidad de *convertir*, no de *hacer click*. El algoritmo trabaja con audiencias más pequeñas y selectivas → CTR naturalmente más bajo. Las campañas de App Installs o Product Sales buscan clicks → CTR más alto.
+- **Implicación metodológica:** esto justifica incluirla como control, no como variable de interés. Sin controlarla, se mezclarían dos poblaciones de ads con CTRs estructuralmente distintos y los coeficientes creativos absorberían ese ruido. La pregunta de la tesis queda correctamente formulada como: *"dado el mismo tipo de campaña, ¿qué dimensiones creativas están asociadas con mayor CTR?"*
+- **Importante para la defensa:** `objective_value` no es una decisión creativa — es una configuración de TikTok Business Center. Su dominancia en el modelo es una validación de que el modelo captura señal real, no un problema.
+
+---
+
+## Robustness Check — Colapso de categorías con n < 10
+
+**Criterio:** categorías con menos de 10 observaciones → colapsadas en "Other" (Fox, 2016, Cap. 5; James et al., 2021, Cap. 3).
+
+**Impacto:**
+- `creative_concept`: 20 → 7 categorías individuales + "Other" (n=57)
+- `creative_theme`: sin cambios (todas n ≥ 10)
+- `talent_type`: 1 categoría colapsada (n=2)
+
+**Resultados:**
+- OLS R² CV: 0.496 → 0.505 (leve mejora, coeficientes más estables)
+- Convergencia Spearman: ρ = 0.74 → 0.57 (sigue significativa, p=0.006)
+- Top Tier es prácticamente idéntico — hallazgos principales son robustos
+- Única excepción: "Product demo" pierde significancia OLS al colapsar
+
+---
+
+*Última actualización: 17 de abril 2026 — supuestos OLS, objective_value, robustness check*
