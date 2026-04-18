@@ -167,7 +167,7 @@ humana mostraron asociaciones negativas consistentes. La correlación entre los
 coeficientes OLS ponderados por prevalencia y los valores SHAP resultó alta
 ($\rho = 0.735$, $p < 0.001$), lo que valida la consistencia interna del
 enfoque metodológico propuesto. El alcance del estudio es exploratorio y de
-asociación; no se establecen relaciones causales.
+asociación: no se establecen relaciones causales.
 
 En un entorno MarTech/AdTech cada vez más automatizado, el valor de este
 trabajo reside en demostrar que es posible construir un proceso sistemático
@@ -270,15 +270,15 @@ deseadas.
 
 \section{La batalla por la atención en el feed}
 
-En el feed de TikTok el usuario se desplaza (\textit{scrollea}) casi sin pensar;
-investigaciones de neuromarketing muestran que basta un cuarto de segundos de
+En el feed de TikTok el usuario se desplaza (\textit{scrollea}) casi sin pensar,
+y las investigaciones de neuromarketing muestran que basta un cuarto de segundos de
 exposición para que una persona decida si detiene el pulgar o sigue deslizando
 \citep{metafeed2016}. Este lapso brevísimo dio origen al concepto de contenido
 \textit{scroll-stopper}, piezas creadas para frenar ese movimiento y mantener la atención
 hasta que se pueda transmitir el mensaje y lograr la acción deseada, ya sea exponer un
 link hacia una página web, o directamente a la acción de compra. La métrica más sencilla
 y extendida para evaluar ese éxito es el Click Through Rate (CTR), obtenido al dividir los
-clics por las impresiones; indicadores como el Hook Rate o el View Through Rate (VTR)
+clics por las impresiones. Indicadores como el Hook Rate o el View Through Rate (VTR)
 ayudan a medir la retención temprana, pero el CTR sigue siendo el estándar en los equipos
 de performance por su facilidad de cálculo y comparación.
 
@@ -304,7 +304,7 @@ Ante la escasez de atención, la diversidad creativa emerge como estrategia para
 ofrecer al algoritmo de distribución múltiples ``llaves'' capaces de abrir
 micro-segmentos distintos. Un análisis interno de Meta comprobó que los ad
 sets\footnote{Un ad set (conjunto de anuncios) es el nivel de campaña que define audiencia/segmentación,
-presupuesto, calendario, ubicaciones y objetivo de optimización; dentro de él se alojan los anuncios
+presupuesto, calendario, ubicaciones y objetivo de optimización, y dentro de él se alojan los anuncios
 (creatividades).}
 con 3 a 10 creatividades obtuvieron un 46\% menos de Costo Por Adquisición
 (CPA\footnote{El CPA mide cuánto cuesta, en promedio, lograr una conversión objetivo (p. ej., compra, lead,
@@ -444,7 +444,7 @@ influencers en TikTok muestra que los patrones de engagement (me gusta, comentar
 completas) están fuertemente determinados por atributos del contenido, entre ellos el tono narrativo,
 la autenticidad percibida y la integración del producto en la historia. Más aún, esos mismos patrones
 de engagement se traducen en ventas incrementales medibles. El hallazgo central es que no basta con
-que un influencer tenga audiencia; lo que determina la conversión es la estructura del video y la forma
+que un influencer tenga audiencia. Lo que determina la conversión es la estructura del video y la forma
 en que el producto aparece dentro de la narrativa. Esto implica que la creatividad, entendida como la
 configuración de elementos audiovisuales y narrativos de la pieza, no es un factor decorativo sino
 funcional: distintas configuraciones producen distintos resultados de performance.
@@ -494,7 +494,7 @@ El CPA, en cambio, es una métrica de la parte baja del embudo (\textit{lower fu
 promedio de cada conversión atribuida a la campaña, ya sea una compra, un registro o una descarga.
 A diferencia del CTR, el CPA integra no solo la eficacia creativa sino también la calidad de la
 segmentación, la experiencia en la página de destino y la competitividad de la oferta. Un anuncio
-puede tener CTR alto y CPA elevado si atrae muchos clics de usuarios sin intención real de compra;
+puede tener CTR alto y CPA elevado si atrae muchos clics de usuarios sin intención real de compra,
 o CTR bajo y CPA eficiente si la audiencia alcanzada, aunque reducida, tiene alta propensión a
 convertir. Esta asimetría implica que optimizar exclusivamente por CTR no garantiza eficiencia en
 la conversión \citep{kantar2023}.
@@ -508,7 +508,7 @@ relación: invertir en creatividades que maximizan el CTR solo tiene sentido si 
 en última instancia, en reducciones del CPA \citep{kantar2023}.
 
 En el presente estudio se adopta el CTR como variable dependiente principal por dos razones prácticas.
-Primero, es la métrica disponible en el dataset de TikTok Top Ads analizado; el CPA requiere acceso
+Primero, es la métrica disponible en el dataset de TikTok Top Ads analizado, ya que el CPA requiere acceso
 a datos post-clic que no están disponibles en fuentes públicas. Segundo, el CTR es la métrica más
 directamente atribuible a la pieza creativa: a diferencia del CPA, su variación responde principalmente
 a atributos del anuncio y no a factores de la segmentación o de la página de destino. Esto lo convierte
@@ -617,7 +617,7 @@ opciones para testear qué combinación resuena con cada micro-segmento, y el po
 tiene menor exposición al riesgo de fatiga creativa \citep{readyset2025}.
 
 Es importante subrayar que el CDS no mide la calidad de cada pieza individual sino la diversidad del
-conjunto. Un portafolio con CDS alto puede incluir piezas de bajo rendimiento; la premisa es que el
+conjunto. Un portafolio con CDS alto puede incluir piezas de bajo rendimiento, pero la premisa es que el
 desempeño agregado de un portafolio diverso es más robusto y sostenible en el tiempo que el de un
 portafolio concentrado, aunque las piezas individuales de este último puedan ser mejores en aislamiento
 \citep{meta2024a}.
@@ -681,8 +681,8 @@ al tipo de tema creativo asignado, y no a diferencias preexistentes entre los an
 \citep{cunningham2021}.
 
 En la práctica, sin embargo, este diseño enfrenta obstáculos considerables. Las marcas rara vez
-están dispuestas a subordinar sus decisiones creativas a la aleatorización; los presupuestos y las
-estrategias varían durante el período experimental; y los efectos de interacción entre dimensiones
+están dispuestas a subordinar sus decisiones creativas a la aleatorización, los presupuestos y las
+estrategias varían durante el período experimental, y los efectos de interacción entre dimensiones
 del CDS hacen que el espacio experimental sea muy grande para diseños factoriales completos. Una
 alternativa más realista en entornos de industria sería un análisis de diferencias en diferencias
 (DiD) que compare el CTR de las mismas marcas antes y después de un cambio de perfil creativo,
@@ -692,7 +692,7 @@ usando como grupo de control a marcas que no modificaron su estrategia durante e
 Dado que ninguna de estas aproximaciones experimentales es viable con los datos disponibles en este
 estudio, el alcance de las conclusiones es necesariamente correlacional. Los resultados reportados
 en los capítulos siguientes describen qué dimensiones del CDS están \textit{asociadas} con mayor
-CTR en el dataset analizado; no constituyen evidencia de que esas dimensiones aumenten el CTR de
+CTR en el dataset analizado y no constituyen evidencia de que esas dimensiones aumenten el CTR de
 manera causal ni que los efectos sean generalizables a todos los contextos y períodos. Esta
 limitación es inherente al diseño y se reconoce explícitamente a lo largo de la interpretación
 de los resultados.
@@ -735,8 +735,8 @@ de los resultados.
 El modelo de mínimos cuadrados ordinarios (OLS) descansa sobre un conjunto de supuestos
 cuya validez condiciona la confiabilidad de la inferencia. \citet{fox2016} los ordena
 jerárquicamente según su impacto en la inferencia: la correcta especificación de la
-forma funcional y la ausencia de multicolinealidad perfecta son los más críticos; la
-homocedasticidad es importante pero tratable; la normalidad de los errores es la condición
+forma funcional y la ausencia de multicolinealidad perfecta son los más críticos, la
+homocedasticidad es importante pero tratable, y la normalidad de los errores es la condición
 menos exigente cuando el tamaño muestral es suficientemente grande
 \citep[Cap.~5]{fox2016}.
 
@@ -907,7 +907,7 @@ una forma funcional estocástica para generar los datos y estima sus parámetros
 cultura del \textit{modelado algorítmico} (\textit{algorithmic modeling culture}), que
 trata la relación entre variables predictoras y respuesta como una caja negra y busca
 la función que mejor la aproxima empíricamente. La regresión OLS es el ejemplo canónico
-de la primera cultura; el Random Forest, de la segunda.
+de la primera cultura, y el Random Forest, de la segunda.
 
 \citet{breiman2001b} argumenta que la adopción exclusiva del modelado de datos lleva a
 asumir modelos que frecuentemente no reflejan la estructura real de los datos, produciendo
@@ -949,21 +949,225 @@ el alcance de las conclusiones del modelo lineal.
 \chapter{Metodología}
 
 \section{Recolección y anotación de datos}
-[CONTENIDO]
+
+El dataset utilizado en este trabajo está compuesto por 578 anuncios extraídos de TikTok Top Ads,
+una biblioteca pública provista por TikTok que exhibe los anuncios con mejor desempeño histórico
+en la plataforma, filtrados para el primer trimestre de 2025. La selección se restringió a anuncios
+en inglés publicados en el mercado de Estados Unidos, con el objetivo de mantener homogeneidad
+cultural y lingüística en el proceso de etiquetado.
+
+Cada anuncio fue etiquetado manualmente por el autor de acuerdo con tres de las seis dimensiones
+del Creative Diversity Score: \textit{Creative Theme} (temática narrativa general del anuncio),
+\textit{Creative Concept} (tipo específico de ejecución dentro de esa temática) y \textit{Talent
+Type} (tipo de presencia humana o figura principal en el video). Estas tres dimensiones fueron
+seleccionadas por ser las más directamente observables en el contenido audiovisual del anuncio y
+por concentrar la mayor variabilidad creativa en el dataset. Las otras tres dimensiones del CDS
+(Production Style, Funnel Stage y Platform Placement) no forman parte del análisis principal por
+limitaciones en la disponibilidad de metadatos granulares para todos los anuncios de la muestra.
+
+El proceso de etiquetado siguió un protocolo en dos pasos. Primero, se definieron las categorías
+posibles para cada dimensión a partir del marco CDS de Ready Set \citep{readyset2025}, revisando
+los límites entre categorías en los casos ambiguos. Segundo, cada anuncio fue visualizado en
+su totalidad y clasificado de manera independiente en cada una de las tres dimensiones. En los
+casos donde el anuncio podía encuadrarse en más de una categoría, se asignó la que mejor
+representaba el elemento dominante de la pieza.
+
+El dataset resultante presentó distribuciones asimétricas en algunas categorías, con varios
+valores de baja frecuencia. Siguiendo la recomendación de \citet[Cap.~5]{fox2016} de que las
+categorías con muy pocos casos producen estimadores inestables en modelos OLS con variables
+indicadoras, se estableció un umbral mínimo de 10 observaciones por categoría: las categorías
+con $n < 10$ fueron colapsadas en una categoría residual denominada ``Other''. Tras este
+procedimiento, \textit{Creative Concept} pasó de 20 a 8 categorías (7 individuales más
+``Other''), \textit{Talent Type} de 8 a 7 categorías más ``Other'', y \textit{Creative Theme}
+mantuvo sus 9 categorías originales al verificarse que todas contaban con al menos 10
+observaciones. El dataset final opera con 34 categorías creativas en total.
 
 \section{Feature Engineering}
-[CONTENIDO]
+
+\subsection*{Transformación de la variable dependiente}
+
+El CTR en el dataset presenta una distribución marcadamente asimétrica hacia la derecha
+(skewness = 6{,}78), lo que viola el supuesto de homocedasticidad del modelo OLS y reduce la
+estabilidad de los estimadores. Se aplicó la transformación logarítmica $\text{log\_ctr} =
+\log(\text{CTR})$, que redujo la asimetría a 1{,}87, aproximando la distribución a una forma
+más simétrica y estabilizando la varianza. Los fundamentos estadísticos de esta decisión fueron
+desarrollados en la Sección 2.6.1.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{ctr_distribution}
+  \caption{Distribución del CTR original (izquierda) y de log(CTR) (derecha). La transformación
+           logarítmica reduce la asimetría de 6{,}78 a 1{,}87 y elimina la cola derecha extrema,
+           haciendo la distribución más apta para el modelo OLS. El pico visible en log(CTR)
+           $\approx -4{,}6$ corresponde al valor mínimo reportado de CTR = 0{,}01 (\textit{floor
+           effect}).}
+  \label{fig:ctr_distribution}
+  \small Fuente: Elaboración propia en base a datos de TikTok Top Ads (Q1 2025).
+\end{figure}
+
+Para el modelo OLS, la variable dependiente transformada fue adicionalmente estandarizada
+($z$-score) de modo que los coeficientes resulten comparables en magnitud entre dimensiones y
+categorías con distintas escalas. De igual forma, la variable de control \textit{duration}
+(duración del video en segundos) fue estandarizada antes de ingresar al modelo. Las variables
+categóricas no requieren estandarización por estar codificadas como indicadoras.
+
+\subsection*{Codificación de variables categóricas}
+
+Para el modelo OLS se empleó codificación por efectos (\textit{sum-to-zero contrasts}), que
+fuerza que la suma de los coeficientes de cada variable categórica sea igual a cero. Bajo
+este esquema, cada coeficiente expresa la desviación de esa categoría respecto a la gran media
+global, lo que permite comparar el rendimiento relativo de todas las categorías sin que los
+resultados dependan de la elección de una categoría de referencia arbitraria
+\citep[Cap.~8]{fox2016}.
+
+Para el modelo Random Forest, en cambio, se utilizó codificación one-hot estándar con
+\textit{drop\_first=True}, que elimina una categoría por variable para evitar multicolinealidad
+perfecta. Esta elección es consistente con las convenciones de scikit-learn y no afecta la
+capacidad predictiva del modelo dado que los árboles de decisión son invariantes a la
+recodificación de las categorías de referencia.
+
+\subsection*{Variables del modelo}
+
+Las variables predictoras se dividen en dos grupos. El primero lo conforman las tres dimensiones
+creativas objeto de análisis: \textit{creative\_theme} (9 categorías), \textit{creative\_concept}
+(8 categorías tras el colapso) y \textit{talent\_type} (8 categorías tras el colapso). El segundo
+grupo son las variables de control: \textit{objective\_value} (modalidad de optimización de la
+campaña, que distingue entre objetivos como Conversiones, Tráfico o Leads, entre otros),
+\textit{campaign\_objective} (objetivo general de la campaña) y \textit{duration} (duración del
+video). Las variables de control permiten separar el efecto de los atributos creativos de las
+diferencias sistemáticas atribuibles al tipo de campaña o a características técnicas del anuncio.
 
 \section{Enfoque analítico}
 
 \subsection{Modelo de Mínimos Cuadrados Ordinarios (OLS)}
-[CONTENIDO — incluir discusión de supuestos: normalidad de residuos, homocedasticidad, outliers, uso de R² Ajustado]
+
+El modelo OLS se especifica con la variable dependiente $z\_\text{log\_ctr}$ (CTR en escala
+logarítmica y estandarizada) en función de las tres dimensiones creativas codificadas con
+contrastes sum-to-zero y las variables de control $z\_\text{duration}$,
+$\textit{objective\_value}$ y $\textit{campaign\_objective}$:
+
+\begin{equation}
+  z\_\text{log\_ctr}_i = \alpha
+    + \sum_{j} \beta_j^{\text{theme}} \cdot \mathbf{1}[\text{theme}_i = j]
+    + \sum_{k} \beta_k^{\text{concept}} \cdot \mathbf{1}[\text{concept}_i = k]
+    + \sum_{l} \beta_l^{\text{talent}} \cdot \mathbf{1}[\text{talent}_i = l]
+    + \gamma_1 \cdot z\_\text{duration}_i
+    + \boldsymbol{\delta}' \mathbf{w}_i
+    + \varepsilon_i
+\end{equation}
+
+donde $\mathbf{w}_i$ agrupa los indicadores de \textit{objective\_value} y
+\textit{campaign\_objective}. Los errores estándar se estiman con el método HC1 de
+\citet{white1980} para corregir por posible heterocedasticidad sin necesidad de suponer
+varianza constante de los residuos.
+
+\subsubsection*{Diagnóstico de supuestos}
+
+El modelo in-sample arroja un R² de 0{,}595 y un R² ajustado de 0{,}562, lo que indica que
+las variables incluidas explican más de la mitad de la varianza del CTR logaritmizado dentro
+de la muestra. Para evaluar la capacidad predictiva fuera de muestra, se realizó una
+validación cruzada de 5 pliegues (\textit{5-fold cross-validation}), que arrojó un R²
+out-of-sample promedio de 0{,}496 $\pm$ 0{,}074. La estabilidad entre el R² in-sample y el
+CV indica ausencia de sobreajuste severo.
+
+Respecto a los supuestos del modelo, el test de Shapiro-Wilk rechaza la normalidad de los
+residuos ($p < 0{,}05$). Sin embargo, como se discute en la Sección 3.4, este resultado
+no invalida la inferencia dado el tamaño muestral ($n = 578$) y la presencia de un efecto
+piso estructural en el CTR ($\text{CTR}_{\min} = 0{,}01$) que genera un patrón discreto
+en los residuos. El estadístico de Durbin-Watson de aproximadamente 0{,}76 indica presencia
+de autocorrelación positiva en los residuos, consistente con el agrupamiento intra-marca
+descripto en la Sección 3.4.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{ols_assumptions}
+  \caption{Gráficos de diagnóstico del modelo OLS. Superior izquierda: residuos versus valores
+           ajustados, con ausencia de patrón sistemático claro. Superior derecha: Q-Q plot de
+           residuos, con desviaciones en los extremos consistentes con el \textit{floor effect}
+           del CTR. Inferior izquierda: distribución de residuos, aproximadamente simétrica.
+           Inferior derecha: Scale-Location (homocedasticidad), con el patrón en abanico
+           atribuible a la discretización de la variable dependiente.}
+  \label{fig:ols_assumptions}
+  \small Fuente: Elaboración propia.
+\end{figure}
+
+La variable de control \textit{objective\_value} resulta la de mayor peso en el modelo:
+las campañas con objetivo de Conversiones muestran un coeficiente de $-1{,}16$ desviaciones
+estándar (p $< 0{,}001$), lo que refleja que los anuncios orientados a conversión tienden a
+tener CTR estructuralmente más bajo que los orientados a tráfico o reconocimiento de marca.
+Esta diferencia es esperable desde la lógica del embudo: las campañas de conversión
+suelen apuntar a audiencias más acotadas y con menor propensión al clic. La variable
+\textit{duration} no resulta significativa ($p = 0{,}557$), lo que sugiere que la duración
+del video, dentro del rango observado en los Top Ads, no tiene un efecto lineal sistemático
+sobre el CTR.
 
 \subsection{Modelo Random Forest}
-[CONTENIDO — incluir descripción del ajuste del modelo, hiperparámetros, OOB error]
+
+El modelo de Random Forest se ajustó con la implementación \texttt{RandomForestRegressor}
+de scikit-learn, con los siguientes hiperparámetros: \texttt{n\_estimators=200} (número de
+árboles), \texttt{max\_depth=10} (profundidad máxima de cada árbol) y
+\texttt{random\_state=42} (semilla de aleatoriedad para reproducibilidad). La elección de
+200 árboles garantiza la estabilización de las predicciones del ensamble sin incurrir en un
+costo computacional excesivo. El límite de profundidad de 10 niveles regula la complejidad
+de cada árbol individual, reduciendo el riesgo de sobreajuste respecto a árboles sin poda.
+
+Las variables categóricas se codificaron con one-hot encoding estándar antes de ingresar al
+modelo. La variable dependiente es $\text{log\_ctr}$ (sin estandarizar, a diferencia del
+OLS), lo que no afecta el ranking de importancia de variables pero sí la escala de los
+valores SHAP.
+
+El modelo presenta un R² in-sample de 0{,}897, notablemente más alto que el OLS, lo que es
+consistente con la capacidad del Random Forest de capturar relaciones no lineales e
+interacciones entre variables. Sin embargo, esta ganancia in-sample no se traduce en una
+mejora equivalente fuera de muestra: la validación cruzada de 5 pliegues arroja un R²
+promedio de 0{,}519 $\pm$ 0{,}137, solo marginalmente superior al 0{,}496 del OLS. Esta
+convergencia en el R² out-of-sample entre ambos modelos es una primera señal de robustez:
+la información predictiva presente en los datos es capturada de manera similar por un modelo
+lineal interpretable y por un ensamble no lineal de alta capacidad.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{cv_r2_comparison}
+  \caption{R² out-of-sample por pliegue en la validación cruzada de 5 pliegues para OLS y
+           Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496,
+           RF: 0{,}519). La variabilidad entre pliegues es mayor en el RF, reflejo de su
+           mayor sensibilidad a la composición de la muestra de entrenamiento.}
+  \label{fig:cv_r2}
+  \small Fuente: Elaboración propia.
+\end{figure}
+
+La importancia de variables se estima mediante valores SHAP (\textit{SHapley Additive
+exPlanations}), calculados con el algoritmo TreeSHAP de \citet{lundberg2017}, que aprovecha
+la estructura de árbol para una computación exacta y eficiente de los valores de Shapley.
+Para cada dimensión creativa, la importancia agregada se obtiene como el promedio del valor
+absoluto de los valores SHAP individuales de todas sus categorías
+($\overline{|\phi_j|}$), ponderado implícitamente por la prevalencia de cada categoría en
+el dataset.
 
 \subsection{Análisis de robustez}
-[CONTENIDO — análisis excluyendo variables de control dominantes (duration, objective\_value\_Conversions)]
+
+El análisis de robustez evalúa en qué medida las conclusiones del modelo son sensibles a
+las decisiones metodológicas tomadas durante el proceso de feature engineering, en particular
+al criterio de colapso de categorías con baja cardinalidad.
+
+Como se describió en la Sección 3.1, las categorías con $n < 10$ fueron colapsadas en una
+categoría residual ``Other'' para evitar estimadores inestables. Este procedimiento reduce
+el número de categorías operativas de 34 a un conjunto más conservador. La pregunta de
+robustez es si los rankings de importancia de las dimensiones creativas cambian
+sustancialmente al comparar el modelo original (34 categorías) con el modelo sobre el
+conjunto colapsado.
+
+Los resultados indican que los modelos son estables ante este cambio. El R² out-of-sample
+del OLS se mantiene en 0{,}496 $\pm$ 0{,}074 y el del Random Forest en 0{,}519 $\pm$
+0{,}137 en ambas especificaciones. Más relevante aún, la correlación de Spearman entre los
+coeficientes OLS (ponderados por prevalencia de categoría) y los valores SHAP del Random
+Forest se mantiene alta y significativa ($\rho = 0{,}736$, $p < 0{,}001$) en el modelo
+original, confirmando que la concordancia entre enfoques no es un artefacto de las
+categorías de alta cardinalidad sino una propiedad robusta del dataset.
+
+Esta estabilidad implica que las conclusiones sobre qué dimensiones creativas están más
+fuertemente asociadas con el CTR no dependen críticamente de cómo se traten las observaciones
+poco frecuentes, lo que fortalece la validez interna del análisis.
 
 \section{Limitaciones del estudio}
 
@@ -995,7 +1199,7 @@ comparten características no observadas (identidad visual, tono comunicacional,
 presupuesto) que los hacen más similares entre sí que a los anuncios de otras marcas.
 Esto viola el supuesto de independencia de las observaciones \citep{breiman2001b}.
 En ausencia de identificadores de anunciante en el dataset, no es posible aplicar
-errores estándar agrupados (\textit{clustered SE}); la autocorrelación se reporta
+errores estándar agrupados (\textit{clustered SE}), y la autocorrelación se reporta
 como limitación y sus implicaciones deben considerarse al evaluar la precisión de
 los errores estándar reportados.
 
