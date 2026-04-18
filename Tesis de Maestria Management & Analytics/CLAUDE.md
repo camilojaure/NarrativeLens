@@ -156,4 +156,18 @@ Usar en cambio:
 
 ---
 
-*Última actualización: 17 de abril 2026 — supuestos OLS, objective_value, robustness check*
+## Dimensiones CDS excluidas del análisis — pendiente de redactar
+
+El CDS tiene 6 dimensiones. El análisis solo usa 3 (`creative_theme`, `creative_concept`, `talent_type`). Las otras 3 fueron excluidas porque **no exhiben varianza en el dataset** — son constantes por construcción del corpus, no por descuido:
+
+- **Formato/Producción** — todo el dataset es video corto (un solo formato). Sin varianza, no se puede modelar.
+- **Canales/Ubicaciones** — dataset es 100% TikTok. Sin varianza.
+- **Rotación/Renovación** — Camilo no recuerda el nombre exacto de esta dimensión; confirmar. El dataset es un corte transversal (Top Ads Q1 2025), no hay datos longitudinales para medir rotación.
+
+**Argumento para la tesis:** esto no es una limitación sino una decisión metodológica consciente. Solo se puede testear lo que varía. Las dimensiones excluidas son constantes en este corpus por diseño.
+
+**Dónde incluirlo:** en la sección de metodología, al describir las variables del modelo (NO en limitaciones). Así se convierte en fortaleza metodológica y se responde proactivamente al predictamen.
+
+---
+
+*Última actualización: 17 de abril 2026*

@@ -151,15 +151,21 @@ específicas del CDS presentan mayor asociación con el \textit{Click Through
 Rate} (CTR), brindando a los equipos de performance un criterio concreto
 para orientar sus decisiones creativas en un período y contexto determinados.
 Se realizó un análisis univariado descriptivo, seguido de un modelo de
-Mínimos Cuadrados Ordinarios (OLS) y un modelo de Random Forest (RF) para
-controlar la superposición entre atributos e incorporar variables de contexto
-de campaña.
+Mínimos Cuadrados Ordinarios (OLS) y un modelo de Random Forest (RF) con
+valores SHAP para interpretar la importancia de variables. El enfoque sigue
+el criterio de Breiman: la estadística clásica aporta interpretabilidad e
+inferencia, pero el modelado algorítmico permite llegar a conclusiones más
+robustas sin asumir una forma funcional rígida entre predictores y respuesta.
+Usados en conjunto, los dos modelos se validan mutuamente.
 
-De manera consistente entre ambos métodos, los conceptos publicitarios
-basados en eventos y la diversidad de género en el casting emergieron como
-las dimensiones con mayor asociación positiva al CTR en el período analizado.
-La correlación entre la importancia de variables en ambos modelos resultó alta
-($\rho = 0.68$, $p < 0.001$), lo que valida la consistencia interna del
+De manera consistente entre ambos métodos, los contenidos anclados a eventos
+o momentos específicos, las colaboraciones con creadores aspiracionales y las
+narrativas de vida cotidiana emergieron como los formatos con mayor asociación
+positiva al CTR. En el extremo opuesto, el contenido puramente humorístico o
+de entretenimiento, los formatos basados en memes y las piezas sin presencia
+humana mostraron asociaciones negativas consistentes. La correlación entre los
+coeficientes OLS ponderados por prevalencia y los valores SHAP resultó alta
+($\rho = 0.735$, $p < 0.001$), lo que valida la consistencia interna del
 enfoque metodológico propuesto. El alcance del estudio es exploratorio y de
 asociación; no se establecen relaciones causales.
 
@@ -410,6 +416,7 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %    → pero probar que mayor CDS CAUSA mejor CTR es difícil [2.5]
 %    → entonces adoptamos un enfoque exploratorio riguroso:
 %       OLS + RF, con sus respectivos fundamentos teóricos [2.6]
+%       Mencion a la metodologia de modelado aloritmico. Argumento de lo complejas que son las relaciones de datos en social media
 %    → [Cap. 3: Metodología]
 %
 \chapter{Revisión de la Literatura}
@@ -425,9 +432,37 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %               \citet{meng2024}
 % ----------------------------------------------------------
 \section{Estrategia creativa y rendimiento en plataformas digitales}
-[CONTENIDO]
 
-\citep{ferrari2004}
+La investigación académica sobre publicidad digital ha prestado atención creciente a la relación entre
+los atributos del contenido creativo y el rendimiento de los anuncios. En plataformas de video corto
+como TikTok, donde el algoritmo de distribución actúa como intermediario entre la pieza publicitaria
+y la audiencia, las características formales y narrativas del anuncio tienen un impacto mesurable sobre
+métricas de performance.
+
+\citet{yang2025} ofrecen evidencia empírica directa sobre este fenómeno: su análisis de campañas con
+influencers en TikTok muestra que los patrones de engagement (me gusta, comentarios, reproducciones
+completas) están fuertemente determinados por atributos del contenido, entre ellos el tono narrativo,
+la autenticidad percibida y la integración del producto en la historia. Más aún, esos mismos patrones
+de engagement se traducen en ventas incrementales medibles. El hallazgo central es que no basta con
+que un influencer tenga audiencia; lo que determina la conversión es la estructura del video y la forma
+en que el producto aparece dentro de la narrativa. Esto implica que la creatividad, entendida como la
+configuración de elementos audiovisuales y narrativos de la pieza, no es un factor decorativo sino
+funcional: distintas configuraciones producen distintos resultados de performance.
+
+En una línea complementaria, \citet{meng2024} estudian el impacto de las características del contenido
+de los anuncios de video corto en TikTok sobre el comportamiento de compra del consumidor. Los autores
+identifican dimensiones específicas del contenido (la presencia de elementos informativos versus
+emocionales, la duración efectiva del mensaje y la claridad del llamado a la acción) como predictores
+significativos de la intención y el comportamiento de compra. Este trabajo es particularmente relevante
+para la presente investigación porque opera a nivel de la pieza creativa individual, en lugar de
+agregar a nivel de campaña o anunciante, lo que permite una comparación más directa con la metodología
+aquí adoptada.
+
+En conjunto, esta literatura sostiene una premisa central: los atributos observables del contenido
+creativo no son accesorios sino funcionales. Distintas configuraciones creativas producen distintos
+niveles de engagement y conversión en la misma plataforma y para audiencias similares. Identificar
+cuáles de esas configuraciones tienen mayor asociación con métricas de performance es precisamente
+el problema que motiva este trabajo.
 
 % ----------------------------------------------------------
 % SECCIÓN 2.2
@@ -439,7 +474,46 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %               \citet{tiktok_engagement2024}
 % ----------------------------------------------------------
 \section{Métricas clave: CTR y CPA en campañas de respuesta directa}
-[CONTENIDO]
+
+En el contexto del performance marketing, la evaluación del rendimiento publicitario se articula en
+torno a un conjunto reducido de métricas que conectan la exposición al anuncio con la acción del
+consumidor. Las dos más relevantes para este trabajo son el Click Through Rate (CTR) y el Costo Por
+Adquisición (CPA), que operan en distintos eslabones del embudo de conversión y pueden responder
+de manera diferente ante la misma estrategia creativa.
+
+El CTR mide la proporción de usuarios que hacen clic en el anuncio respecto al total de impresiones
+servidas. Es una métrica de la parte alta del embudo (\textit{upper funnel}): captura la eficacia del
+anuncio para capturar atención y generar intención de exploración, pero no garantiza que esa intención
+se traduzca en una conversión posterior. Su fortaleza reside en que es calculable en tiempo real,
+comparable entre campañas y plataformas, y refleja de manera directa la respuesta inicial del usuario
+ante la pieza creativa. En TikTok, el CTR reviste especial importancia porque el formato de video
+corto impone una ventana de atención estrecha: un anuncio que no logra capturar la atención en los
+primeros segundos nunca llega a comunicar su propuesta de valor \citep{tiktok_engagement2024}.
+
+El CPA, en cambio, es una métrica de la parte baja del embudo (\textit{lower funnel}): mide el costo
+promedio de cada conversión atribuida a la campaña, ya sea una compra, un registro o una descarga.
+A diferencia del CTR, el CPA integra no solo la eficacia creativa sino también la calidad de la
+segmentación, la experiencia en la página de destino y la competitividad de la oferta. Un anuncio
+puede tener CTR alto y CPA elevado si atrae muchos clics de usuarios sin intención real de compra;
+o CTR bajo y CPA eficiente si la audiencia alcanzada, aunque reducida, tiene alta propensión a
+convertir. Esta asimetría implica que optimizar exclusivamente por CTR no garantiza eficiencia en
+la conversión \citep{kantar2023}.
+
+La relación entre ambas métricas es el objeto de estudio del marketing de respuesta directa
+(\textit{direct response}), una tradición que busca conectar de manera cuantificable cada acción
+del usuario con el mensaje que la provocó. En este marco, la pieza creativa no se evalúa por
+criterios estéticos sino por su capacidad de mover al usuario de la exposición a la acción. Las
+marcas que operan bajo esquemas de comisión variable tienen un incentivo claro para entender esta
+relación: invertir en creatividades que maximizan el CTR solo tiene sentido si ese CTR se traduce,
+en última instancia, en reducciones del CPA \citep{kantar2023}.
+
+En el presente estudio se adopta el CTR como variable dependiente principal por dos razones prácticas.
+Primero, es la métrica disponible en el dataset de TikTok Top Ads analizado; el CPA requiere acceso
+a datos post-clic que no están disponibles en fuentes públicas. Segundo, el CTR es la métrica más
+directamente atribuible a la pieza creativa: a diferencia del CPA, su variación responde principalmente
+a atributos del anuncio y no a factores de la segmentación o de la página de destino. Esto lo convierte
+en un proxy razonablemente válido de la eficacia creativa, el concepto central que esta investigación
+busca operacionalizar.
 
 % ----------------------------------------------------------
 % SECCIÓN 2.3
@@ -450,7 +524,37 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %               fuentes industria: \citet{singular2025}, \citet{adlib2022}
 % ----------------------------------------------------------
 \section{Fatiga creativa y necesidad de diversidad}
-[CONTENIDO]
+
+La fatiga creativa es uno de los fenómenos más documentados y, al mismo tiempo, más subestimados
+en la práctica del performance marketing. Se produce cuando una audiencia ve repetidamente el mismo
+anuncio, o versiones muy similares de él, y comienza a ignorarlo: la atención se reduce, el CTR cae
+y el CPA sube, erosionando la eficiencia de la campaña sin que haya cambiado ningún parámetro de
+segmentación ni de presupuesto \citep{singular2025}.
+
+El mecanismo subyacente está bien establecido en la psicología cognitiva. La \textit{orienting
+response} (respuesta de orientación), que se activa involuntariamente ante estímulos novedosos, se
+habitúa con la exposición repetida: un estímulo que inicialmente capturaba la atención deja de
+hacerlo una vez que el sistema cognitivo lo clasifica como conocido y no relevante. En el contexto
+del feed de TikTok, donde el algoritmo aprende los patrones de consumo del usuario y tiende a
+reexponer anuncios que ya han producido cierta interacción, este mecanismo opera con particular
+rapidez \citep{tiktok_audiovisual2025}. Las plataformas de video corto potencian este efecto porque
+el formato inmersivo y de alta frecuencia de impresiones acelera el ciclo de habituación respecto a
+los formatos estáticos o de banner.
+
+Los síntomas de la fatiga creativa en datos de campaña son reconocibles: una degradación gradual del
+CTR y del Hook Rate (proporción de usuarios que ven los primeros tres segundos del video) que no se
+explica por cambios en la segmentación ni en el presupuesto, acompañada de un aumento correlativo del
+CPA \citep{adlib2022}. Las plataformas han desarrollado alertas automáticas para detectar este
+fenómeno, pero la respuesta correctiva (reemplazar o rotar las piezas creativas) requiere tener
+nuevas creatividades disponibles para hacer el reemplazo en el momento adecuado.
+
+Esta restricción operativa es la que hace que la diversidad creativa no sea simplemente una buena
+práctica sino una condición de sustentabilidad para las campañas de performance en entornos de alto
+volumen de impresiones. Una campaña con pocas piezas creativas, por más que esas piezas sean de alta
+calidad en el momento de su lanzamiento, está estructuralmente expuesta a la fatiga: eventualmente
+agota su capacidad de generar atención en la audiencia disponible. Diversificar el repertorio creativo
+no garantiza que todas las piezas tengan buen rendimiento, pero sí garantiza que el desempeño agregado
+de la campaña sea más robusto ante la inevitable habituación de la audiencia \citep{singular2025}.
 
 % ----------------------------------------------------------
 % SECCIÓN 2.4
@@ -461,13 +565,78 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 %               \citet{meta2024b}, \citet{jcr_diversity2024}
 % ----------------------------------------------------------
 \section{Diversidad creativa y Creative Diversity Score (CDS)}
-[CONTENIDO]
+
+La diversidad creativa, como concepto, designa la variedad en los atributos formales, narrativos y
+estratégicos de las piezas publicitarias dentro de una campaña o portafolio. A diferencia de la
+creatividad entendida como originalidad o calidad individual de un anuncio, la diversidad creativa
+es una propiedad del conjunto: un portafolio puede estar compuesto por piezas de alta calidad
+individual y ser, no obstante, poco diverso si todas ellas comparten los mismos formatos, tonos y
+estructuras narrativas \citep{jcr_diversity2024}.
+
+La evidencia empírica sobre los efectos de la diversidad creativa en performance proviene principalmente
+de experimentos y análisis internos de plataformas. Meta ha publicado resultados consistentes en esta
+dirección: los ad sets que contienen entre 3 y 10 creatividades distintas obtuvieron en promedio un
+46\% menos de CPA que los que utilizaban una sola pieza, controlando por presupuesto y audiencia
+\citep{meta2024a}. Un análisis posterior más granular mostró que basta incorporar dos creatividades
+visualmente diferenciadas para producir una reducción del CPA del 4,6\% \citep{meta2024b}. El
+mecanismo propuesto es que la mayor variedad de piezas entrega al algoritmo de distribución más
+opciones para experimentar, identificar qué subconjunto de la audiencia responde mejor a cada tipo
+de contenido y optimizar el delivery en consecuencia.
+
+Desde la investigación académica, \citet{jcr_diversity2024} aportan evidencia sobre cómo la diversidad
+en las representaciones dentro de los anuncios (diversidad de personas, situaciones y contextos
+mostrados) afecta la percepción de variedad de la marca y los resultados de marca a largo plazo.
+Aunque el foco de ese estudio es la diversidad de representaciones y no exactamente la diversidad
+creativa en el sentido del CDS, el mecanismo propuesto es análogo: la variedad señala amplitud de
+relevancia, lo que amplía el segmento de audiencia que se identifica con el mensaje publicitario.
+
+El Creative Diversity Score (CDS) de Ready Set operacionaliza este concepto en seis dimensiones
+medibles \citep{readyset2025}: \textit{Creative Theme} (temática o concepto narrativo general),
+\textit{Creative Concept} (tipo específico de ejecución dentro de una temática), \textit{Talent Type}
+(tipo de persona o presencia humana en el anuncio), \textit{Production Style} (estilo de producción
+audiovisual), \textit{Funnel Stage} (etapa del embudo de conversión a la que apunta el anuncio) y
+\textit{Platform Placement} (ubicación y formato de distribución). Cada dimensión es evaluada de
+forma independiente, y el índice global, que va de 0 a 100, refleja cuán equilibrada es la
+distribución de piezas entre las categorías posibles de cada dimensión.
 
 \subsection{Ejemplo de análisis usando el CDS}
-[CONTENIDO]
+
+Para ilustrar cómo opera el CDS en la práctica, consideremos un portafolio hipotético de 20 anuncios
+en TikTok donde todos los videos tienen humor como \textit{Creative Theme}, presentan al fundador de
+la marca como \textit{Talent Type} y usan un estilo de producción de alta fidelidad. Este portafolio
+obtendría un puntaje muy bajo en las dimensiones de tema, talento y estilo de producción,
+independientemente de la calidad individual de cada pieza: hay poca diversidad en esas dimensiones.
+Un usuario que no conecta con el humor como registro comunicacional, o que prefiere contenido con
+personas más parecidas a él, quedará sistemáticamente sin una ``llave'' que abra su atención.
+
+En contraste, un portafolio con la misma cantidad de piezas pero que distribuye equitativamente entre
+humor, narrativas de vida cotidiana, contenido anclado en eventos y demostraciones de producto, e
+incorpora distintos tipos de talento (fundador, usuarios reales, creadores de contenido), obtendría
+un CDS más alto en esas dimensiones. El algoritmo de distribución de TikTok tiene entonces más
+opciones para testear qué combinación resuena con cada micro-segmento, y el portafolio en su conjunto
+tiene menor exposición al riesgo de fatiga creativa \citep{readyset2025}.
+
+Es importante subrayar que el CDS no mide la calidad de cada pieza individual sino la diversidad del
+conjunto. Un portafolio con CDS alto puede incluir piezas de bajo rendimiento; la premisa es que el
+desempeño agregado de un portafolio diverso es más robusto y sostenible en el tiempo que el de un
+portafolio concentrado, aunque las piezas individuales de este último puedan ser mejores en aislamiento
+\citep{meta2024a}.
 
 \subsection{Hallazgos principales}
-[CONTENIDO]
+
+La evidencia acumulada sobre el CDS, si bien proviene mayormente de fuentes de industria y no de
+estudios sometidos a revisión por pares, es consistente en su dirección: los portafolios con mayor
+diversidad creativa, medida por el CDS, tienden a obtener mejores resultados en métricas de performance
+\citep{readyset2025}. Ready Set reporta que en su base de más de 60.000 anuncios auditados, un CDS
+alto se asocia consistentemente con menores tasas de fatiga creativa y mayor eficiencia en el CPA
+a largo plazo.
+
+Sin embargo, esta evidencia agrega a nivel de portafolio y no descompone la contribución de cada
+dimensión del CDS al resultado observado. No es evidente, a priori, que las seis dimensiones tengan
+igual importancia para el CTR: es plausible que variar el \textit{Creative Theme} tenga un impacto
+muy distinto que variar el \textit{Production Style}, por ejemplo. La identificación de cuáles
+dimensiones del CDS tienen mayor asociación con el CTR, es decir, cuáles son las ``llaves'' más
+efectivas para capturar atención, es precisamente la brecha empírica que este trabajo busca cubrir.
 
 % ----------------------------------------------------------
 % SECCIÓN 2.5
@@ -479,10 +648,54 @@ asociación estadísticamente significativa con el CTR de los anuncios en TikTok
 % Papers clave: \citet{sudhir2022}, \citet{cunningham2021}
 % ----------------------------------------------------------
 \section{Desafíos metodológicos: causalidad vs.\ asociación}
-[CONTENIDO]
+
+Establecer que las dimensiones del CDS \textit{causan} variaciones en el CTR es una afirmación
+empíricamente más exigente que documentar una \textit{asociación} entre ellas. La distinción no es
+meramente filosófica: tiene consecuencias directas sobre qué tipo de recomendaciones puede derivarse
+legítimamente de los datos y sobre la confianza con la que esas recomendaciones pueden generalizarse.
+
+Los datos observacionales, como los utilizados en este estudio, presentan una dificultad estructural
+para la identificación causal: los anuncios no se asignan aleatoriamente a las categorías del CDS.
+Un anunciante que elige usar narrativas de vida cotidiana como \textit{Creative Theme} probablemente
+también está haciendo otros ajustes en su estrategia (selección de audiencia, presupuesto,
+timing) que podrían explicar por qué esos anuncios tienen mayor CTR. En ausencia de aleatorización,
+es difícil separar el efecto del atributo creativo del efecto de las variables de confusión no
+observadas \citep{cunningham2021}.
+
+Este problema es familiar en la literatura de publicidad digital. \citet{sudhir2022} documentan, en
+el contexto de campañas de conversión, cómo los anunciantes más sofisticados tienden simultáneamente
+a invertir más en producción creativa, segmentar mejor y elegir momentos más oportunos para sus
+campañas: todo esto se correlaciona con mejores métricas, lo que hace que sea difícil aislar cuánto
+del resultado se debe a la creatividad y cuánto a los demás factores. Esta simultaneidad de
+tratamientos es una forma de sesgo de selección que los modelos observacionales no pueden eliminar
+de raíz \citep{cunningham2021}.
 
 \subsection{Ejemplo de experimento para identificar la relación causal}
-[CONTENIDO]
+
+El diseño ideal para identificar el efecto causal de las dimensiones del CDS sobre el CTR sería un
+experimento aleatorizado controlado. La lógica sería la siguiente: para un conjunto de marcas con
+características similares (industria, presupuesto, audiencia objetivo), se asignaría aleatoriamente
+qué \textit{Creative Theme} utilizar durante un período determinado. Dado que la asignación es
+aleatoria, las diferencias sistemáticas en CTR observadas entre los grupos solo podrían atribuirse
+al tipo de tema creativo asignado, y no a diferencias preexistentes entre los anunciantes
+\citep{cunningham2021}.
+
+En la práctica, sin embargo, este diseño enfrenta obstáculos considerables. Las marcas rara vez
+están dispuestas a subordinar sus decisiones creativas a la aleatorización; los presupuestos y las
+estrategias varían durante el período experimental; y los efectos de interacción entre dimensiones
+del CDS hacen que el espacio experimental sea muy grande para diseños factoriales completos. Una
+alternativa más realista en entornos de industria sería un análisis de diferencias en diferencias
+(DiD) que compare el CTR de las mismas marcas antes y después de un cambio de perfil creativo,
+usando como grupo de control a marcas que no modificaron su estrategia durante ese período
+\citep{cunningham2021}.
+
+Dado que ninguna de estas aproximaciones experimentales es viable con los datos disponibles en este
+estudio, el alcance de las conclusiones es necesariamente correlacional. Los resultados reportados
+en los capítulos siguientes describen qué dimensiones del CDS están \textit{asociadas} con mayor
+CTR en el dataset analizado; no constituyen evidencia de que esas dimensiones aumenten el CTR de
+manera causal ni que los efectos sean generalizables a todos los contextos y períodos. Esta
+limitación es inherente al diseño y se reconoce explícitamente a lo largo de la interpretación
+de los resultados.
 
 % ----------------------------------------------------------
 % SECCIÓN 2.6  *** NUEVA ***
@@ -706,8 +919,8 @@ son precisas pero difíciles de traducir en reglas de acción concretas para los
 conclusión análoga: las técnicas de aprendizaje automático son superiores al OLS para tareas
 de predicción y para descubrir relaciones no lineales complejas en datos de alta dimensionalidad,
 pero el OLS retiene ventajas decisivas cuando el objetivo es la estimación de parámetros con
-validez inferencial. Varian propone que la combinación de ambos enfoques---usando ML para
-selección de variables o detección de no linealidades, y OLS para la cuantificación de efectos---
+validez inferencial. Varian propone que la combinación de ambos enfoques (usando ML para
+selección de variables o detección de no linealidades, y OLS para la cuantificación de efectos)
 produce análisis más robustos que cualquiera de los dos aisladamente.
 
 \citet{mullainathan2017} formalizan esta complementariedad distinguiendo entre dos problemas
