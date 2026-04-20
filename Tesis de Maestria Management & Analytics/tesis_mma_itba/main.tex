@@ -1535,22 +1535,244 @@ personas (especialmente en formatos auténticos como
 \chapter{Conclusión}
 
 \section{Alineación con la teoría de Direct Response}
-[CONTENIDO]
 
+Los resultados de este trabajo son coherentes con los principios fundamentales del
+\textit{direct response}, la tradición publicitaria que subordina la decisión creativa al
+estímulo de una acción medible e inmediata por parte del usuario. En ese paradigma, la
+pieza creativa no tiene como fin primario construir imagen de marca ni generar resonancia
+emocional difusa, sino provocar un comportamiento concreto (el clic, la descarga, la
+compra) en el menor tiempo posible. Los hallazgos del análisis se alinean con esta lógica
+de dos maneras complementarias.
+
+Por un lado, las variables de control confirman que el tipo de optimización de campaña
+estructura el CTR de manera determinante: los anuncios configurados para Conversiones
+presentan un coeficiente negativo fuerte ($-0{,}257^{***}$) en relación con el resto, no
+porque esas campañas funcionen peor, sino porque el algoritmo de TikTok las sirve a
+audiencias más pequeñas y selectivas con alta propensión a convertir. Controlar por esta
+variable permite aislar el efecto de las decisiones creativas puras.
+
+Por otro lado, las categorías creativas con mayor capacidad predictiva positiva (como
+\textit{Product-Centric} en tema creativo, y \textit{Day-in-the-life story} en concepto) son
+precisamente aquellas que mantienen el producto o la propuesta de valor en el centro del
+relato. Esto contrasta con categorías narrativamente más elaboradas (como
+\textit{Humor \& Entertainment}) que, si bien son populares en el contenido orgánico de
+TikTok, resultan asociadas negativamente con el CTR en el contexto de publicidad paga.
+La interpretación más parsimoniosa es que el humor y el entretenimiento retienen la
+atención pero no necesariamente direccionan hacia la acción, lo que genera un clic
+inferior al que predicen las impresiones conseguidas. En un modelo de
+\textit{performance} donde cada impresión tiene un costo, esa brecha importa.
+
+En conjunto, estos resultados sugieren que, dentro del ecosistema de TikTok, las
+creatividades más eficientes en términos de CTR son las que combinan la estética nativa
+de la plataforma (video corto, ritmo rápido, textura de contenido orgánico) con una señal
+de respuesta directa inequívoca: un producto visible, una propuesta concreta, un llamado
+a la acción explícito.
+
+% ---------------------------------------------------------
 \section{Implicancias para equipos creativos y de medios}
-[CONTENIDO]
 
+La contribución más importante de este trabajo no radica en los coeficientes específicos
+estimados para el período analizado, sino en la metodología que los produce. Las
+asociaciones observadas entre dimensiones creativas y CTR son válidas para la muestra de
+TikTok Top Ads del primer trimestre de 2025. Las redes sociales, y TikTok en particular,
+evolucionan a un ritmo que hace que cualquier ranking de categorías tenga una vida útil
+acotada: los formatos que hoy son nativos mañana son predecibles, y los algoritmos de
+distribución se reajustan constantemente en función del comportamiento de los usuarios.
+
+Lo que sí permanece es el \textit{pipeline} analítico propuesto: etiquetar el portfolio
+creativo con las dimensiones del CDS, vincular esas etiquetas con métricas de performance,
+y correr OLS más Random Forest con SHAP para identificar qué categorías están más
+asociadas con resultados superiores. Ese ciclo puede (y debería) repetirse periódicamente,
+idealmente con cada actualización relevante del dataset. El valor entregado al equipo
+creativo no es una lista estática de qué hacer y qué evitar, sino una herramienta de
+diagnóstico que se actualiza a medida que cambia el entorno competitivo.
+
+Dicho esto, los resultados actuales sí ofrecen señales accionables para el corto plazo.
+Las implicancias se pueden organizar en tres niveles:
+
+\textbf{Nivel de tema creativo (\textit{creative\_theme}):} \textit{Product-Centric} está asociado
+positivamente con el CTR ($+0{,}241^{**}$), lo que sugiere que mantener el producto como
+protagonista visual y narrativo del anuncio favorece la respuesta directa. Por el contrario,
+\textit{Humor \& Entertainment} presenta la asociación negativa más fuerte en esta dimensión
+($-0{,}470^{***}$). Para equipos que producen contenido de entretenimiento en TikTok, este
+resultado es un llamado de atención: lo que funciona orgánicamente no necesariamente
+traciona en el contexto pago.
+
+\textbf{Nivel de concepto creativo (\textit{creative\_concept}):} \textit{Day-in-the-life story}
+aparece como el concepto más consistentemente asociado con CTR elevado ($+0{,}404^{**}$),
+y converge entre OLS y Random Forest. Conceptos como \textit{Meme-based content} y
+\textit{FAQ} presentan asociaciones negativas en ambos modelos. \textit{Event-driven}
+($+1{,}256^{**}$) muestra un coeficiente muy alto pero con pocas observaciones (n=3), por
+lo que debe interpretarse con cautela.
+
+\textbf{Nivel de talento (\textit{talent\_type}):} la presencia de talento en el anuncio,
+independientemente del tipo, está asociada con CTR superior al de los anuncios sin
+presencia humana (\textit{No Talent}: $-0{,}134^{*}$). En particular, los anuncios que
+recurren exclusivamente a clientes como presentadores (\textit{Customers}: $-0{,}130^{*}$)
+muestran también una asociación negativa. Esto sugiere que, en el contexto de
+\textit{performance}, el talento con mayor credibilidad técnica o aspiracional (influencers,
+actores) está más ligado al clic que el UGC puro.
+
+La recomendación operativa central es incorporar este análisis como parte del flujo de
+trabajo habitual del equipo creativo, con una frecuencia alineada a la cadencia de
+renovación del portfolio de anuncios. No como una receta fija, sino como un espejo que
+permite contrastar las apuestas creativas actuales contra lo que la evidencia más reciente
+indica que funciona en la plataforma.
+
+% ---------------------------------------------------------
 \section{Análisis multivariado versus univariado}
-[CONTENIDO]
 
+El análisis exploratorio univariado presentado en la Sección~4.1 (distribuciones de CTR
+por categoría) ofrece una primera aproximación intuitiva a los datos, pero resulta
+insuficiente como base para recomendaciones creativas. La razón es que el CTR medio de
+una categoría observado en el dataset no es el efecto de esa categoría: está contaminado
+por la composición de las campañas que la contienen.
+
+El ejemplo más claro es \textit{objective\_value}: la dimensión con mayor capacidad
+predictiva en todo el modelo no es una decisión creativa sino una configuración de
+plataforma (el tipo de optimización de campaña). Si no se controla por esta variable, el
+CTR crudo de una categoría creativa refleja en parte el mix de objetivos de campaña de
+los anuncios que la componen, no su mérito creativo intrínseco. Un anuncio de
+\textit{Day-in-the-life} que corra con objetivo Conversiones tendrá, en promedio, un CTR
+menor que el mismo concepto corriendo con objetivo App Installs. Sin el control
+multivariado, esa diferencia se atribuye erróneamente al concepto.
+
+El análisis OLS resuelve este problema al estimar el coeficiente de cada categoría
+manteniendo constantes el resto de las dimensiones y los controles. La validación cruzada
+con Random Forest y SHAP agrega una capa adicional: al no asumir ninguna forma
+funcional, el modelo algorítmico confirma de manera independiente qué dimensiones
+concentran más poder predictivo. La convergencia entre ambos modelos (Spearman
+$\rho = 0{,}74$, $p < 0{,}001$ al comparar a nivel de categoría individual con métrica
+ponderada) es precisamente el argumento más sólido del trabajo: cuando dos enfoques
+radicalmente distintos señalan las mismas categorías como relevantes, la señal es robusta
+independientemente de los supuestos específicos de cada modelo \citep{breiman2001b}.
+
+% ---------------------------------------------------------
 \section{Limitaciones del estudio}
-[CONTENIDO]
 
+Los resultados de este trabajo deben interpretarse con las siguientes limitaciones en mente.
+
+\textbf{Diseño observacional y alcance correlacional.} El dataset proviene de TikTok
+Top Ads, una fuente observacional sin asignación aleatoria de tratamientos. Las
+asociaciones estimadas no tienen interpretación causal: no es posible afirmar que usar
+\textit{Product-Centric} \textit{causa} un CTR más alto, sino únicamente que, en este
+corpus y período, los anuncios con esa categoría estuvieron asociados con CTR superior,
+controlando por el resto de las variables del modelo. La ausencia de un diseño
+experimental impide aislar el efecto de cada decisión creativa de las demás características
+no observadas del anuncio o del anunciante.
+
+\textbf{Sesgo de selección en el corpus.} TikTok Top Ads es un subconjunto de anuncios
+de alta performance. Los anuncios con CTR muy bajo probablemente estén
+sub-representados, lo que implica que los coeficientes estimados capturan asociaciones
+dentro de la distribución alta del CTR, no necesariamente en el universo completo de
+publicidad en TikTok. Esto acota la generalización de los resultados a portfolios creativos
+ya razonablemente eficientes.
+
+\textbf{Normalidad de residuos.} El test de Shapiro-Wilk rechaza la normalidad de los
+residuos ($p < 0{,}05$). Sin embargo, este resultado no invalida el análisis por dos
+razones. Primero, con $n = 578$, el Teorema Central del Límite asegura que la
+distribución muestral de los coeficientes es aproximadamente normal, por lo que la
+inferencia basada en errores estándar robustos HC1 es asintóticamente válida
+\citep{fox2016}. Segundo, el patrón estructural observado en los gráficos de diagnóstico
+es consistente con la naturaleza discreta del CTR en el dataset: el valor mínimo reportado
+es $0{,}01$, lo que genera una masa de probabilidad concentrada en $\log(\text{CTR}) = -4{,}6$
+(efecto piso), produciendo las bandas visibles en los residuos. Se reporta como limitación
+junto con la baja continuidad de la variable dependiente.
+
+\textbf{Posible autocorrelación intra-marca.} El estadístico Durbin-Watson ($\approx 1{,}5$)
+sugiere la posible presencia de dependencia en los residuos, atribuible a que varias
+observaciones del dataset corresponden a campañas del mismo anunciante. Anuncios del
+mismo portafolio comparten características no observadas (tono de marca, audiencia
+histórica, nivel de madurez de la cuenta), lo que puede generar correlación intra-grupo
+que el OLS estándar no modela. Si bien los errores robustos HC1 mitigan parcialmente
+este efecto, una especificación con efectos fijos de anunciante o errores clusterizados por
+marca sería metodológicamente más rigurosa y se señala como extensión directa del
+trabajo.
+
+\textbf{Dimensiones CDS excluidas del análisis.} El CDS contempla seis dimensiones
+operativas, pero tres de ellas no exhiben varianza en este corpus: el formato de producción
+es exclusivamente video corto (plataforma homogénea), el canal es 100\% TikTok, y la
+rotación o renovación de anuncios no es medible en un corte transversal. Estas exclusiones
+no son una limitación del diseño sino una consecuencia de la naturaleza del dataset y se
+justifican metodológicamente: solo es posible modelar lo que varía. Las tres dimensiones
+restantes (\textit{creative\_theme}, \textit{creative\_concept}, \textit{talent\_type}) proveen
+suficiente variabilidad para el análisis.
+
+% ---------------------------------------------------------
 \section{Relación con el marco de Creative Diversity Score (CDS)}
-[CONTENIDO]
 
+Uno de los aportes metodológicos de este trabajo consiste en demostrar que las
+dimensiones del CDS son operacionalizables y medibles empíricamente mediante técnicas
+estadísticas estándar. Esto es relevante porque el CDS fue concebido originalmente como
+una herramienta de diagnóstico cualitativo y auditoría interna \citep{readyset2025}. Al
+vincular sus dimensiones con una variable de performance cuantitativa como el CTR, este
+análisis da un paso hacia la validación empírica del framework.
+
+El resultado más importante en este sentido no es cuál categoría específica tiene mayor
+CTR asociado, sino que las tres dimensiones con varianza en el dataset (\textit{creative\_theme},
+\textit{creative\_concept}, \textit{talent\_type}) explican en conjunto una fracción relevante
+de la varianza del CTR ($R^2_{\text{CV}} = 0{,}496 \pm 0{,}07$) incluso después de
+controlar por el tipo de campaña. Esto indica que las categorías del CDS capturan
+variación genuina en la performance del anuncio, no solo diferencias en la configuración
+de la campaña.
+
+Al mismo tiempo, la heterogeneidad dentro de cada dimensión es importante. No es que
+``más creative\_theme'' se asocie linealmente con más CTR: algunas categorías de esa
+dimensión tienen coeficientes positivos significativos y otras negativos significativos. Esto
+refuerza la idea de que el CDS es útil no solo como índice de diversidad agregado, sino
+como mapa granular que distingue qué tipos de variación aportan y cuáles no. En ese
+sentido, el análisis propuesto en este trabajo puede integrarse al flujo de trabajo del CDS
+como una etapa de calibración empírica: periódicamente, vincular las etiquetas CDS del
+portfolio con los datos de performance disponibles para identificar qué categorías, en el
+contexto específico del cliente y del momento del mercado, están realmente correlacionadas
+con resultados superiores.
+
+% ---------------------------------------------------------
 \section{Líneas futuras de investigación}
-[CONTENIDO]
+
+La extensión más directa e inmediata de este trabajo es su replicación longitudinal. El
+análisis aquí presentado constituye un corte transversal correspondiente al primer
+trimestre de 2025. Repetir el mismo pipeline analítico sobre datasets de períodos
+sucesivos (trimestre a trimestre, o con una cadencia alineada a la renovación del
+portfolio creativo de cada cliente) permitiría dos avances complementarios: por un lado,
+evaluar la estabilidad temporal de las asociaciones identificadas y detectar cuándo el
+ranking de categorías cambia de manera significativa; por otro, convertir el pipeline en
+una herramienta de monitoreo continuo en lugar de un análisis de una sola corrida. La
+naturaleza dinámica de TikTok hace de esta extensión no solo una posibilidad teórica
+sino una necesidad práctica para cualquier equipo de performance que quiera mantener
+sus recomendaciones creativas actualizadas.
+
+Una segunda línea relevante es la extensión del análisis a otras plataformas de paid
+social (Meta, YouTube Shorts, Pinterest). Muchas de las dimensiones del CDS son
+agnósticas respecto de la plataforma, lo que permitiría testear en qué medida las
+asociaciones observadas en TikTok se replican en entornos con algoritmos y audiencias
+distintos. La convergencia entre plataformas reforzaría considerablemente la solidez
+externa de los hallazgos; la divergencia, por su parte, sería igualmente informativa sobre
+qué aspectos de la performance creativa son específicos del ecosistema TikTok.
+
+Una tercera línea concierne a la inferencia causal. El diseño observacional de este trabajo
+impide atribuir causalidad a los coeficientes estimados. Para superar esa limitación, sería
+necesario un diseño experimental controlado: asignar aleatoriamente variantes creativas a
+conjuntos de audiencias equivalentes y medir el CTR diferencial. En el contexto de paid
+social, esto es operacionalmente factible mediante tests A/B corridos directamente en la
+plataforma, siempre que se disponga de control suficiente sobre la configuración de la
+campaña para aislar la variable creativa.
+
+Una cuarta línea es la incorporación de variables creativas adicionales disponibles en el
+dataset pero excluidas del análisis principal. La variable \textit{is\_ugc} (presencia de
+contenido generado por usuarios) muestra diferencias descriptivas importantes entre
+grupos (CTR medio de $0{,}038$ para UGC versus $0{,}017$ para no-UGC). La dimensión
+\textit{demographic\_representation} tiene potencial analítico, aunque requiere colapso de
+categorías de baja frecuencia. Incorporar estas variables en un modelo ampliado, con la
+misma estrategia de validación cruzada y contraste con Random Forest, podría enriquecer
+el mapa de asociaciones creativas sin comprometer la robustez metodológica.
+
+Finalmente, una limitación estructural de este trabajo (la dependencia de una fuente
+pública de alto desempeño) podría superarse mediante acuerdos de colaboración con
+anunciantes o agencias que dispongan de datos de performance propios, incluyendo
+anuncios de performance media y baja. Un dataset con mayor heterogeneidad en la
+variable dependiente permitiría estimar las asociaciones con mayor precisión estadística y
+con menor sesgo de selección, ampliando la validez externa de los resultados.
 
 % ============================================================
 % BIBLIOGRAFÍA
@@ -1588,7 +1810,13 @@ personas (especialmente en formatos auténticos como
 \end{table}
 
 \section{Resultados Regresión Lineal}
-[CONTENIDO — tablas completas de resultados OLS]
+
+La siguiente tabla presenta los coeficientes completos del modelo OLS estimado con
+errores estándar robustos HC1, incluyendo todas las categorías creativas y variables
+de control. En el cuerpo del trabajo (Tabla~\ref{tab:ols_main}) se reportan únicamente
+las variables con $p < 0{,}05$ por claridad expositiva.
+
+\input{table_ols_full}
 
 % ============================================================
 \end{document}
