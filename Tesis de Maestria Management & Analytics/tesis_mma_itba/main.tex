@@ -753,8 +753,8 @@ haciendo que la matriz de diseño sea de rango incompleto. La solución estánda
 en omitir una categoría de referencia, de modo que todos los coeficientes restantes
 expresen la desviación de esa categoría respecto al intercepto global.
 
-En el presente análisis se emplea codificación por efectos (\textit{sum-to-zero contrasts}),
-que fuerza que los coeficientes de todas las categorías sumen cero. Esto permite
+En el presente análisis se utiliza \textit{sum-to-zero contrasts}, una codificación que
+distribuye los coeficientes de cada variable categórica alrededor del promedio global. Esto permite
 interpretar cada coeficiente como la desviación de esa categoría respecto a la gran
 media global, lo cual es conceptualmente más natural para comparar el desempeño
 relativo de dimensiones creativas sin que los resultados dependan de la elección
@@ -1015,8 +1015,8 @@ categóricas no requieren estandarización por estar codificadas como indicadora
 
 \subsection*{Codificación de variables categóricas}
 
-Para el modelo OLS se empleó codificación por efectos (\textit{sum-to-zero contrasts}), que
-fuerza que la suma de los coeficientes de cada variable categórica sea igual a cero. Bajo
+El modelo OLS utiliza \textit{sum-to-zero contrasts}, una codificación que distribuye los
+coeficientes de cada variable categórica alrededor del promedio global. Bajo
 este esquema, cada coeficiente expresa la desviación de esa categoría respecto a la gran media
 global, lo que permite comparar el rendimiento relativo de todas las categorías sin que los
 resultados dependan de la elección de una categoría de referencia arbitraria
@@ -1037,7 +1037,7 @@ grupo son las variables de control: \textit{objective\_value} (modalidad de opti
 campaña, que distingue entre objetivos como Conversiones, Tráfico o Leads, entre otros),
 \textit{campaign\_objective} (objetivo general de la campaña) y \textit{duration} (duración del
 video). Las variables de control permiten separar el efecto de los atributos creativos de las
-diferencias sistemáticas atribuibles al tipo de campaña o a características técnicas del anuncio.
+diferencias sistemáticas atribuibles al tipo de campaña o a características técnicas del anuncio \citep[cap.~2]{cunningham2021}.
 
 \section{Enfoque analítico}
 
@@ -1048,15 +1048,15 @@ logarítmica y estandarizada) en función de las tres dimensiones creativas codi
 contrastes sum-to-zero y las variables de control $z\_\text{duration}$,
 $\textit{objective\_value}$ y $\textit{campaign\_objective}$:
 
-\begin{equation}
+\begin{multline}
   z\_\text{log\_ctr}_i = \alpha
     + \sum_{j} \beta_j^{\text{theme}} \cdot \mathbf{1}[\text{theme}_i = j]
-    + \sum_{k} \beta_k^{\text{concept}} \cdot \mathbf{1}[\text{concept}_i = k]
+    + \sum_{k} \beta_k^{\text{concept}} \cdot \mathbf{1}[\text{concept}_i = k] \\
     + \sum_{l} \beta_l^{\text{talent}} \cdot \mathbf{1}[\text{talent}_i = l]
     + \gamma_1 \cdot z\_\text{duration}_i
     + \boldsymbol{\delta}' \mathbf{w}_i
     + \varepsilon_i
-\end{equation}
+\end{multline}
 
 donde $\mathbf{w}_i$ agrupa los indicadores de \textit{objective\_value} y
 \textit{campaign\_objective}. Los errores estándar se estiman con el método HC1 de
@@ -1068,27 +1068,24 @@ varianza constante de los residuos.
 El modelo in-sample arroja un R² de 0{,}595 y un R² ajustado de 0{,}562, lo que indica que
 las variables incluidas explican más de la mitad de la varianza del CTR logaritmizado dentro
 de la muestra. Para evaluar la capacidad predictiva fuera de muestra, se realizó una
-validación cruzada de 5 pliegues (\textit{5-fold cross-validation}), que arrojó un R²
-out-of-sample promedio de 0{,}496 $\pm$ 0{,}074. La estabilidad entre el R² in-sample y el
+validación cruzada de 5 particiones (\textit{5-fold cross-validation}), que arrojó un R²
+out-of-sample promedio de 0{,}496 $\pm$ 0{,}074 \citep{breiman2001}. La estabilidad entre el R² in-sample y el
 CV indica ausencia de sobreajuste severo.
 
 Respecto a los supuestos del modelo, el test de Shapiro-Wilk rechaza la normalidad de los
-residuos ($p < 0{,}05$). Sin embargo, como se discute en la Sección 3.4, este resultado
-no invalida la inferencia dado el tamaño muestral ($n = 578$) y la presencia de un efecto
-piso estructural en el CTR ($\text{CTR}_{\min} = 0{,}01$) que genera un patrón discreto
-en los residuos. El estadístico de Durbin-Watson de aproximadamente 0{,}76 indica presencia
-de autocorrelación positiva en los residuos, consistente con el agrupamiento intra-marca
-descripto en la Sección 3.4.
+residuos ($p < 0{,}05$). Sin embargo, la inspección visual del Q-Q plot y la distribución de
+residuos sugiere que la desviación no es severa: los residuos son aproximadamente simétricos
+y el Q-Q plot se ajusta razonablemente a la línea teórica salvo en los extremos. Con
+$n = 578$, el Teorema Central del Límite garantiza que la inferencia basada en errores
+estándar robustos HC1 es asintóticamente válida \citep[cap.~5]{fox2016}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.88\textwidth]{ols_assumptions}
-  \caption{Gráficos de diagnóstico del modelo OLS. Superior izquierda: residuos versus valores
-           ajustados, con ausencia de patrón sistemático claro. Superior derecha: Q-Q plot de
-           residuos, con desviaciones en los extremos consistentes con el \textit{floor effect}
-           del CTR. Inferior izquierda: distribución de residuos, aproximadamente simétrica.
-           Inferior derecha: Scale-Location (homocedasticidad), con el patrón en abanico
-           atribuible a la discretización de la variable dependiente.}
+  \caption{Gráficos de diagnóstico del modelo OLS. Superior derecha: Q-Q plot de residuos,
+           con ajuste razonable a la línea teórica salvo en los extremos. Inferior izquierda:
+           distribución de residuos aproximadamente simétrica. Ambos gráficos sugieren que
+           la desviación de normalidad no compromete la inferencia.}
   \label{fig:ols_assumptions}
   \small Fuente: Elaboración propia.
 \end{figure}
@@ -1105,10 +1102,12 @@ sobre el CTR.
 
 \subsection{Modelo Random Forest}
 
-El modelo de Random Forest se ajustó con la implementación \texttt{RandomForestRegressor}
-de scikit-learn, con los siguientes hiperparámetros: \texttt{n\_estimators=200} (número de
-árboles), \texttt{max\_depth=10} (profundidad máxima de cada árbol) y
-\texttt{random\_state=42} (semilla de aleatoriedad para reproducibilidad). La elección de
+\begin{sloppypar}
+El modelo de Random Forest se ajustó con la implementación \texttt{Random\-Forest\-Regressor}
+de scikit-learn. Los hiperparámetros utilizados fueron: \texttt{n\_estimators=200}
+(número de árboles), \texttt{max\_depth=10} (profundidad máxima por árbol),
+y \texttt{random\_state=42} (semilla para reproducibilidad).
+\end{sloppypar} La elección de
 200 árboles garantiza la estabilización de las predicciones del ensamble sin incurrir en un
 costo computacional excesivo. El límite de profundidad de 10 niveles regula la complejidad
 de cada árbol individual, reduciendo el riesgo de sobreajuste respecto a árboles sin poda.
@@ -1244,7 +1243,7 @@ rendimiento, pero deben interpretarse con cautela como guía prescriptiva univer
 
 \section{Análisis Multivariado}
 
-\subsection{Regresión Lineal — Mínimos Cuadrados Ordinarios (OLS)}
+\subsection{Mínimos Cuadrados Ordinarios (OLS)}
 [CONTENIDO — incluir tabla de resultados con coeficientes, p-values, R² Ajustado, análisis de residuos]
 
 \subsection{Resultados Random Forest}
