@@ -31,11 +31,11 @@
 \contentsline {subsection}{\numberline {3.3.1}Modelo de Mínimos Cuadrados Ordinarios (OLS)}{20}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Modelo Random Forest}{22}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{23}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{24}{section.3.4}%
-\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{24}{section.3.4}%
+\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{23}{section.3.4}%
+\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{23}{section.3.4}%
 \contentsline {paragraph}{Posible autocorrelación en los residuos.}{24}{section.3.4}%
-\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{25}{section.3.4}%
-\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{25}{section.3.4}%
+\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{24}{section.3.4}%
+\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{24}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Resultados}{26}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Análisis Exploratorio de los Datos (EDA)}{26}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Análisis Univariado}{26}{section.4.2}%
