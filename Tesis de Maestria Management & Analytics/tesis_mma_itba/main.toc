@@ -48,11 +48,11 @@
 \contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{34}{subsection.4.3.3}%
 \contentsline {chapter}{\numberline {5}Conclusión}{37}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{37}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{37}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{37}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{37}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{37}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{37}{section.5.6}%
-\contentsline {chapter}{\numberline {A}Anexos}{41}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{41}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{41}{section.Alph1.2}%
+\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{38}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{39}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{40}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{41}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{42}{section.5.6}%
+\contentsline {chapter}{\numberline {A}Anexos}{47}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{47}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{47}{section.Alph1.2}%
