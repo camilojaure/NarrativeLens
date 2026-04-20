@@ -1,0 +1,61 @@
+\begin{table}[H]
+\centering
+\small
+\caption{Coeficientes OLS del modelo principal (variable dependiente: $\log(\text{CTR})$, errores estándar HC1)}
+\label{tab:ols_main}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Variable} & \textbf{Coef.} & \textbf{SE} & \textbf{t} & \textbf{p} \\
+\midrule
+\multicolumn{5}{l}{\textit{Creative Theme}} \\
+\quad Brand Story & Mission-Driven & -0.235 & 0.150 & -1.57 & 0.117 \\
+\quad Educational & Explainer & +0.105 & 0.106 & +0.99 & 0.323 \\
+\quad \textbf{Humor & Entertainment} & \textbf{-0.470}\sym{***} & \textbf{0.142} & \textbf{-3.32} & \textbf{0.001} \\
+\quad Lifestyle & Aspirational & +0.028 & 0.102 & +0.28 & 0.783 \\
+\quad Not Applicable & -0.080 & 0.188 & -0.42 & 0.672 \\
+\quad \textbf{Product-Centric} & \textbf{+0.240}\sym{*} & \textbf{0.097} & \textbf{+2.48} & \textbf{0.013} \\
+\quad Promotional & Offer-Based & +0.144 & 0.127 & +1.13 & 0.258 \\
+\quad \textbf{Testimonial & Social Proof} & \textbf{+0.315}\sym{**} & \textbf{0.108} & \textbf{+2.90} & \textbf{0.004} \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Creative Concept}} \\
+\quad Animated explainer & -0.235 & 0.192 & -1.22 & 0.221 \\
+\quad \textbf{Aspirational creator collaboration} & \textbf{+0.605}\sym{***} & \textbf{0.142} & \textbf{+4.25} & \textbf{0.000} \\
+\quad Before-and-after story & -0.188 & 0.148 & -1.27 & 0.205 \\
+\quad Behind-the-scenes & -0.170 & 0.117 & -1.46 & 0.145 \\
+\quad Cinematic brand film & +0.085 & 0.334 & +0.25 & 0.799 \\
+\quad Comparison & +0.226 & 0.372 & +0.61 & 0.544 \\
+\quad \textbf{Day-in-the-life story} & \textbf{+0.404}\sym{**} & \textbf{0.137} & \textbf{+2.95} & \textbf{0.003} \\
+\quad \textbf{Event-driven} & \textbf{+1.256}\sym{**} & \textbf{0.428} & \textbf{+2.94} & \textbf{0.003} \\
+\quad Expert review & -0.023 & 0.253 & -0.09 & 0.927 \\
+\quad \textbf{FAQ} & \textbf{-0.387}\sym{**} & \textbf{0.136} & \textbf{-2.84} & \textbf{0.004} \\
+\quad Flash sale & -0.094 & 0.125 & -0.75 & 0.450 \\
+\quad Founder story & -0.041 & 0.131 & -0.31 & 0.757 \\
+\quad Limited-time offer & -0.022 & 0.122 & -0.18 & 0.854 \\
+\quad Member deal & -0.247 & 0.136 & -1.82 & 0.069 \\
+\quad \textbf{Meme-based content} & \textbf{-0.561}\sym{**} & \textbf{0.212} & \textbf{-2.64} & \textbf{0.008} \\
+\quad Not Applicable & -0.079 & 0.087 & -0.91 & 0.361 \\
+\quad Parody & -0.310 & 0.269 & -1.15 & 0.248 \\
+\quad Product demo & -0.180 & 0.093 & -1.93 & 0.054 \\
+\quad Unboxing & -0.179 & 0.175 & -1.02 & 0.307 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Talent Type}} \\
+\quad Actors & +0.164 & 0.102 & +1.61 & 0.107 \\
+\quad Combination of actors and customers & +0.152 & 0.118 & +1.29 & 0.199 \\
+\quad Combination of influencers and customers & -0.086 & 0.106 & -0.80 & 0.421 \\
+\quad \textbf{Customers} & \textbf{-0.130}\sym{*} & \textbf{0.061} & \textbf{-2.12} & \textbf{0.034} \\
+\quad Experts & -0.020 & 0.093 & -0.21 & 0.830 \\
+\quad Influencers & +0.104 & 0.100 & +1.05 & 0.296 \\
+\quad \textbf{No Talent} & \textbf{-0.134}\sym{*} & \textbf{0.053} & \textbf{-2.52} & \textbf{0.012} \\
+\addlinespace
+\midrule
+\multicolumn{5}{l}{\textit{Controles de campaña}} \\
+\quad \textit{objective\_value}, \textit{campaign\_objective}, \textit{duration} & \multicolumn{4}{c}{incluidos — ver Tabla~\ref{tab:ols_full} en Anexo} \\
+\midrule
+$R^2$ (in-sample) & \multicolumn{4}{c}{0.595} \\
+$R^2$ ajustado & \multicolumn{4}{c}{0.562} \\
+$R^2$ (validación cruzada 5-fold) & \multicolumn{4}{c}{0.496 $\pm$ 0.07} \\
+$n$ & \multicolumn{4}{c}{578} \\
+\bottomrule
+\end{tabular}
+\caption*{\small Nota: \sym{*} $p<0.05$, \sym{**} $p<0.01$, \sym{***} $p<0.001$. Coeficientes en negrita = significativos al 5\%. Categoría omitida recuperable por restricción suma-cero.}
+\end{table}
