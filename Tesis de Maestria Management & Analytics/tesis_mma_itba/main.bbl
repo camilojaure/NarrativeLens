@@ -80,6 +80,11 @@ Hastie, T., Tibshirani, R., and Friedman, J. (2009).
 \newblock Creative effectiveness: {KFC} case study.
 \newblock Kantar Media Whitepaper.
 
+\bibitem[Khan et~al., 2025]{jcr_diversity2024}
+Khan, U., Kim, S., Choi, S., and Labroo, A. (2025).
+\newblock Diversity representations in advertising: Enhancing variety perceptions and brand outcomes.
+\newblock {\em Journal of Consumer Research}, 52(1):179--204.
+
 \bibitem[Lang, 2000]{lang2000}
 Lang, A. (2000).
 \newblock The limited capacity model of mediated message processing.
@@ -129,6 +134,11 @@ Papke, L.~E. and Wooldridge, J.~M. (1996).
 \newblock Ready Set Agency.
 \newblock Framework interno, documentación disponible en \url{https://www.readyset.io/}.
 
+\bibitem[Salminen et~al., 2024]{tiktok_engagement2024}
+Salminen, J.~O., Wahid, R.~M., Yang, Y., and Jansen, B.~J. (2024).
+\newblock Engagement patterns in {TikTok}: An analysis of short video ads.
+\newblock In {\em Proceedings of the {ACM} Conference on Hypertext \& Social Media}.
+
 \bibitem[Schwartz, 2025]{schwartz2025}
 Schwartz, J. (2025).
 \newblock Alphabet/{Google} advertising revenue {Q1} 2025.
@@ -152,35 +162,11 @@ Strobl, C., Boulesteix, A.-L., Zeileis, A., and Hothorn, T. (2007).
 \newblock {\em BMC Bioinformatics}, 8:25.
 \newblock Open access: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC1796903/}.
 
-\bibitem[Sudhir et~al., 2022]{sudhir2022}
-Sudhir, K., Lee, J.-D., and Roy, P. (2022).
-\newblock {[Verificar titulo]}.
-\newblock {\em {[Verificar journal]}}.
-\newblock *** Verificar datos completos de esta cita en la tesis original ***.
-
 \bibitem[Varian, 2014]{varian2014}
 Varian, H.~R. (2014).
 \newblock Big data: New tricks for econometrics.
 \newblock {\em Journal of Economic Perspectives}, 28(2):3--28.
 \newblock PDF gratuito: \url{https://people.ischool.berkeley.edu/~hal/Papers/2013/ml.pdf}.
-
-\bibitem[{[Verificar autores]}, 2024a]{jcr_diversity2024}
-{[Verificar autores]} (2024a).
-\newblock Diversity representations in advertising: Enhancing variety perceptions and brand outcomes.
-\newblock {\em Journal of Consumer Research}, 52(1):179--198.
-\newblock *** Verificar en: \url{https://academic.oup.com/jcr/article-abstract/52/1/179/7775430} ***.
-
-\bibitem[{[Verificar autores]}, 2024b]{tiktok_engagement2024}
-{[Verificar autores]} (2024b).
-\newblock Engagement patterns in {TikTok}: An analysis of short video ads.
-\newblock In {\em Proceedings of the ACM Web Conference}.
-\newblock *** Verificar autores en: \url{https://dl.acm.org/doi/fullHtml/10.1145/3648188.3677048} ***.
-
-\bibitem[{[Verificar autores]}, 2025]{tiktok_audiovisual2025}
-{[Verificar autores]} (2025).
-\newblock Influence of audiovisual features of short video advertising on consumer engagement behaviors: Evidence from {TikTok}.
-\newblock {\em Journal of Business Research}.
-\newblock *** Verificar en: \url{https://www.sciencedirect.com/science/article/abs/pii/S0148296325004850} ***.
 
 \bibitem[White, 1980]{white1980}
 White, H. (1980).
@@ -191,5 +177,10 @@ White, H. (1980).
 Yang, J., Zhang, J., and Zhang, Y. (2025).
 \newblock Engagement {That} sells: Influencer video advertising on {TikTok}.
 \newblock {\em Marketing Science}, 44(2):247--267.
+
+\bibitem[Zhang et~al., 2025]{tiktok_audiovisual2025}
+Zhang, Z., Qiu, K., and Ye, Y. (2025).
+\newblock Influence of audiovisual features of short video advertising on consumer engagement behaviors: Evidence from {TikTok}.
+\newblock {\em Journal of Business Research}, 201:115662.
 
 \end{thebibliography}

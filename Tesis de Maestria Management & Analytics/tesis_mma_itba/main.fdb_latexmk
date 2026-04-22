@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1776727380.18148 "main.aux" "main.bbl" "main" 1776727382.62259 0
-  "./references.bib" 1776708012.67289 13571 eaa08248f00052b266ee26e0a933979f ""
+["bibtex main"] 1776857630.07116 "main.aux" "main.bbl" "main" 1776858211.51805 0
+  "./references.bib" 1776855993.30338 12355 d553cf267f0eba858c931243dccbab87 ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/base/apalike.bst" 1292289607 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "main.aux" 1776727382.31441 20923 8f8f49adc92915e1b7c43cc16190d437 "pdflatex"
+  "main.aux" 1776858211.20279 20245 d08eed5e605509494392a9111c51776f "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1776727380.28272 "/Users/camilojaureguiberry/Documents/devs/NarrativeLens/Tesis de Maestria Management & Analytics/tesis_mma_itba/main.tex" "main.pdf" "main" 1776727382.62276 0
-  "/Users/camilojaureguiberry/Documents/devs/NarrativeLens/Tesis de Maestria Management & Analytics/tesis_mma_itba/main.tex" 1776726368.85695 110028 ee7909fc28aa3c6d4d3b779d44ce78d2 ""
+["pdflatex"] 1776858209.07661 "/Users/camilojaureguiberry/Documents/devs/NarrativeLens/Tesis de Maestria Management & Analytics/tesis_mma_itba/main.tex" "main.pdf" "main" 1776858211.51822 0
+  "/Users/camilojaureguiberry/Documents/devs/NarrativeLens/Tesis de Maestria Management & Analytics/tesis_mma_itba/main.tex" 1776858208.86746 111514 f607da6455b23490956283878f4ddbd4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -184,13 +184,13 @@
   "images/shap_by_dimension.png" 1776518822.19126 58674 7fbf8b9024e9fc8ee0db0d9b8c66748b ""
   "images/shap_summary.png" 1776518822.18726 230196 b9b31d084007dd113f5601fa12b68772 ""
   "itba_logo.jpg" 1775522928 4792 d56ddbb26472043a7651c451acaff951 ""
-  "main.aux" 1776727382.31441 20923 8f8f49adc92915e1b7c43cc16190d437 "pdflatex"
-  "main.bbl" 1776727380.27972 8003 98c86a65406ab1cf3eb704394ebac5bd "bibtex main"
-  "main.lof" 1776727382.3176 3579 86de947567f9eb1959e31f6f0ae63c28 "pdflatex"
-  "main.lot" 1776727382.31763 820 6fdfcbbc7593234bf45ef79c00eabd26 "pdflatex"
-  "main.out" 1776727382.31728 12049 a07170fc04f7b4cf8c904056e9f82b3b "pdflatex"
-  "main.tex" 1776726368.85695 110028 ee7909fc28aa3c6d4d3b779d44ce78d2 ""
-  "main.toc" 1776727382.31752 5472 7f7cf61cf0388327d59fe1812957822b "pdflatex"
+  "main.aux" 1776858211.20279 20245 d08eed5e605509494392a9111c51776f "pdflatex"
+  "main.bbl" 1776857630.17567 7528 402e6d7a3fd33c183e67103cf5626ad1 "bibtex main"
+  "main.lof" 1776858211.20597 3290 01007faf0c91c4e762a75b5db8e46904 "pdflatex"
+  "main.lot" 1776858211.20599 819 f48a5f54aaa771247464ef99b9a11dea "pdflatex"
+  "main.out" 1776858211.20564 12049 a07170fc04f7b4cf8c904056e9f82b3b "pdflatex"
+  "main.tex" 1776858208.86746 111514 f607da6455b23490956283878f4ddbd4 ""
+  "main.toc" 1776858211.20592 5472 aab4bf09f4e0f992435faad048720e25 "pdflatex"
   "table_ols_full.tex" 1776725214.75062 3513 0a194c946f1916a4bdd774f179d916c9 ""
   "table_ols_main.tex" 1776725492.0698 1812 02d0340faab73f3e867cfacac7a86a73 ""
   (generated)

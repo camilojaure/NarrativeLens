@@ -70,7 +70,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Ejemplo de análisis usando el CDS}{10}{subsection.2.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Hallazgos principales}{10}{subsection.2.4.2}\protected@file@percent }
 \citation{cunningham2021}
-\citation{sudhir2022}
+\citation{yang2025}
 \citation{cunningham2021}
 \citation{cunningham2021}
 \@writefile{toc}{\contentsline {section}{\numberline {2.5}Desafíos metodológicos: causalidad vs.\ asociación}{11}{section.2.5}\protected@file@percent }
@@ -108,78 +108,76 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Recolección y anotación de datos}{18}{section.3.1}\protected@file@percent }
-\citation{fox2016}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Feature Engineering}{19}{section.3.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Distribución del CTR original (izquierda) y de log(CTR) (derecha). La transformación logarítmica reduce la asimetría de 6{,}78 a 1{,}87 y elimina la cola derecha extrema, haciendo la distribución más apta para el modelo OLS. El pico visible en log(CTR) $\approx -4{,}6$ corresponde al valor mínimo reportado de CTR = 0{,}01 (\textit  {floor effect}).}}{19}{figure.caption.5}\protected@file@percent }
 \newlabel{fig:ctr_distribution}{{3.1}{19}{Distribución del CTR original (izquierda) y de log(CTR) (derecha). La transformación logarítmica reduce la asimetría de 6{,}78 a 1{,}87 y elimina la cola derecha extrema, haciendo la distribución más apta para el modelo OLS. El pico visible en log(CTR) $\approx -4{,}6$ corresponde al valor mínimo reportado de CTR = 0{,}01 (\textit {floor effect})}{figure.caption.5}{}}
+\citation{fox2016}
 \citation{cunningham2021}
-\citation{white1980}
-\citation{breiman2001}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Enfoque analítico}{20}{section.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Modelo de Mínimos Cuadrados Ordinarios (OLS)}{20}{subsection.3.3.1}\protected@file@percent }
+\citation{white1980}
+\citation{breiman2001}
 \citation{fox2016}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Gráficos de diagnóstico del modelo OLS. Superior derecha: Q-Q plot de residuos, con ajuste razonable a la línea teórica salvo en los extremos. Inferior izquierda: distribución de residuos aproximadamente simétrica. Ambos gráficos sugieren que la desviación de normalidad no compromete la inferencia.}}{21}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:ols_assumptions}{{3.2}{21}{Gráficos de diagnóstico del modelo OLS. Superior derecha: Q-Q plot de residuos, con ajuste razonable a la línea teórica salvo en los extremos. Inferior izquierda: distribución de residuos aproximadamente simétrica. Ambos gráficos sugieren que la desviación de normalidad no compromete la inferencia}{figure.caption.6}{}}
-\citation{lundberg2017}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Modelo Random Forest}{22}{subsection.3.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces R² out-of-sample por fold en la validación cruzada de 5 folds para OLS y Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496, RF: 0{,}519). La variabilidad entre folds es mayor en el RF, reflejo de su mayor sensibilidad a la composición de la muestra de training.}}{22}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:cv_r2}{{3.3}{22}{R² out-of-sample por fold en la validación cruzada de 5 folds para OLS y Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496, RF: 0{,}519). La variabilidad entre folds es mayor en el RF, reflejo de su mayor sensibilidad a la composición de la muestra de training}{figure.caption.7}{}}
+\citation{lundberg2017}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces R² out-of-sample por fold en la validación cruzada de 5 folds para OLS y Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496, RF: 0{,}519). La variabilidad entre folds es mayor en el RF, reflejo de su mayor sensibilidad a la composición de la muestra de training.}}{23}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:cv_r2}{{3.3}{23}{R² out-of-sample por fold en la validación cruzada de 5 folds para OLS y Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496, RF: 0{,}519). La variabilidad entre folds es mayor en el RF, reflejo de su mayor sensibilidad a la composición de la muestra de training}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{23}{subsection.3.3.3}\protected@file@percent }
 \citation{white1980}
 \citation{fox2016}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{23}{subsection.3.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{23}{section.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{23}{section.3.4}\protected@file@percent }
 \citation{breiman2001b}
 \citation{strobl2007}
 \citation{strobl2008}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{24}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{24}{section.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Posible autocorrelación en los residuos.}{24}{section.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{24}{section.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{24}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{25}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{25}{section.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Resultados}{26}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {4.1}Análisis Exploratorio de los Datos}{26}{section.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Distribución del CTR: escala original (izquierda) y transformación logarítmica (derecha). La asimetría pronunciada de la escala original justifica el uso de $\log (\text  {CTR})$ como variable dependiente.}}{26}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:ctr_dist_eda}{{4.1}{26}{Distribución del CTR: escala original (izquierda) y transformación logarítmica (derecha). La asimetría pronunciada de la escala original justifica el uso de $\log (\text {CTR})$ como variable dependiente}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Análisis Univariado}{27}{section.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces CTR medio por categoría para las tres dimensiones creativas analizadas. Las barras representan el CTR promedio por grupo; el tamaño de muestra por categoría varía considerablemente.}}{28}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:ctr_by_dimension}{{4.2}{28}{CTR medio por categoría para las tres dimensiones creativas analizadas. Las barras representan el CTR promedio por grupo; el tamaño de muestra por categoría varía considerablemente}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Análisis Univariado}{26}{section.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces CTR medio por categoría para las tres dimensiones creativas analizadas. Las barras representan el CTR promedio por grupo; el tamaño de muestra por categoría varía considerablemente.}}{27}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:ctr_by_dimension}{{4.1}{27}{CTR medio por categoría para las tres dimensiones creativas analizadas. Las barras representan el CTR promedio por grupo; el tamaño de muestra por categoría varía considerablemente}{figure.caption.8}{}}
 \citation{white1980}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Creative Theme}{29}{subsection.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Creative Concept}{29}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Talent Type}{29}{subsection.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Análisis Multivariado}{29}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Mínimos Cuadrados Ordinarios (OLS)}{29}{subsection.4.3.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Coeficientes OLS estadísticamente significativos ($p < 0{,}05$). Variable dependiente: $\log (\text  {CTR})$. Errores estándar HC1.}}{30}{table.caption.10}\protected@file@percent }
-\newlabel{tab:ols_main}{{4.1}{30}{Coeficientes OLS estadísticamente significativos ($p < 0{,}05$). Variable dependiente: $\log (\text {CTR})$. Errores estándar HC1}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Creative Theme}{28}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Creative Concept}{28}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Talent Type}{28}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Análisis Multivariado}{28}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Mínimos Cuadrados Ordinarios (OLS)}{28}{subsection.4.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Coeficientes OLS estadísticamente significativos ($p < 0{,}05$). Variable dependiente: $\log (\text  {CTR})$. Errores estándar HC1.}}{29}{table.caption.9}\protected@file@percent }
+\newlabel{tab:ols_main}{{4.1}{29}{Coeficientes OLS estadísticamente significativos ($p < 0{,}05$). Variable dependiente: $\log (\text {CTR})$. Errores estándar HC1}{table.caption.9}{}}
 \citation{yang2025}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Coeficientes OLS con intervalos de confianza al 95\% para las variables creativas. Los puntos a la derecha de la línea cero indican asociación positiva con $\log (\text  {CTR})$; los de la izquierda, asociación negativa.}}{31}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:ols_forest}{{4.3}{31}{Coeficientes OLS con intervalos de confianza al 95\% para las variables creativas. Los puntos a la derecha de la línea cero indican asociación positiva con $\log (\text {CTR})$; los de la izquierda, asociación negativa}{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Coeficientes OLS con intervalos de confianza al 95\% para las variables creativas. Los puntos a la derecha de la línea cero indican asociación positiva con $\log (\text  {CTR})$; los de la izquierda, asociación negativa.}}{30}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:ols_forest}{{4.2}{30}{Coeficientes OLS con intervalos de confianza al 95\% para las variables creativas. Los puntos a la derecha de la línea cero indican asociación positiva con $\log (\text {CTR})$; los de la izquierda, asociación negativa}{figure.caption.10}{}}
 \citation{lundberg2017}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Random Forest y análisis SHAP}{32}{subsection.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces SHAP \textit  {beeswarm plot}: las 20 variables con mayor importancia promedio $|\text  {SHAP}|$. Cada punto representa una observación. El color indica el valor de la variable (rojo = alto, azul = bajo); la posición horizontal indica el impacto en la predicción del modelo.}}{33}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:shap_summary}{{4.4}{33}{SHAP \textit {beeswarm plot}: las 20 variables con mayor importancia promedio $|\text {SHAP}|$. Cada punto representa una observación. El color indica el valor de la variable (rojo = alto, azul = bajo); la posición horizontal indica el impacto en la predicción del modelo}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Random Forest y análisis SHAP}{31}{subsection.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces SHAP \textit  {beeswarm plot}: las 20 variables con mayor importancia promedio $|\text  {SHAP}|$. Cada punto representa una observación. El color indica el valor de la variable (rojo = alto, azul = bajo); la posición horizontal indica el impacto en la predicción del modelo.}}{32}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:shap_summary}{{4.3}{32}{SHAP \textit {beeswarm plot}: las 20 variables con mayor importancia promedio $|\text {SHAP}|$. Cada punto representa una observación. El color indica el valor de la variable (rojo = alto, azul = bajo); la posición horizontal indica el impacto en la predicción del modelo}{figure.caption.11}{}}
 \citation{breiman2001b}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Importancia SHAP media ($|\text  {SHAP}|$) agregada por dimensión creativa. Las barras representan la contribución promedio de cada dimensión a las predicciones del modelo Random Forest.}}{34}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:shap_by_dim}{{4.5}{34}{Importancia SHAP media ($|\text {SHAP}|$) agregada por dimensión creativa. Las barras representan la contribución promedio de cada dimensión a las predicciones del modelo Random Forest}{figure.caption.13}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{34}{subsection.4.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Convergencia entre OLS (coeficiente ponderado por prevalencia) y SHAP ($|\text  {SHAP}|$ promedio) a nivel de categoría individual ($n = 34$). La correlación de Spearman es $\rho = 0.74$ ($p < 0.001$).}}{35}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:convergence}{{4.6}{35}{Convergencia entre OLS (coeficiente ponderado por prevalencia) y SHAP ($|\text {SHAP}|$ promedio) a nivel de categoría individual ($n = 34$). La correlación de Spearman es $\rho = 0.74$ ($p < 0.001$)}{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Importancia SHAP media ($|\text  {SHAP}|$) agregada por dimensión creativa. Las barras representan la contribución promedio de cada dimensión a las predicciones del modelo Random Forest.}}{33}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:shap_by_dim}{{4.4}{33}{Importancia SHAP media ($|\text {SHAP}|$) agregada por dimensión creativa. Las barras representan la contribución promedio de cada dimensión a las predicciones del modelo Random Forest}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{33}{subsection.4.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Convergencia entre OLS (coeficiente ponderado por prevalencia) y SHAP ($|\text  {SHAP}|$ promedio) a nivel de categoría individual ($n = 34$). La correlación de Spearman es $\rho = 0.74$ ($p < 0.001$).}}{34}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:convergence}{{4.5}{34}{Convergencia entre OLS (coeficiente ponderado por prevalencia) y SHAP ($|\text {SHAP}|$ promedio) a nivel de categoría individual ($n = 34$). La correlación de Spearman es $\rho = 0.74$ ($p < 0.001$)}{figure.caption.13}{}}
 \citation{lang2000}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Clasificación de categorías creativas por convergencia entre modelos}}{36}{table.caption.15}\protected@file@percent }
-\newlabel{tab:tiers}{{4.2}{36}{Clasificación de categorías creativas por convergencia entre modelos}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusión}{37}{chapter.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Clasificación de categorías creativas por convergencia entre modelos}}{35}{table.caption.14}\protected@file@percent }
+\newlabel{tab:tiers}{{4.2}{35}{Clasificación de categorías creativas por convergencia entre modelos}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusión}{36}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{37}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{38}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{36}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{37}{section.5.2}\protected@file@percent }
 \citation{breiman2001b}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{39}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{38}{section.5.3}\protected@file@percent }
 \citation{fox2016}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{40}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{39}{section.5.4}\protected@file@percent }
 \citation{readyset2025}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{41}{section.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{42}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{40}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{41}{section.5.6}\protected@file@percent }
 \bibstyle{apalike}
 \bibdata{references}
 \bibcite{adlib2022}{{1}{2022}{{Ad-Lib.io}}{{}}}
@@ -197,33 +195,32 @@
 \bibcite{fox2016}{{13}{2016}{{Fox}}{{}}}
 \bibcite{hastie2009}{{14}{2009}{{Hastie et~al.}}{{}}}
 \bibcite{kantar2023}{{15}{2023}{{Kantar Media}}{{}}}
-\bibcite{lang2000}{{16}{2000}{{Lang}}{{}}}
-\bibcite{lundberg2017}{{17}{2017}{{Lundberg and Lee}}{{}}}
-\bibcite{meng2024}{{18}{2024}{{Meng et~al.}}{{}}}
-\bibcite{meta2024a}{{19}{2024a}{{Meta for Business}}{{}}}
-\bibcite{meta2024b}{{20}{2024b}{{Meta for Business}}{{}}}
-\bibcite{meta2025}{{21}{2025}{{Meta Platforms}}{{}}}
-\bibcite{mullainathan2017}{{22}{2017}{{Mullainathan and Spiess}}{{}}}
-\bibcite{papke1996}{{23}{1996}{{Papke and Wooldridge}}{{}}}
-\bibcite{readyset2025}{{24}{2025}{{Ready Set}}{{}}}
-\bibcite{schwartz2025}{{25}{2025}{{Schwartz}}{{}}}
-\bibcite{singular2025}{{26}{2025}{{Singular}}{{}}}
-\bibcite{strobl2008}{{27}{2008}{{Strobl et~al.}}{{}}}
-\bibcite{strobl2007}{{28}{2007}{{Strobl et~al.}}{{}}}
-\bibcite{sudhir2022}{{29}{2022}{{Sudhir et~al.}}{{}}}
-\bibcite{varian2014}{{30}{2014}{{Varian}}{{}}}
-\bibcite{jcr_diversity2024}{{31}{2024a}{{[Verificar autores]}}{{}}}
-\bibcite{tiktok_engagement2024}{{32}{2024b}{{[Verificar autores]}}{{}}}
-\bibcite{tiktok_audiovisual2025}{{33}{2025}{{[Verificar autores]}}{{}}}
-\bibcite{white1980}{{34}{1980}{{White}}{{}}}
-\bibcite{yang2025}{{35}{2025}{{Yang et~al.}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Anexos}{47}{appendix.Alph1}\protected@file@percent }
+\bibcite{jcr_diversity2024}{{16}{2025}{{Khan et~al.}}{{}}}
+\bibcite{lang2000}{{17}{2000}{{Lang}}{{}}}
+\bibcite{lundberg2017}{{18}{2017}{{Lundberg and Lee}}{{}}}
+\bibcite{meng2024}{{19}{2024}{{Meng et~al.}}{{}}}
+\bibcite{meta2024a}{{20}{2024a}{{Meta for Business}}{{}}}
+\bibcite{meta2024b}{{21}{2024b}{{Meta for Business}}{{}}}
+\bibcite{meta2025}{{22}{2025}{{Meta Platforms}}{{}}}
+\bibcite{mullainathan2017}{{23}{2017}{{Mullainathan and Spiess}}{{}}}
+\bibcite{papke1996}{{24}{1996}{{Papke and Wooldridge}}{{}}}
+\bibcite{readyset2025}{{25}{2025}{{Ready Set}}{{}}}
+\bibcite{tiktok_engagement2024}{{26}{2024}{{Salminen et~al.}}{{}}}
+\bibcite{schwartz2025}{{27}{2025}{{Schwartz}}{{}}}
+\bibcite{singular2025}{{28}{2025}{{Singular}}{{}}}
+\bibcite{strobl2008}{{29}{2008}{{Strobl et~al.}}{{}}}
+\bibcite{strobl2007}{{30}{2007}{{Strobl et~al.}}{{}}}
+\bibcite{varian2014}{{31}{2014}{{Varian}}{{}}}
+\bibcite{white1980}{{32}{1980}{{White}}{{}}}
+\bibcite{yang2025}{{33}{2025}{{Yang et~al.}}{{}}}
+\bibcite{tiktok_audiovisual2025}{{34}{2025}{{Zhang et~al.}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Anexos}{46}{appendix.Alph1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{47}{section.Alph1.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Tabla de acrónimos utilizados en el trabajo}}{47}{table.caption.17}\protected@file@percent }
-\newlabel{tab:acronimos}{{A.1}{47}{Tabla de acrónimos utilizados en el trabajo}{table.caption.17}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{47}{section.Alph1.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Resultados completos del modelo OLS (variable dependiente: $\log (\text  {CTR})$, errores est\'andar HC1)}}{48}{table.caption.18}\protected@file@percent }
-\newlabel{tab:ols_full}{{A.2}{48}{Resultados completos del modelo OLS (variable dependiente: $\log (\text {CTR})$, errores est\'andar HC1)}{table.caption.18}{}}
-\gdef \@abspage@last{56}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{46}{section.Alph1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Tabla de acrónimos utilizados en el trabajo}}{46}{table.caption.16}\protected@file@percent }
+\newlabel{tab:acronimos}{{A.1}{46}{Tabla de acrónimos utilizados en el trabajo}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{46}{section.Alph1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Resultados completos del modelo OLS (variable dependiente: $\log (\text  {CTR})$, errores est\'andar HC1)}}{47}{table.caption.17}\protected@file@percent }
+\newlabel{tab:ols_full}{{A.2}{47}{Resultados completos del modelo OLS (variable dependiente: $\log (\text {CTR})$, errores est\'andar HC1)}{table.caption.17}{}}
+\gdef \@abspage@last{55}

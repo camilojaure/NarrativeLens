@@ -135,12 +135,23 @@ MANAGEMENT \& ANALYTICS
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-En el ecosistema actual de \textit{performance marketing}, la compra de medios
-se encuentra prácticamente automatizada por algoritmos de las plataformas
-digitales, desplazando la ventaja competitiva del anunciante hacia la pieza
-creativa en sí misma. Para los equipos de \textit{media buying}, esto genera un
-desafío concreto: ante la proliferación de formatos, conceptos y estilos
-posibles, ¿qué atributos creativos deben priorizarse para maximizar el
+En el ecosistema actual de \textit{performance marketing} la compra de medios
+se encuentra prácticamente automatizada por algoritmos de las redes sociales
+(Meta, Google, TikTok, entre otras). Lo que históricamente diferenciaba a los anunciantes más exitosos
+era su capacidad de construir audiencias precisas, segmentar con mayor
+granularidad que la competencia e identificar qué formatos y mensajes
+resonaban con cada segmento para explotarlos sistemáticamente. Hoy, esa
+ventaja ha sido absorbida por los propios algoritmos de las plataformas, que
+aprenden a optimizar la distribución con una velocidad y escala que ningún
+equipo humano puede igualar. El resultado es un desplazamiento de la ventaja
+competitiva del anunciante: desde el dominio de la segmentación y la compra
+de medios, hacia la pieza creativa en sí misma. En este nuevo paradigma,
+el \textit{media buying} efectivo no se gana eligiendo mejor a quién
+mostrarle el anuncio, sino produciendo mejores anuncios: es el
+\textit{creative insight} y la diversidad creativa los que determinan
+quién gana la pulseada de atención del usuario. Para los equipos de
+\textit{media buying}, esto genera un desafío concreto: ante la proliferación
+de formatos, conceptos y estilos posibles, ¿qué atributos creativos deben priorizarse para maximizar el
 rendimiento publicitario? La literatura existente reconoce la relevancia de
 la diversidad creativa, pero carece de evidencia empírica sistemática sobre
 cuáles de sus dimensiones se asocian más fuertemente con métricas de
@@ -383,9 +394,12 @@ publicitarios en TikTok?
 
 \subsection{Objetivo principal}
 
-Identificar y cuantificar la asociación entre las dimensiones de diversidad creativa
-del marco CDS y el CTR de anuncios en TikTok, a partir del análisis de 578 Top Ads
-del primer trimestre de 2025.
+Identificar y cuantificar la asociación entre tres de las seis dimensiones de
+diversidad creativa del marco CDS (\textit{Creative Theme}, \textit{Creative Concept}
+y \textit{Talent Type}) y el CTR de anuncios en TikTok, a partir del análisis de 578
+Top Ads del primer trimestre de 2025. Las tres dimensiones restantes del CDS son
+excluidas del análisis por ausencia de varianza en el corpus o por requerir datos
+que exceden el alcance de este estudio (ver Sección~3.1).
 
 \subsection{Objetivos secundarios}
 
@@ -667,13 +681,12 @@ timing) que podrían explicar por qué esos anuncios tienen mayor CTR. En ausenc
 es difícil separar el efecto del atributo creativo del efecto de las variables de confusión no
 observadas \citep{cunningham2021}.
 
-Este problema es familiar en la literatura de publicidad digital. \citet{sudhir2022} documentan, en
-el contexto de campañas de conversión, cómo los anunciantes más sofisticados tienden simultáneamente
-a invertir más en producción creativa, segmentar mejor y elegir momentos más oportunos para sus
-campañas: todo esto se correlaciona con mejores métricas, lo que hace que sea difícil aislar cuánto
-del resultado se debe a la creatividad y cuánto a los demás factores. Esta simultaneidad de
-tratamientos es una forma de sesgo de selección que los modelos observacionales no pueden eliminar
-de raíz \citep{cunningham2021}.
+Este problema es familiar en la literatura de publicidad digital: los anunciantes más sofisticados
+tienden simultáneamente a invertir más en producción creativa, segmentar mejor y elegir momentos
+más oportunos para sus campañas \citep{yang2025}. Todo esto se correlaciona con mejores métricas,
+lo que hace difícil aislar cuánto del resultado se debe a la creatividad y cuánto a los demás
+factores. Esta simultaneidad de tratamientos es una forma de sesgo de selección que los modelos
+observacionales no pueden eliminar de raíz \citep{cunningham2021}.
 
 \subsection{Ejemplo de experimento para identificar la relación causal}
 
@@ -964,11 +977,20 @@ cultural y lingüística en el proceso de etiquetado.
 Cada anuncio fue etiquetado manualmente por el autor de acuerdo con tres de las seis dimensiones
 del Creative Diversity Score: \textit{Creative Theme} (temática narrativa general del anuncio),
 \textit{Creative Concept} (tipo específico de ejecución dentro de esa temática) y \textit{Talent
-Type} (tipo de presencia humana o figura principal en el video). Estas tres dimensiones fueron
-seleccionadas por ser las más directamente observables en el contenido audiovisual del anuncio y
-por concentrar la mayor variabilidad creativa en el dataset. Las otras tres dimensiones del CDS
-(Production Style, Funnel Stage y Platform Placement) no forman parte del análisis principal por
-limitaciones en la disponibilidad de metadatos granulares para todos los anuncios de la muestra.
+Type} (tipo de presencia humana o figura principal en el video). Estas tres dimensiones fueron seleccionadas porque concentran la mayor variabilidad
+creativa observable en el dataset. Las otras tres dimensiones del CDS fueron excluidas
+del análisis por razones estructurales, no por descuido metodológico: (1) la dimensión
+de \textit{formato y estilo de producción} no exhibe varianza en el corpus, dado que la
+totalidad de los anuncios corresponde a video corto nativo, el único formato disponible
+en TikTok Top Ads; (2) la dimensión de \textit{canales y plataformas} tampoco varía,
+ya que el dataset es 100\% TikTok y medir diversidad de plataformas requeriría
+incorporar inventario de Meta, Google u otras redes, lo que excede el alcance de este
+estudio; (3) la dimensión de \textit{rotación y renovación de creatividades} no puede
+medirse en un corte transversal sin fechas de publicación individuales por anuncio,
+dado que requeriría datos longitudinales que permitan rastrear la frecuencia de
+reemplazo de piezas dentro de cada portfolio. En los tres casos, la exclusión se debe
+a que modelar una variable constante o no observable no aporta información al análisis:
+solo es posible estimar el efecto de lo que varía.
 
 El proceso de etiquetado siguió un protocolo en dos pasos. Primero, se definieron las categorías
 posibles para cada dimensión a partir del marco CDS de Ready Set \citep{readyset2025}, revisando
@@ -1248,20 +1270,10 @@ sesgada a la derecha: la media es 0.034, la mediana 0.010, y el valor
 máximo observado es 0.94. Esta asimetría es consistente con la literatura
 sobre métricas de performance digital, donde la gran mayoría de los avisos
 obtiene rendimientos modestos y unos pocos concentran valores extremos.
-La Figura~\ref{fig:ctr_dist_eda} muestra la distribución original
-junto con su transformación logarítmica, considerablemente más simétrica
-(media = $-4.09$, desvío estándar = $0.93$), que es la que se utiliza
-como variable dependiente en todos los modelos.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.88\textwidth]{ctr_distribution}
-  \caption{Distribución del CTR: escala original (izquierda) y transformación
-           logarítmica (derecha). La asimetría pronunciada de la escala
-           original justifica el uso de $\log(\text{CTR})$ como variable
-           dependiente.}
-  \label{fig:ctr_dist_eda}
-\end{figure}
+La Figura~\ref{fig:ctr_distribution} (presentada en la sección de metodología)
+muestra la distribución original junto con su transformación logarítmica,
+considerablemente más simétrica (media = $-4{,}09$, desvío estándar = $0{,}93$),
+que es la que se utiliza como variable dependiente en todos los modelos.
 
 En cuanto a la composición de la muestra, la categoría más frecuente de
 \textit{creative\_concept} es ``Product demo'' ($n = 252$, 43.6\% del

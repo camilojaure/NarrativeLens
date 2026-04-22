@@ -31,28 +31,28 @@
 \contentsline {subsection}{\numberline {3.3.1}Modelo de Mínimos Cuadrados Ordinarios (OLS)}{20}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Modelo Random Forest}{22}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{23}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{23}{section.3.4}%
-\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{24}{section.3.4}%
+\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{24}{section.3.4}%
 \contentsline {paragraph}{Posible autocorrelación en los residuos.}{24}{section.3.4}%
-\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{24}{section.3.4}%
-\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{24}{section.3.4}%
+\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{25}{section.3.4}%
+\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{25}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Resultados}{26}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Análisis Exploratorio de los Datos}{26}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Análisis Univariado}{27}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Creative Theme}{29}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Creative Concept}{29}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Talent Type}{29}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Análisis Multivariado}{29}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Mínimos Cuadrados Ordinarios (OLS)}{29}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Random Forest y análisis SHAP}{32}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{34}{subsection.4.3.3}%
-\contentsline {chapter}{\numberline {5}Conclusión}{37}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{37}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{38}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{39}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{40}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{41}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{42}{section.5.6}%
-\contentsline {chapter}{\numberline {A}Anexos}{47}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{47}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{47}{section.Alph1.2}%
+\contentsline {section}{\numberline {4.2}Análisis Univariado}{26}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Creative Theme}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Creative Concept}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Talent Type}{28}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Análisis Multivariado}{28}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Mínimos Cuadrados Ordinarios (OLS)}{28}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Random Forest y análisis SHAP}{31}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{33}{subsection.4.3.3}%
+\contentsline {chapter}{\numberline {5}Conclusión}{36}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{36}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{37}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{38}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{39}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{40}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{41}{section.5.6}%
+\contentsline {chapter}{\numberline {A}Anexos}{46}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{46}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{46}{section.Alph1.2}%
