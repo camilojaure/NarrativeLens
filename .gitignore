@@ -21,6 +21,10 @@ venv/
 .venv/
 env/
 .conda/
+bin/
+lib/
+include/
+pyvenv.cfg
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
