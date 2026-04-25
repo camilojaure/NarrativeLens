@@ -146,8 +146,7 @@ aprenden a optimizar la distribución con una velocidad y escala que ningún
 equipo humano puede igualar. El resultado es un desplazamiento de la ventaja
 competitiva del anunciante: desde el dominio de la segmentación y la compra
 de medios, hacia la pieza creativa en sí misma. En este nuevo paradigma,
-el \textit{media buying} efectivo no se gana eligiendo mejor a quién
-mostrarle el anuncio, sino produciendo mejores anuncios: es el
+el \textit{media buying} efectivo es tambien el que produce mejores anuncios: es el
 \textit{creative insight} y la diversidad creativa los que determinan
 quién gana la pulseada de atención del usuario. Para los equipos de
 \textit{media buying}, esto genera un desafío concreto: ante la proliferación
@@ -162,18 +161,20 @@ replicable para rankear las dimensiones del Creative Diversity Score (CDS) de
 Ready Set según su asociación con el \textit{Click Through Rate} (CTR), y
 demostrando su aplicación sobre 578 ``Top Ads'' del primer trimestre de 2025 en
 TikTok. El CDS es un marco de diagnóstico que convierte la abstracción de
-``variedad creativa'' en una métrica estructurada y comparable; de sus seis
-dimensiones, tres exhiben varianza observable en el corpus analizado y son las
-que el estudio modela (\textit{Creative Theme}, \textit{Creative Concept} y
-\textit{Talent Type}). Los resultados específicos son válidos para el período
-analizado; la contribución principal es el \textit{pipeline} analítico, diseñado
+``variedad creativa'' en una métrica estructurada y comparable. De sus seis
+dimensiones, el estudio modela tres (\textit{Creative Theme}, \textit{Creative Concept}
+y \textit{Talent Type}): las restantes no son analizables con este corpus porque el dataset
+es exclusivamente TikTok (sin varianza entre plataformas ni formatos) y porque
+el etiquetado de funnel stage requiere información del equipo de marca que no está
+disponible en los datos de Top Ads. Los resultados específicos son válidos para el período
+analizado. La contribución principal es el \textit{pipeline} analítico, diseñado
 para repetirse con cualquier dataset actualizado.
 Se realizó un análisis univariado descriptivo, seguido de un modelo de
-Mínimos Cuadrados Ordinarios (OLS) y un modelo de Random Forest (RF) con
-valores SHAP para interpretar la importancia de variables. El enfoque sigue
-el criterio de Breiman: la estadística clásica aporta interpretabilidad e
-inferencia, pero el modelado algorítmico permite llegar a conclusiones más
-robustas sin asumir una forma funcional rígida entre predictores y respuesta.
+Random Forest (RF) con valores SHAP para identificar qué dimensiones creativas
+tienen mayor importancia predictiva sobre el CTR, y un modelo de Mínimos
+Cuadrados Ordinarios (OLS) para cuantificar la dirección y magnitud de la
+asociación de cada categoría. Cada modelo cumple un rol distinto: RF determina
+qué dimensiones importan. OLS explica cuánto y en qué sentido.
 Usados en conjunto, los dos modelos se validan mutuamente.
 
 De manera consistente entre ambos métodos, los contenidos anclados a eventos
@@ -289,7 +290,7 @@ de performance por su facilidad de cálculo y comparación.
 
 
 Desde la psicología cognitiva, el fenómeno se explica con el Limited Capacity Model of
-Motivated Mediated Message Processing (LC4MP; \citealt{lang2000}), que sostiene que la
+Motivated Mediated Message Processing (LC4MP, \citealt{lang2000}), que sostiene que la
 mente humana dispone de recursos atencionales finitos y los asigna según relevancia
 y novedad del estímulo. En \textit{feeds} saturados de estímulos visuales y
 sonoros, un anuncio debe, primero, parecer orgánico, es decir, mimetizarse con el
@@ -370,14 +371,16 @@ representativo de la plataforma?
 
 \subsection{Objetivo principal}
 
-Proponer y validar una metodología cuantitativa replicable, basada en modelos OLS y
-Random Forest con valores SHAP, para rankear las dimensiones del CDS según su
-asociación con el CTR en TikTok, y demostrar su aplicación sobre 578 Top Ads del
-primer trimestre de 2025. El análisis se circunscribe a tres de las seis dimensiones
+Proponer y validar una metodología cuantitativa replicable para rankear las dimensiones
+del CDS según su asociación con el CTR en TikTok, y demostrar su aplicación sobre 578
+Top Ads del primer trimestre de 2025. La metodología emplea dos modelos con roles
+complementarios: Random Forest con valores SHAP para identificar qué dimensiones
+creativas tienen mayor importancia predictiva, y OLS para cuantificar la dirección y
+magnitud de la asociación de cada categoría dentro de esas dimensiones. El análisis se circunscribe a tres de las seis dimensiones
 del marco (\textit{Creative Theme}, \textit{Creative Concept} y \textit{Talent Type}),
-las observables en el corpus; las tres restantes son
+las observables en el corpus. Las tres restantes son
 excluidas por razones estructurales (ver Sección~3.1). Los resultados específicos son
-válidos para el período analizado; la contribución principal del trabajo es el
+válidos para el período analizado. La contribución principal del trabajo es el
 \textit{pipeline} analítico, diseñado para repetirse con cualquier dataset actualizado.
 
 \subsection{Objetivos secundarios}
@@ -388,29 +391,29 @@ válidos para el período analizado; la contribución principal del trabajo es e
   \item Describir qué categorías dentro de cada dimensión del CDS presentan mayor
         o menor CTR medio en un análisis univariado, como primer paso exploratorio
         antes del análisis multivariado.
-  \item Controlar la superposición entre atributos creativos mediante dos enfoques
-        complementarios: OLS, que estima coeficientes interpretables bajo supuesto de
-        linealidad, y Random Forest con valores SHAP, que identifica importancia de
-        variables sin asumir forma funcional y captura posibles no linealidades.
-  \item Identificar las categorías creativas donde ambos modelos convergen en su ranking
-        de importancia, usando la correlación de Spearman entre métricas comparables como
-        criterio de robustez: cuando OLS y RF señalan las mismas categorías como
-        relevantes, esa conclusión es válida con independencia de los supuestos de cada
-        modelo \citep{breiman2001b}.
+  \item Aplicar un modelo Random Forest con valores SHAP para identificar qué dimensiones
+        creativas tienen mayor importancia predictiva sobre el CTR, sin necesidad de asumir
+        una forma funcional entre predictores y respuesta \citep{lundberg2017, strobl2007}.
+  \item Aplicar un modelo OLS con contrastes de desviación para cuantificar la dirección
+        y magnitud de la asociación de cada categoría creativa con el CTR, expresando los
+        resultados como variaciones porcentuales interpretables para equipos de estrategia
+        creativa. La convergencia entre el ranking de importancia del RF y los coeficientes
+        OLS, verificada mediante correlación de Spearman, valida que ambos instrumentos
+        capturan la misma señal empírica \citep{breiman2001b, mullainathan2017}.
 \end{enumerate}
 
 \subsection{Hipótesis}
 
-$H_1$: Al menos algunas categorías dentro de las tres dimensiones analizadas del CDS
-(\textit{Creative Theme}, \textit{Creative Concept} y \textit{Talent Type}) presentan
-una asociación estadísticamente significativa con el CTR de anuncios en TikTok, incluso
-al controlar por variables de configuración de campaña, y esa asociación es consistente
-entre el modelo OLS y el modelo Random Forest.
+$H_1$: Al menos una de las tres dimensiones analizadas del CDS (\textit{Creative Theme},
+\textit{Creative Concept} y \textit{Talent Type}) tiene importancia predictiva
+significativa sobre el CTR en TikTok según el modelo Random Forest, y el modelo OLS
+identifica coeficientes estadísticamente significativos en categorías de esa misma
+dimensión, incluso al controlar por variables de configuración de campaña.
 
-$H_0$: Ninguna categoría dentro de las tres dimensiones analizadas del CDS presenta
-una asociación estadísticamente significativa con el CTR una vez controlado por tipo
-de campaña y duración del video, o los rankings de importancia de ambos modelos
-no convergen.
+$H_0$: Las dimensiones del CDS analizadas no presentan importancia predictiva sobre el
+CTR según el modelo Random Forest, o el modelo OLS no encuentra coeficientes
+estadísticamente significativos en ninguna categoría de esas dimensiones una vez
+controlado por tipo de campaña y duración del video.
 
 % ============================================================
 % CAPÍTULO 2 — REVISIÓN DE LA LITERATURA
@@ -821,16 +824,17 @@ estimar $\hat{\beta}$ con propiedades estadísticas conocidas, aunque al precio 
 forma funcional que pueden no ser válidos. Los autores concluyen que ambos enfoques son
 complementarios, no competidores, y que su uso conjunto enriquece el análisis.
 
-En el presente estudio, esta complementariedad se operacionaliza de la siguiente manera.
-El OLS provee coeficientes interpretables que permiten cuantificar la magnitud y dirección
-de la asociación entre cada categoría creativa y el CTR, y comunicar esos efectos de manera
-accionable a los \textit{creative strategists}. El Random Forest, a través de los valores SHAP,
-valida el ranking de importancia de las dimensiones creativas sin imponer supuestos de linealidad
-o aditividad. Cuando ambos modelos convergen en el ranking de importancia de una variable, la
-evidencia es robusta porque proviene de dos frameworks estadísticos con supuestos independientes
-\citep{breiman2001b}. Cuando divergen, la divergencia en sí misma constituye información:
-señala posibles relaciones no lineales o interacciones que el OLS no puede capturar, y delimita
-el alcance de las conclusiones del modelo lineal.
+En el presente estudio, esta complementariedad se operacionaliza de manera secuencial.
+El Random Forest, a través de los valores SHAP, identifica primero qué dimensiones
+creativas tienen mayor importancia predictiva sobre el CTR, sin imponer supuestos de
+linealidad ni aditividad \citep{mullainathan2017}. El OLS opera luego sobre esas
+dimensiones para cuantificar la dirección y magnitud de la asociación de cada categoría,
+produciendo coeficientes interpretables y comunicables a los \textit{creative strategists}
+en términos de variación porcentual del CTR. La convergencia entre ambos instrumentos,
+verificable mediante la correlación de Spearman entre el ranking de importancia del RF
+y los coeficientes OLS ponderados por prevalencia, valida que los dos enfoques capturan
+la misma señal empírica \citep{breiman2001b}. Cuando divergen, esa divergencia delimita
+el alcance del modelo lineal y sugiere posibles no linealidades que el OLS no puede capturar.
 
 % ============================================================
 % CAPÍTULO 3 — METODOLOGÍA
@@ -853,10 +857,10 @@ creativa observable en el dataset. Las otras tres dimensiones del CDS fueron exc
 del análisis por razones estructurales, no por descuido metodológico: (1) la dimensión
 de \textit{formato y estilo de producción} no exhibe varianza en el corpus, dado que la
 totalidad de los anuncios corresponde a video corto nativo, el único formato disponible
-en TikTok Top Ads; (2) la dimensión de \textit{canales y plataformas} tampoco varía,
+en TikTok Top Ads. (2) La dimensión de \textit{canales y plataformas} tampoco varía,
 ya que el dataset es 100\% TikTok y medir diversidad de plataformas requeriría
 incorporar inventario de Meta, Google u otras redes, lo que excede el alcance de este
-estudio; (3) la dimensión de \textit{rotación y renovación de creatividades} no puede
+estudio. (3) La dimensión de \textit{rotación y renovación de creatividades} no puede
 medirse en un corte transversal sin fechas de publicación individuales por anuncio,
 dado que requeriría datos longitudinales que permitan rastrear la frecuencia de
 reemplazo de piezas dentro de cada portfolio. En los tres casos, la exclusión se debe
@@ -937,20 +941,30 @@ diferencias sistemáticas atribuibles al tipo de campaña o a características t
 
 \section{Enfoque analítico}
 
-El enfoque analítico combina dos métodos estadísticos con lógicas distintas pero
-complementarias. El modelo OLS estima un coeficiente para cada categoría creativa bajo
-supuesto de linealidad; su ventaja es la interpretabilidad directa: los coeficientes
-expresan la asociación de cada categoría con el CTR en unidades comparables, con tests
-de significancia que permiten distinguir señal de ruido. El Random Forest con valores
-SHAP, por su parte, no asume ninguna forma funcional y puede capturar interacciones
-entre variables y relaciones no lineales que el OLS no modelaría.
+El enfoque analítico emplea dos modelos con roles distintos y complementarios, siguiendo
+la lógica propuesta por \citet{mullainathan2017}: explorar primero con aprendizaje
+automático para identificar qué variables importan, y estimar luego con econometría
+clásica para cuantificar cuánto y en qué dirección.
 
-El criterio de robustez del análisis no es el poder predictivo de ninguno de los dos
-modelos por separado, sino la convergencia entre ellos. Cuando ambos enfoques señalan
-las mismas categorías creativas como relevantes, esa conclusión es robusta ante los
-supuestos específicos de cada modelo \citep{breiman2001b}. Las categorías que aparecen
-como relevantes en uno solo de los dos modelos se interpretan con mayor cautela, como
-posibles artefactos de sus supuestos o de interacciones no capturadas por el otro.
+El primer paso utiliza un modelo Random Forest con valores SHAP para identificar qué
+dimensiones creativas tienen mayor importancia predictiva sobre el CTR. Sin asumir forma
+funcional entre predictores y respuesta, este modelo asigna a cada categoría una
+contribución marginal promedio sobre todas las observaciones del corpus, lo que permite
+comparar dimensiones entre sí en la misma escala \citep{lundberg2017, strobl2007}.
+
+El segundo paso utiliza un modelo OLS con contrastes de desviación (sum-to-zero) para
+cuantificar la dirección y magnitud de la asociación de cada categoría dentro de las
+dimensiones que el RF identificó como relevantes. Los coeficientes expresan la desviación
+de cada categoría respecto al promedio de su dimensión, en escala logarítmica. Para
+comunicarlos a equipos de estrategia creativa, se traducen como variación porcentual
+del CTR mediante la transformación $e^{\beta} - 1$.
+
+La correlación de Spearman entre el ranking de importancia del RF y los coeficientes OLS
+ponderados por prevalencia ($\rho = 0{,}74$, $p < 0{,}001$) valida que ambos instrumentos
+capturan la misma señal empírica \citep{breiman2001b}. Si RF identifica una categoría como
+relevante pero OLS no la confirma, puede indicar no linealidades que el modelo lineal no
+captura. Si OLS la señala pero RF no, es típico de categorías con efectos intensos pero
+poco frecuentes en el corpus.
 
 \subsection{Modelo de Mínimos Cuadrados Ordinarios (OLS)}
 
@@ -1210,8 +1224,8 @@ patrones que luego se validan con el análisis multivariado.
   \centering
   \includegraphics[width=0.92\textwidth]{ctr_by_dimension}
   \caption{CTR medio por categoría para las tres dimensiones creativas
-           analizadas. Las barras representan el CTR promedio por grupo;
-           el tamaño de muestra por categoría varía considerablemente.}
+           analizadas. Las barras representan el CTR promedio por grupo.
+           El tamaño de muestra por categoría varía considerablemente.}
   \label{fig:ctr_by_dimension}
 \end{figure}
 
@@ -1259,7 +1273,7 @@ $\log(\text{CTR})$, controlando simultáneamente por
 \textit{objective\_value}, \textit{campaign\_objective} y
 \textit{duration}. Se utilizan errores estándar robustos HC1
 \citep{white1980} para corregir potencial heterocedasticidad.
-El $R^2$ in-sample es 0.595 (ajustado: 0.562); la validación cruzada de
+El $R^2$ in-sample es 0.595 (ajustado: 0.562). La validación cruzada de
 5~particiones arroja un $R^2$ promedio de $0.496 \pm 0.07$, lo que
 indica que el modelo generaliza de forma razonable fuera de la muestra
 de entrenamiento.
@@ -1285,7 +1299,7 @@ negativo, ``Meme-based content'' ($\beta = -0.561$, $p = 0.008$) y
 ``FAQ'' ($\beta = -0.387$, $p = 0.004$) presentan coeficientes
 significativos. En \textit{talent\_type}, tanto ``Customers''
 ($\beta = -0.130$, $p = 0.034$) como ``No Talent'' ($\beta = -0.134$,
-$p = 0.012$) están asociados negativamente con el CTR; llamativamente,
+$p = 0.012$) están asociados negativamente con el CTR. Llamativamente,
 ``Influencers'' no alcanza significancia estadística ($p = 0.296$) una
 vez que se controla por el objetivo de campaña.
 
@@ -1294,8 +1308,8 @@ vez que se controla por el objetivo de campaña.
   \includegraphics[width=0.88\textwidth]{ols_forest_plot}
   \caption{Coeficientes OLS con intervalos de confianza al 95\% para las
            variables creativas. Los puntos a la derecha de la línea cero
-           indican asociación positiva con $\log(\text{CTR})$; los de la
-           izquierda, asociación negativa.}
+           indican asociación positiva con $\log(\text{CTR})$. Los de la
+           izquierda indican asociación negativa.}
   \label{fig:ols_forest}
 \end{figure}
 
@@ -1331,7 +1345,7 @@ individual. La Figura~\ref{fig:shap_summary} presenta el
   \caption{SHAP \textit{beeswarm plot}: las 20 variables con mayor
            importancia promedio $|\text{SHAP}|$. Cada punto representa
            una observación. El color indica el valor de la variable
-           (rojo = alto, azul = bajo); la posición horizontal indica
+           (rojo = alto, azul = bajo). La posición horizontal indica
            el impacto en la predicción del modelo.}
   \label{fig:shap_summary}
 \end{figure}
@@ -1356,22 +1370,22 @@ OLS en términos de la magnitud de los coeficientes significativos.
 
 \subsection{Convergencia entre modelos}
 
-La fortaleza metodológica central de este trabajo reside en la
-comparación entre los resultados del OLS y del RF+SHAP. Para hacerlos
-comparables es necesario considerar que ambas métricas no miden lo mismo:
-el coeficiente OLS mide el tamaño del efecto puro de una categoría
-respecto al promedio global, mientras que el $|\text{SHAP}|$ promedio
-refleja la contribución en el dataset, es decir, el efecto ponderado
-por la frecuencia de aparición de esa categoría. Una categoría con
-$n = 2$ observaciones puede tener un coeficiente OLS muy alto pero un
-SHAP cercano a cero, simplemente porque afecta a muy pocas observaciones.
+Esta sección contrasta el ranking de importancia del RF con los coeficientes del OLS
+para verificar que ambos instrumentos capturan la misma señal, y para presentar
+la dirección y magnitud de las categorías más relevantes en términos accionables.
+Para hacer la comparación en la misma escala, es necesario considerar que sus métricas
+son distintas: el coeficiente OLS mide el efecto puro de una categoría respecto al
+promedio de su dimensión, mientras que el $|\text{SHAP}|$ promedio refleja ese efecto
+ponderado por la frecuencia de aparición de la categoría en el dataset. Una categoría
+con $n = 2$ observaciones puede tener un coeficiente OLS muy alto pero un SHAP cercano
+a cero, simplemente porque afecta a muy pocas observaciones.
 
-Para resolver esta diferencia de escala, se pondera el coeficiente OLS
-por la prevalencia de cada categoría ($n_{\text{cat}} / 578$) antes de
-comparar. La correlación de Spearman entre el OLS ponderado y el
-$|\text{SHAP}|$ promedio, calculada sobre las 34 categorías con
-representación individual, es $\rho = 0{,}74$ ($p < 0{,}001$), indicando
-una convergencia sustancial entre ambos modelos \citep{breiman2001b}.
+Para resolver esta diferencia de escala, se pondera el coeficiente OLS por la prevalencia
+de cada categoría ($n_{\text{cat}} / 578$) antes de calcular la correlación.
+La correlación de Spearman entre el OLS ponderado y el $|\text{SHAP}|$ promedio,
+calculada sobre las 34 categorías con representación individual, es $\rho = 0{,}74$
+($p < 0{,}001$), confirmando que el ranking de importancia del RF y los coeficientes
+del OLS apuntan en la misma dirección \citep{breiman2001b}.
 
 \begin{figure}[H]
   \centering
@@ -1383,16 +1397,17 @@ una convergencia sustancial entre ambos modelos \citep{breiman2001b}.
   \label{fig:convergence}
 \end{figure}
 
-La Tabla~\ref{tab:tiers} resume las categorías con mayor convergencia
-entre ambos modelos. El criterio de clasificación combina posición en el
-ranking SHAP (top~10) y significancia estadística en OLS: el
-\textbf{Top Tier} agrupa categorías que aparecen simultáneamente en el
-top~10 de SHAP \emph{y} son estadísticamente significativas en OLS al
-5\%. El Tier~2 incluye categorías con alto SHAP pero sin significancia
-OLS, lo que puede indicar asociaciones no lineales que el modelo lineal
-no captura. El Tier~3 contiene categorías con OLS significativo pero
-SHAP bajo, patrón típico de categorías poco frecuentes con efectos
-individuales intensos.
+La Tabla~\ref{tab:tiers} resume las categorías a partir de ese contraste.
+El criterio de clasificación combina posición en el ranking SHAP (top~10)
+y significancia estadística en OLS: el \textbf{Top Tier} agrupa las
+categorías que el RF identifica entre las más importantes \emph{y} para
+las cuales OLS estima coeficientes estadísticamente significativos al
+5\%, aportando dirección e interpretación cuantificable. El Tier~2
+incluye categorías con alto SHAP pero sin significancia OLS, lo que puede
+indicar asociaciones no lineales que el modelo lineal no captura. El
+Tier~3 contiene categorías con OLS significativo pero SHAP bajo, patrón
+típico de categorías con efectos individuales intensos pero poca
+frecuencia en el corpus.
 
 \begin{table}[H]
 \centering
@@ -1654,7 +1669,7 @@ trimestre de 2025. Repetir el mismo pipeline analítico sobre datasets de perío
 sucesivos (trimestre a trimestre, o con una cadencia alineada a la renovación del
 portfolio creativo de cada cliente) permitiría dos avances complementarios: por un lado,
 evaluar la estabilidad temporal de las asociaciones identificadas y detectar cuándo el
-ranking de categorías cambia de manera significativa; por otro, convertir el pipeline en
+ranking de categorías cambia de manera significativa. Por otro lado, convertir el pipeline en
 una herramienta de monitoreo continuo en lugar de un análisis de una sola corrida. La
 naturaleza dinámica de TikTok hace de esta extensión no solo una posibilidad teórica
 sino una necesidad práctica para cualquier equipo de performance que quiera mantener
@@ -1665,7 +1680,7 @@ social (Meta, YouTube Shorts, Pinterest). Muchas de las dimensiones del CDS son
 agnósticas respecto de la plataforma, lo que permitiría testear en qué medida las
 asociaciones observadas en TikTok se replican en entornos con algoritmos y audiencias
 distintos. La convergencia entre plataformas reforzaría considerablemente la solidez
-externa de los hallazgos; la divergencia, por su parte, sería igualmente informativa sobre
+externa de los hallazgos. La divergencia, por su parte, sería igualmente informativa sobre
 qué aspectos de la performance creativa son específicos del ecosistema TikTok.
 
 Una tercera línea concierne a la inferencia causal. El diseño observacional de este trabajo

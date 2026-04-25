@@ -303,11 +303,11 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmib7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmbsy10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmbsy10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmbsy7.tfm
-INPUT ./images/ols_assumptions.png
-INPUT ./images/ols_assumptions.png
-INPUT ./images/ols_assumptions.png
-INPUT ./images/ols_assumptions.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc
+INPUT ./images/ols_assumptions.png
+INPUT ./images/ols_assumptions.png
+INPUT ./images/ols_assumptions.png
+INPUT ./images/ols_assumptions.png
 INPUT ./images/cv_r2_comparison.png
 INPUT ./images/cv_r2_comparison.png
 INPUT ./images/cv_r2_comparison.png

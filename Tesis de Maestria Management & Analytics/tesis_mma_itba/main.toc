@@ -30,11 +30,11 @@
 \contentsline {section}{\numberline {3.3}Enfoque analítico}{20}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Modelo de Mínimos Cuadrados Ordinarios (OLS)}{21}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Modelo Random Forest}{22}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{23}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{24}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Limitaciones del estudio}{25}{section.3.4}%
 \contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{25}{section.3.4}%
 \contentsline {paragraph}{Posible autocorrelación en los residuos.}{25}{section.3.4}%
-\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{25}{section.3.4}%
+\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{26}{section.3.4}%
 \contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{26}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Análisis Exploratorio de los Datos}{27}{section.4.1}%
