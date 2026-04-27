@@ -1,0 +1,58 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Abstract}{1}{chapter*.1}%
+\contentsline {chapter}{Índice de Figuras}{6}{chapter*.1}%
+\contentsline {chapter}{Índice de Tablas}{7}{chapter*.1}%
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}La batalla por la atención en el feed}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Diversidad creativa como palanca de micro-segmentación}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}El aporte del marco ReadySet CDS}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Pregunta de investigación y objetivos}{4}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Pregunta de investigación}{4}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Objetivo principal}{4}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Objetivos secundarios}{5}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Hipótesis}{5}{subsection.1.4.4}%
+\contentsline {chapter}{\numberline {2}Revisión de la Literatura}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Estrategia creativa y rendimiento en plataformas digitales}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Métricas clave: CTR y CPA en campañas de respuesta directa}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Fatiga creativa y necesidad de diversidad}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Diversidad creativa y Creative Diversity Score (CDS)}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Ejemplo de análisis usando el CDS}{12}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Hallazgos principales}{12}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Desafíos metodológicos: causalidad vs.\ asociación}{13}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Ejemplo de experimento para identificar la relación causal}{13}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}Marco estadístico para el análisis de atributos creativos}{14}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Regresión OLS para variables de respuesta categórica: supuestos, limitaciones y justificación}{14}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Random Forest como complemento no paramétrico: importancia de variables e interpretabilidad}{16}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}La complementariedad entre enfoques lineales y no lineales}{18}{subsection.2.6.3}%
+\contentsline {chapter}{\numberline {3}Metodología}{20}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Recolección y anotación de datos}{20}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Feature Engineering}{21}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Enfoque analítico}{22}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Modelo de Mínimos Cuadrados Ordinarios (OLS)}{23}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Modelo Random Forest}{24}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Análisis de robustez}{26}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Limitaciones del estudio}{27}{section.3.4}%
+\contentsline {paragraph}{Normalidad de los residuos y efecto piso del CTR.}{27}{section.3.4}%
+\contentsline {paragraph}{Posible autocorrelación en los residuos.}{27}{section.3.4}%
+\contentsline {paragraph}{Sesgos en la medición de importancia de variables.}{28}{section.3.4}%
+\contentsline {paragraph}{Sesgo de selección y representatividad del dataset.}{28}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Resultados}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Análisis Exploratorio de los Datos}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Análisis Univariado}{29}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Creative Theme}{31}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Creative Concept}{31}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Talent Type}{31}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Análisis Multivariado}{31}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Mínimos Cuadrados Ordinarios (OLS)}{31}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Random Forest y análisis SHAP}{34}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Convergencia entre modelos}{36}{subsection.4.3.3}%
+\contentsline {chapter}{\numberline {5}Conclusión}{39}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Alineación con la teoría de Direct Response}{39}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Implicancias para equipos creativos y de medios}{40}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Análisis multivariado versus univariado}{41}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Limitaciones del estudio}{42}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Relación con el marco de Creative Diversity Score (CDS)}{43}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Líneas futuras de investigación}{44}{section.5.6}%
+\contentsline {chapter}{\numberline {A}Anexos}{49}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Tabla de Acrónimos}{49}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Resultados Regresión Lineal}{49}{section.Alph1.2}%

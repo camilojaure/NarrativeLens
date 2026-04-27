@@ -1,35 +1,79 @@
 # NarrativeLens
 
-NarrativeLens is a powerful solution for analyzing and extracting visual and narrative elements from paid social ads. Developed as part of my Master’s thesis in Management and Analytics at the Instituto Tecnológico de Buenos Aires (ITBA), it benchmarks creative elements against top-performing campaigns to deliver actionable insights and best practices for optimizing ad creative.
+**Master's Thesis — Management & Analytics, ITBA (2025)**
+*Camilo Jaureguiberry*
 
-⸻
+---
 
-## Overview
+## Research Overview
 
-Brands face intense competition in the social media advertising space and need fast, data-driven feedback on what makes ads effective. NarrativeLens addresses this by:
-- Scene Segmentation: Automatically splitting ads into discrete scenes for detailed analysis.
-- Multimodal Feature Extraction: Using computer vision, NLP, and audio analysis to capture rich creative signals.
-- Benchmark Comparison: Evaluating extracted features against a repository of high-performing ads.
-- Insights & Recommendations: Generating clear, data-driven suggestions to guide future creative strategies.
+This repository contains the full analysis supporting the thesis:
 
------
+> **"Creative Diversity and Ad Performance on TikTok: An Analysis of CDS Dimensions and CTR"**
 
-## Workflow
-1.	Video Input
-- We begin with a dataset of just over 500 TikTok Video Ads sourced from the TikTok Top Ads feed.
+**Research question:** Which creative dimensions are associated with higher click-through rate (CTR) in TikTok paid social campaigns, and can this relationship be identified reliably enough to guide creative strategists?
 
-2.	Pre-processing
-- Run featureExtractor.py, which extracts Creative Diversity Score dimensions using Gemini.
-- Optionally run a UGC detector to classify whether an ad is user-generated content.
-- Both scripts validate outputs with a Pydantic data model to ensure label accuracy.
-- Prompt configurations for Gemini are stored in the prompts/ directory.
-- All extracted labels are saved to a MongoDB collection.
+**Methodology:** OLS regression + Random Forest with SHAP values on 578 TikTok Top Ads. Both models cross-validate findings: OLS provides interpretable coefficients; RF + SHAP captures non-linearities without distributional assumptions. Convergence between models (Spearman ρ = 0.74, p < 0.0001) constitutes robust evidence independent of each model's assumptions (Breiman, 2001).
 
-3.	Data Preparation & Exploration
-- Execute etl.py to transform raw feature data into an analytical format.
-- Run the exploratory data analysis notebook to understand distributions, clean data, and prep for modeling.
+**Key results:**
+- OLS R² out-of-sample (5-fold CV): 0.496 ± 0.07
+- RF R² out-of-sample (5-fold CV): 0.519 ± 0.14
+- Top predictors of CTR: `creative_theme` → `talent_type` → `creative_concept`
+- Strongest finding: *Humor & Entertainment* is the highest-SHAP predictor — negatively associated with CTR — a counterintuitive result for TikTok that warrants discussion.
 
-4.	Modeling
-- In the modeling/ section, find the regression analysis notebook. This implements OLS and Random Forest analyses precisely for the thesis.
+---
 
-![Sequence Diagram](image.png)
+## Repository Structure
+
+```
+NarrativeLens/
+├── regression_analysis.ipynb   ← main analysis: OLS, Random Forest, SHAP
+├── eda.ipynb                   ← exploratory data analysis
+│
+├── data/
+│   └── datasets/               ← tiktok_topads_clean.csv (578 ads)
+│
+├── pipeline/                   ← data extraction & ETL scripts
+│   ├── feature_extractor.py    ← Gemini API: multimodal classification of 8 CDS dimensions
+│   ├── ugc_detector.py         ← UGC classification
+│   ├── etl.py                  ← MongoDB → CSV transformation
+│   ├── data_model.py           ← Pydantic validation (AdAnalysis model)
+│   └── prompts/                ← Gemini prompt templates
+│
+├── thesis/                     ← thesis document (LaTeX + PDF), research papers, pre-dictámenes
+├── docs/                       ← architecture diagrams
+└── archive/                    ← previous notebook versions, early POCs
+```
+
+---
+
+## About the Name
+
+**NarrativeLens** is the name given to the system built to implement the findings of this research — a tool that classifies ad creative dimensions and benchmarks them against high-performing campaigns. The research in this repository constitutes the analytical foundation for that product.
+
+---
+
+## Data Pipeline
+
+```
+TikTok Top Ads (~578 videos)
+    ↓ pipeline/feature_extractor.py
+Gemini API → multimodal classification of 8 creative dimensions
+    ↓ Pydantic validation (pipeline/data_model.py)
+MongoDB
+    ↓ pipeline/ugc_detector.py
+MongoDB updated with is_ugc flag
+    ↓ pipeline/etl.py
+data/datasets/tiktok_topads_clean.csv
+    ↓ eda.ipynb → regression_analysis.ipynb
+OLS + Random Forest + SHAP → thesis results
+```
+
+---
+
+## Setup
+
+```bash
+source .venv/bin/activate
+jupyter notebook
+```

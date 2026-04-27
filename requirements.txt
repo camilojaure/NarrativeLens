@@ -21,3 +21,10 @@ fonttools
 charset-normalizer
 httpx
 numba
+matplotlib
+seaborn
+statsmodels
+scikit-learn
+shap
+scipy
+ipykernel

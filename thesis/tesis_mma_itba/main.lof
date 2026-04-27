@@ -1,0 +1,15 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Distribución del CTR original (izquierda) y de log(CTR) (derecha). La transformación logarítmica reduce la asimetría de 6{,}78 a 1{,}87 y elimina la cola derecha extrema, haciendo la distribución más apta para el modelo OLS. El pico visible en log(CTR) $\approx -4{,}6$ corresponde al valor mínimo reportado de CTR = 0{,}01 (\textit {floor effect}).}}{21}{figure.caption.3}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Gráficos de diagnóstico del modelo OLS. Superior derecha: Q-Q plot de residuos, con ajuste razonable a la línea teórica salvo en los extremos. Inferior izquierda: distribución de residuos aproximadamente simétrica. Ambos gráficos sugieren que la desviación de normalidad no compromete la inferencia.}}{24}{figure.caption.4}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces R² out-of-sample por fold en la validación cruzada de 5 folds para OLS y Random Forest. Las líneas punteadas indican los promedios (OLS: 0{,}496, RF: 0{,}519). La variabilidad entre folds es mayor en el RF, reflejo de su mayor sensibilidad a la composición de la muestra de training.}}{25}{figure.caption.5}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces CTR medio por categoría para las tres dimensiones creativas analizadas. Las barras representan el CTR promedio por grupo. El tamaño de muestra por categoría varía considerablemente.}}{30}{figure.caption.6}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Coeficientes OLS con intervalos de confianza al 95\% para las variables creativas. Los puntos a la derecha de la línea cero indican asociación positiva con $\log (\text {CTR})$. Los de la izquierda indican asociación negativa.}}{33}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces SHAP \textit {beeswarm plot}: las 20 variables con mayor importancia promedio $|\text {SHAP}|$. Cada punto representa una observación. El color indica el valor de la variable (rojo = alto, azul = bajo). La posición horizontal indica el impacto en la predicción del modelo.}}{35}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Importancia SHAP media ($|\text {SHAP}|$) agregada por dimensión creativa. Las barras representan la contribución promedio de cada dimensión a las predicciones del modelo Random Forest.}}{36}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Convergencia entre OLS (coeficiente ponderado por prevalencia) y SHAP ($|\text {SHAP}|$ promedio) a nivel de categoría individual ($n = 34$). La correlación de Spearman es $\rho = 0{,}74$ ($p < 0{,}001$).}}{37}{figure.caption.11}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
