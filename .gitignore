@@ -44,6 +44,24 @@ htmlcov/
 coverage.xml
 .cache
 
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# Thesis local guidance files (not for the repo)
+thesis/CLAUDE.md
+thesis/fichas_lectura.md
+thesis/guia_zotero.md
+thesis/propuesta_extension_bibliografia.md
+
 # Other
 *.swp
 *.swo
